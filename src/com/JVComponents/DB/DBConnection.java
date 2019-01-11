@@ -1,15 +1,21 @@
-package com.VisualJavaComponents.DB;
+package com.JVComponents.DB;
 
 import java.sql.*;
 import java.util.*;
 
+import com.JVComponents.core.JVContainer;
+import com.JVComponents.core.JVException;
+import com.JVComponents.core.JVirtualComponent;
+
 /**
- * @author root 数据库连接对象
+ * 数据库连接组�?
+ * 
+ * @author 
  */
-public class DBConnection {
+public class DBConnection extends JVirtualComponent{
 
 	/**
-	 * 数据库驱动对象
+	 * 驱动服务对象
 	 */
 	private DBDriver dbDriver;
 
@@ -18,31 +24,32 @@ public class DBConnection {
 	}
 
 	/**
-	 * 设置数据库驱动
+	 * 
+	 * 设置驱动
 	 * 
 	 * @param dbd
 	 */
 	public void setDBDriver(TDBDrivers dbd) {
-		// 如果驱动类型不同则释放后重新创建
+		// 
 		if (dbd != dbDriver.getDbdriver()) {
-			// 关闭所有连接和数据集
+			// 
 			CloseConnection();
-			// 改变原对象的引用，自动释放
+			// 
 			dbDriver = new DBDriver(dbd);
 		}
 	}
 
-	// 错误信息
+	// 閿欒淇℃伅
 	private String errormsg;
-	// 服务器ip
+	// 鏈嶅姟鍣╥p
 	private String serverIp;
-	// 服务器端口
+	// 鏈嶅姟鍣ㄧ鍙�
 	private String serverPort;
-	// 数据库名
+	// 鏁版嵁搴撳悕
 	private String dbName;
-	// 用户名
+	// 鐢ㄦ埛鍚�?
 	private String userName;
-	// 用户口令
+	// 鐢ㄦ埛鍙ｄ护
 	private String password;
 
 	public String getErrormsg() {
@@ -54,11 +61,11 @@ public class DBConnection {
 	}
 
 	public void setServerIp(String serverIp) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.serverIp.equalsIgnoreCase(serverIp))
 			return;
 
-		// 关闭连接后重新设置
+		// 鍏抽棴杩炴帴鍚庨噸鏂拌缃�
 		CloseConnection();
 		this.serverIp = serverIp;
 	}
@@ -68,11 +75,11 @@ public class DBConnection {
 	}
 
 	public void setServerPort(String serverPort) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.serverPort.equalsIgnoreCase(serverPort))
 			return;
 
-		// 关闭连接后重新设置
+		// 鍏抽棴杩炴帴鍚庨噸鏂拌缃�
 		CloseConnection();
 		this.serverPort = serverPort;
 	}
@@ -82,11 +89,11 @@ public class DBConnection {
 	}
 
 	public void setDbName(String dbName) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.dbName.equalsIgnoreCase(dbName))
 			return;
 
-		// 关闭连接后重新设置
+		// 鍏抽棴杩炴帴鍚庨噸鏂拌缃�
 		CloseConnection();
 		this.dbName = dbName;
 	}
@@ -96,11 +103,11 @@ public class DBConnection {
 	}
 
 	public void setUserName(String userName) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.userName.equalsIgnoreCase(userName))
 			return;
 
-		// 关闭连接后重新设置
+		// 鍏抽棴杩炴帴鍚庨噸鏂拌缃�
 		CloseConnection();
 		this.userName = userName;
 	}
@@ -110,17 +117,17 @@ public class DBConnection {
 	}
 
 	public void setPassword(String password) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.password.equals(password))
 			return;
 
-		// 关闭连接后重新设置
+		// 鍏抽棴杩炴帴鍚庨噸鏂拌缃�
 		CloseConnection();
 		this.password = password;
 	}
 
 	/**
-	 * 数据库连接
+	 * 鏁版嵁搴撹繛鎺�
 	 */
 	private Connection conn;
 
@@ -130,7 +137,7 @@ public class DBConnection {
 			try {
 				result = conn.isClosed();
 			} catch (SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -146,10 +153,10 @@ public class DBConnection {
 
 	public Boolean OpenConnection() {
 		Boolean result = false;
-		// 如果已经开启则返回
+		// 濡傛灉宸茬粡寮�鍚垯杩斿洖
 		if (this.getConnected())
 			return true;
-		// 调用驱动开启连接
+		// 璋冪敤椹卞姩寮�鍚繛鎺�?
 		if (dbDriver != null) {
 			conn = dbDriver.getConnection(serverIp, serverPort, dbName, userName, password);
 			if (conn != null) {
@@ -158,46 +165,46 @@ public class DBConnection {
 				errormsg = dbDriver.getErrorMessage();
 			}
 		} else {
-			errormsg = "数据库驱动对象不存在！";
+			errormsg = "鏁版嵁搴撻┍鍔ㄥ璞′笉瀛樺湪锛�?";
 		}
 
 		return result;
 	}
 
 	/**
-	 * 关闭所有数据库连接及数据集
+	 * 鍏抽棴鎵�鏈夋暟鎹簱杩炴帴鍙婃暟鎹�?�?
 	 * 
-	 * @return 是否成功
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean CloseConnection() {
 		Boolean result = true;
-		// 关闭所有数据集，释放资源
+		// 鍏抽棴鎵�鏈夋暟鎹泦锛岄噴�?捐祫婧�
 		for (DBDataSet dbs : dbDataSets) {
 			dbs.close();
 		}
 
-		// 关闭连接
+		// 鍏抽棴杩炴帴
 		if (conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
-			// 设置连接为空，释放资源
+			// 璁剧疆杩炴帴涓虹┖锛岄噴�?捐祫婧�
 			conn = null;
 		}
 		return result;
 	}
 
 	/**
-	 * 关闭一个数据集
+	 * 鍏抽棴涓�涓暟鎹�?
 	 * 
-	 * @param ds 需要关闭的数据集
-	 * @return 是否成功
+	 * @param ds 闇�瑕佸叧闂殑鏁版嵁闆�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean CloseDataSet(DBDataSet ds) {
 		Boolean result = true;
-		// 确保是当前连接
+		// 纭繚鏄綋鍓嶈繛鎺�?
 		if ((ds != null) && (ds.getDbconn() == this)) {
 			result = dbDriver.CloseQuery(ds.getResultSet());
 		}
@@ -205,19 +212,19 @@ public class DBConnection {
 	}
 
 	/**
-	 * 开启一个数据集
+	 * 寮�鍚竴涓暟鎹�?
 	 * 
-	 * @param ds 需要开启的数据集
-	 * @return 是否成功
+	 * @param ds 闇�瑕佸紑鍚殑鏁版嵁闆�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean OpenDataSet(DBDataSet ds) {
 		Boolean result = false;
-		// 确保是当前连接
+		// 纭繚鏄綋鍓嶈繛鎺�?
 		if ((ds != null) && (ds.getDbconn() == this)) {
-			// 开启数据集
+			// 寮�鍚暟鎹�?�?
 			ResultSet st = dbDriver.OpenQuery(conn, ds.getSql());
 			if (st != null) {
-				// 将数据集结果保存在数据集对象中
+				// 灏嗘暟鎹�?泦缁撴灉淇濆瓨鍦ㄦ暟鎹泦�?�硅薄涓�?
 				ds.setResultSet(st);
 				result = true;
 			}
@@ -226,25 +233,25 @@ public class DBConnection {
 	}
 
 	/**
-	 * 执行数据集对应的SQL
+	 * 鎵ц鏁版嵁闆嗗搴旂殑SQL
 	 * 
-	 * @param ds 数据集
-	 * @return 是否成功
+	 * @param ds 鏁版嵁闆�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean ExecuteUpdate(DBDataSet ds) {
 		Boolean result = false;
-		// 确保是当前连接
+		// 纭繚鏄綋鍓嶈繛鎺�?
 		if ((ds != null) && (ds.getDbconn() == this)) {
-			// 执行数据集SQL
+			// 鎵ц鏁版嵁闆哠QL
 			result = dbDriver.ExecuteUpdate(conn, ds.getSql());
 		}
 		return result;
 	}
 
 	/**
-	 * 获取影响的记录数
+	 * 鑾峰彇褰卞搷鐨勮褰曟暟
 	 * 
-	 * @return 最后一条SQL执行后影响的记录数
+	 * @return 鏈�鍚庝竴鏉QL鎵ц鍚庡奖鍝嶇殑璁板綍鏁�?
 	 */
 	public int getRowEffected() {
 		int result = 0;
@@ -255,17 +262,19 @@ public class DBConnection {
 	}
 
 	/**
-	 * 与此连接相关的数据集，当设置数据集的Connection属性时进行注册
+	 * 涓庢杩炴帴鐩稿叧鐨勬暟鎹泦锛屽綋璁剧疆鏁版嵁闆嗙殑Connection灞炴�ф椂杩涜娉ㄥ唽
 	 */
 	private HashSet<DBDataSet> dbDataSets;
 
-	public DBConnection() {
-		super();
+	public DBConnection(JVContainer container) throws JVException {
+		super(container);
+		
+		//连接的数据集�?
 		dbDataSets = new HashSet<DBDataSet>();
 	}
 
 	/**
-	 * 注册一个数据集
+	 * 注册数据�?
 	 * 
 	 * @param dbset
 	 */
@@ -279,7 +288,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * 注销一个数据集
+	 * 注销数据�?
 	 * 
 	 * @param dbset
 	 */
@@ -288,7 +297,7 @@ public class DBConnection {
 			return;
 
 		if (dbDataSets.contains(dbset)) {
-			// 先关闭数据集
+			// 关闭数据�?
 			dbset.close();
 			// 注销
 			dbDataSets.remove(dbset);

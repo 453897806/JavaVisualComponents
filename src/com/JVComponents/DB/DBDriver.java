@@ -1,14 +1,15 @@
-package com.VisualJavaComponents.DB;
+package com.JVComponents.DB;
 
 import java.sql.*;
 
 /**
- * @author root 数据库驱动类
+ * @author root 
+ * 
  */
 public class DBDriver {
 
 	/**
-	 * 数据库驱动类型
+	 * 鏁版嵁搴撻┍鍔ㄧ被鍨�?
 	 */
 	private TDBDrivers dbdriver;
 
@@ -17,12 +18,12 @@ public class DBDriver {
 	}
 
 	/**
-	 * 错误信息
+	 * 閿欒淇℃伅
 	 */
 	private String errormsg;
 
 	/**
-	 * 执行ExecuteUpdate后影响的记录条数
+	 * 鎵цExecuteUpdate鍚庡奖鍝嶇殑璁板綍鏉℃暟
 	 */
 	private int rowEffected;
 
@@ -32,68 +33,68 @@ public class DBDriver {
 	}
 
 	/**
-	 * 获取数据库名称
+	 * 鑾峰彇鏁版嵁搴撳悕绉�?
 	 * 
-	 * @return 数据库名称，如oracle
+	 * @return 鏁版嵁搴撳悕绉帮紝濡俹racle
 	 */
 	public String getName() {
 		return dbdriver.getName();
 	}
 
 	/**
-	 * 获取数据库驱动名称
+	 * 鑾峰彇鏁版嵁搴撻┍鍔ㄥ悕绉�
 	 * 
-	 * @return 数据库驱动名称，如oracle.jdbc.driver.OracleDriver
+	 * @return 鏁版嵁搴撻┍鍔ㄥ悕绉帮紝濡俹racle.jdbc.driver.OracleDriver
 	 */
 	public String getDriverName() {
 		return dbdriver.getDriverName();
 	}
 
 	/**
-	 * 获取数据库驱动连接URL
+	 * 鑾峰彇鏁版嵁搴撻┍鍔ㄨ繛鎺RL
 	 * 
-	 * @return 数据库驱动连接URL
+	 * @return 鏁版嵁搴撻┍鍔ㄨ繛鎺RL
 	 */
 	public String getUrl() {
 		return dbdriver.getUrl();
 	}
 
 	/**
-	 * 获取错误信息
+	 * 鑾峰彇閿欒淇℃�?
 	 * 
-	 * @return 错误信息
+	 * @return 閿欒淇℃伅
 	 */
 	public String getErrorMessage() {
 		return this.errormsg;
 	}
 
 	/**
-	 * 获取影响的记录条数
+	 * 鑾峰彇褰卞搷鐨勮褰曟潯鏁�
 	 * 
-	 * @return 执行ExecuteUpdate后影响的记录条数
+	 * @return 鎵цExecuteUpdate鍚庡奖鍝嶇殑璁板綍鏉℃暟
 	 */
 	public int getRowEffected() {
 		return this.rowEffected;
 	}
 
 	/**
-	 * 开启数据库连接
+	 * 寮�鍚暟鎹簱杩炴�?
 	 * 
-	 * @param ip       服务器ip地址
-	 * @param port     服务器端口号
-	 * @param db       数据库名称
-	 * @param user     用户名
-	 * @param password 用户登录口令
-	 * @return 数据库连接，如果null表示失败
+	 * @param ip       鏈嶅姟鍣╥p鍦板�?
+	 * @param port     鏈嶅姟鍣ㄧ鍙ｅ�?
+	 * @param db       鏁版嵁搴撳悕绉�
+	 * @param user     鐢ㄦ埛鍚�?
+	 * @param password 鐢ㄦ埛鐧诲綍鍙ｄ�?
+	 * @return 鏁版嵁搴撹繛鎺ワ紝濡傛灉null琛ㄧず澶辫触
 	 */
 	public Connection getConnection(String ip, String port, String db, String user, String password) {
 		Connection result = null;
 
 		String connurl = String.format(getUrl(), ip, port, db);
 		try {
-			// 1.注册驱动
+			// 1.娉ㄥ唽椹卞姩
 			Class.forName(getDriverName());
-			// 2.创建Connection(数据库连接对象)
+			// 2.鍒涘缓Connection(鏁版嵁搴撹繛鎺ュ璞�?)
 			result = DriverManager.getConnection(connurl, user, password);
 		} catch (ClassNotFoundException e) {
 			errormsg = e.getMessage();
@@ -104,38 +105,38 @@ public class DBDriver {
 	}
 
 	/**
-	 * 关闭数据库连接
+	 * 鍏抽棴鏁版嵁搴撹繛鎺�?
 	 * 
-	 * @param conn 需要关闭的数据库连接
-	 * @return 是否成功
+	 * @param conn 闇�瑕佸叧闂殑鏁版嵁搴撹繛鎺�
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean CloseConnection(Connection conn) {
 		Boolean result = false;
 		if (conn != null) {
 			try {
-				// 关闭连接
+				// 鍏抽棴杩炴帴
 				conn.close();
 				result = conn.isClosed();
 			} catch (SQLException e) {
 				errormsg = e.getMessage();
 			}
 		} else {
-			errormsg = "数据库连接对象(conn)为空（null）!";
+			errormsg = "鏁版嵁搴撹繛鎺ュ璞�?(conn)涓虹┖锛坣ull锛�!";
 		}
 		return result;
 	}
 
 	/**
-	 * 启动数据库事务
+	 * 鍚姩鏁版嵁搴撲簨鍔�?
 	 * 
-	 * @param conn 需要启动事务的数据库连接
-	 * @return 是否成功
+	 * @param conn 闇�瑕佸惎鍔ㄤ簨鍔＄殑鏁版嵁搴撹繛鎺�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean StartTransaction(Connection conn) {
 		Boolean result = false;
 		if (conn != null) {
 			try {
-				// 设置自动事务为false，让事务手动处理
+				// 璁剧疆鑷姩浜嬪姟涓篺alse锛岃�?浜嬪姟鎵嬪姩澶勭�?
 				if (conn.getAutoCommit()) {
 					conn.setAutoCommit(false);
 				}
@@ -148,16 +149,16 @@ public class DBDriver {
 	}
 
 	/**
-	 * 回滚数据库事务
+	 * 鍥炴粴鏁版嵁搴撲簨鍔�?
 	 * 
-	 * @param 需要回滚事务的数据库连接
-	 * @return 是否成功
+	 * @param 闇�瑕佸洖婊氫簨鍔＄殑鏁版嵁搴撹繛鎺�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean Rollback(Connection conn) {
 		Boolean result = false;
 		if (conn != null) {
 			try {
-				// 手动事务时回滚
+				// 鎵嬪姩浜嬪姟鏃跺洖婊�?
 				if (!conn.getAutoCommit()) {
 					conn.rollback();
 				}
@@ -166,22 +167,22 @@ public class DBDriver {
 				errormsg = e.getMessage();
 			}
 		} else {
-			errormsg = "数据库连接对象(conn)为空（null）!";
+			errormsg = "鏁版嵁搴撹繛鎺ュ璞�?(conn)涓虹┖锛坣ull锛�!";
 		}
 		return result;
 	}
 
 	/**
-	 * 提交数据库事务
+	 * 鎻愪氦鏁版嵁搴撲簨鍔�?
 	 * 
-	 * @param 需要提交事务的数据库连接
-	 * @return 是否成功
+	 * @param 闇�瑕佹彁浜や簨鍔＄殑鏁版嵁搴撹繛鎺�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean Commit(Connection conn) {
 		Boolean result = false;
 		if (conn != null) {
 			try {
-				// 手动事务时提交
+				// 鎵嬪姩浜嬪姟鏃舵彁浜�?
 				if (!conn.getAutoCommit()) {
 					conn.commit();
 				}
@@ -190,24 +191,24 @@ public class DBDriver {
 				errormsg = e.getMessage();
 			}
 		} else {
-			errormsg = "数据库连接对象(conn)为空（null）!";
+			errormsg = "鏁版嵁搴撹繛鎺ュ璞�?(conn)涓虹┖锛坣ull锛�!";
 		}
 		return result;
 	}
 
 	/**
-	 * 执行SQL语句
+	 * 鎵цSQL璇�?
 	 * 
-	 * @param conn 需要执行sql的数据库连接
-	 * @param sql  需要执行的sql
-	 * @return 是否成功
+	 * @param conn 闇�瑕佹墽琛宻ql鐨勬暟鎹簱杩炴�?
+	 * @param sql  闇�瑕佹墽琛�?殑sql
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean ExecuteUpdate(Connection conn, String sql) {
 		Boolean result = false;
 		Statement st;
 		if (conn != null) {
 			try {
-				// 创建Statement
+				// 鍒涘缓Statement
 				st = conn.createStatement();
 				try {
 					rowEffected = st.executeUpdate(sql);
@@ -219,40 +220,40 @@ public class DBDriver {
 				errormsg = e.getMessage();
 			}
 		} else {
-			errormsg = "数据库连接对象(conn)为空（null）!";
+			errormsg = "鏁版嵁搴撹繛鎺ュ璞�?(conn)涓虹┖锛坣ull锛�!";
 		}
 		return result;
 	}
 
 	/**
-	 * 执行sql语句并返回一个数据集
+	 * 鎵цsql璇彞骞惰繑鍥炰竴涓暟鎹�?
 	 * 
-	 * @param conn 需要执行sql的数据库连接
-	 * @param sql  需要执行的sql
-	 * @return 结果数据集，如果为null表示失败
+	 * @param conn 闇�瑕佹墽琛宻ql鐨勬暟鎹簱杩炴�?
+	 * @param sql  闇�瑕佹墽琛�?殑sql
+	 * @return 缁撴灉鏁版嵁闆嗭紝濡傛灉涓簄ull琛ㄧず澶辫触
 	 */
 	public ResultSet OpenQuery(Connection conn, String sql) {
 		ResultSet result = null;
 		Statement st = null;
 		if (conn != null) {
 			try {
-				// 创建Statement
+				// 鍒涘缓Statement
 				st = conn.createStatement();
-				// 执行
+				// 鎵ц
 				result = st.executeQuery(sql);
 			} catch (SQLException e) {
 				errormsg = e.getMessage();
 			}
 		} else {
-			errormsg = "数据库连接对象(conn)为空（null）!";
+			errormsg = "鏁版嵁搴撹繛鎺ュ璞�?(conn)涓虹┖锛坣ull锛�!";
 		}
 
-		// 检查结果以决定是否关闭Statement
+		// 妫�鏌ョ粨鏋�?互鍐冲畾鏄惁鍏抽棴Statement
 		if ((result == null) && (st != null)) {
 			try {
 				st.close();
 			} catch (SQLException e) {
-				// 忽略错误信息
+				// 蹇界暐閿欒淇℃�?
 			}
 		}
 
@@ -260,26 +261,26 @@ public class DBDriver {
 	}
 
 	/**
-	 * 关闭数据集
+	 * 鍏抽棴鏁版嵁闆�
 	 * 
-	 * @param rs 数据集
-	 * @return 是否成功
+	 * @param rs 鏁版嵁闆�?
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean CloseQuery(ResultSet rs) {
 		Boolean result = true;
 		if (rs != null) {
 			try {
-				//关闭数据集
+				//鍏抽棴鏁版嵁闆�
 				if (!rs.isClosed()) {
 					rs.close();
 				}
-				//关闭对应的Statement
+				//鍏抽棴�?�瑰簲鐨凷tatement
 				Statement st = rs.getStatement();
 				if((st != null) && (!st.isClosed())){
 					st.close();
 				}
 			} catch (SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 				result = false;
 			}
 		}

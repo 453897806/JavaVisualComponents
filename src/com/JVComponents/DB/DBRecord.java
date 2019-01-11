@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.VisualJavaComponents.DB;
+package com.JVComponents.DB;
 
 /**
  * @author root

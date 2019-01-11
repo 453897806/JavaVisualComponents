@@ -1,10 +1,10 @@
-package com.VisualJavaComponents.DB;
+package com.JVComponents.DB;
 
 import java.sql.*;
 import java.util.*;
 
 /**
- * @author root 数据集对象
+ * @author root 鏁版嵁闆嗗璞�
  */
 public class DBDataSet {
 
@@ -16,7 +16,7 @@ public class DBDataSet {
 			try {
 				result = resultSet.getStatement();
 			} catch (SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -31,7 +31,7 @@ public class DBDataSet {
 	}
 
 	/**
-	 * 数据集对应的数据库连接对象
+	 * 鏁版嵁闆嗗搴旂殑鏁版嵁搴撹繛鎺ュ璞�
 	 */
 	private DBConnection dbconn;
 
@@ -40,23 +40,23 @@ public class DBDataSet {
 	}
 
 	public void setDbconn(DBConnection dbconn) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.dbconn == dbconn)
 			return;
 
-		// 关闭当前数据集
+		// 鍏抽棴褰撳墠鏁版嵁闆�?
 		close();
 
-		// 原连接上注销
+		// 鍘熻繛鎺ヤ笂娉ㄩ�?
 		this.dbconn.UnRegistDBDataSet(this);
 
-		// 设置新连接并注册
+		// 璁剧疆鏂拌繛鎺ュ苟娉ㄥ唽
 		this.dbconn = dbconn;
 		this.dbconn.RegistDBDataSet(this);
 	}
 
 	/**
-	 * 数据集对应的SQL,可以是select ，也可以是insert等语句
+	 * 鏁版嵁闆嗗搴旂殑SQL,鍙互鏄痵elect 锛屼篃鍙互鏄痠nsert绛夎鍙�?
 	 */
 	private String sql;
 
@@ -65,35 +65,35 @@ public class DBDataSet {
 	}
 
 	public void setSql(String sql) {
-		// 相同则退出
+		// 鐩稿悓鍒欓��鍑�?
 		if (this.sql.equals(sql))
 			return;
 
-		// 关闭当前数据集
+		// 鍏抽棴褰撳墠鏁版嵁闆�?
 		close();
 
-		// 重新设置
+		// 閲嶆柊璁剧疆
 		this.sql = sql;
 	}
 
 	/**
-	 * 按照sql属性，开启一个数据集并返回数据
+	 * 鎸夌収sql灞炴�э紝寮�鍚竴涓暟鎹泦骞惰繑鍥炴暟鎹�?
 	 * 
-	 * @return 是否成功
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean OpenDataSet() {
 		Boolean result = false;
-		// 无数据库连接情况
+		// 鏃犳暟鎹簱杩炴帴鎯呭喌
 		if (dbconn == null)
 			return result;
-		// 通过数据库连接完成开启过程
+		// 閫氳繃鏁版嵁搴撹繛鎺ュ畬鎴愬紑鍚繃绋�
 		result = dbconn.OpenDataSet(this);
 
 		return result;
 	}
 	
 	/**
-	 * 最后一条SQL执行后影响的记录数
+	 * 鏈�鍚庝竴鏉QL鎵ц鍚庡奖鍝嶇殑璁板綍鏁�?
 	 */
 	private int RowEffected = 0;
 
@@ -102,20 +102,20 @@ public class DBDataSet {
 	}
 
 	/**
-	 * 按照sql属性，执行命令，不返回数据
+	 * 鎸夌収sql灞炴�э紝鎵ц鍛戒护锛屼笉杩斿洖鏁版嵁
 	 * 
 	 * @return
 	 */
 	public Boolean ExecuteUpdate() {
 		Boolean result = false;
 		RowEffected = 0;
-		// 无数据库连接情况
+		// 鏃犳暟鎹簱杩炴帴鎯呭喌
 		if (dbconn == null) {
 			return result;
 		} else {
-			// 通过数据库连接完成开启过程
+			// 閫氳繃鏁版嵁搴撹繛鎺ュ畬鎴愬紑鍚繃绋�
 			result = dbconn.ExecuteUpdate(this);
-			//SQL执行后影响的记录数
+			//SQL鎵ц鍚庡奖鍝嶇殑璁板綍鏁�?
 			if(result) {
 				RowEffected = dbconn.getRowEffected();
 			}
@@ -124,17 +124,17 @@ public class DBDataSet {
 	}
 
 	/**
-	 * 关闭数据集
+	 * 鍏抽棴鏁版嵁闆�
 	 * 
-	 * @return 是否成功
+	 * @return 鏄惁鎴愬姛
 	 */
 	public Boolean close() {
 		Boolean result = true;
 		if (dbconn == null)
 			return result;
-		// 调用 数据库连接对象 进行关闭
+		// 璋冪�? 鏁版嵁搴撹繛鎺ュ璞�? 杩涜鍏抽棴
 		result = dbconn.CloseDataSet(this);
-		// 清空数据集对象
+		// 娓呯┖鏁版嵁闆嗗璞�?
 		resultSet = null;
 		return result;
 	}
@@ -145,7 +145,7 @@ public class DBDataSet {
 			try {
 				result = resultSet.next();
 			}catch(SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -157,7 +157,7 @@ public class DBDataSet {
 			try {
 				result = resultSet.previous();
 			}catch(SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -169,7 +169,7 @@ public class DBDataSet {
 			try {
 				result = resultSet.first();
 			}catch(SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -181,7 +181,7 @@ public class DBDataSet {
 			try {
 				result = resultSet.last();
 			}catch(SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;
@@ -191,9 +191,9 @@ public class DBDataSet {
 		Boolean result = false;
 		if(resultSet != null) {
 			try {
-				resultSet.mov;
+				resultSet.moveToCurrentRow();
 			}catch(SQLException e) {
-				// 忽略错误
+				// 蹇界暐閿欒
 			}
 		}
 		return result;

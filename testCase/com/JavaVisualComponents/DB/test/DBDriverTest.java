@@ -1,9 +1,11 @@
-package com.VisualJavaComponents.DB;
+package com.JavaVisualComponents.DB.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-//import org.junit.runners.MethodSorters;
+
+import com.JVComponents.DB.DBDriver;
+import com.JVComponents.DB.TDBDrivers;
 
 import java.sql.*;
 
@@ -26,43 +28,43 @@ public class DBDriverTest {
 		Connection conn = dbdriver.getConnection(ip, port, db, user, pwd);
 		if (conn == null) {
 			System.out.println(dbdriver.getErrorMessage());
-			fail("连接数据库失败！");
+			fail("杩炴帴鏁版嵁搴撳け璐ワ紒");
 		} else {
-			System.out.println("连接数据库成功！");
+			System.out.println("杩炴帴鏁版嵁搴撴垚鍔燂紒");
 			dbdriver.CloseConnection(conn);
 		}
 	}
 
 	@Test
 	void test2ExecuteUpdate() {
-		String sql = "INSERT INTO T_CLIC_NAME(CLIC_NAME_ID,CLIC_NAME)VALUES(1,'测试文字')";
+		String sql = "INSERT INTO T_CLIC_NAME(CLIC_NAME_ID,CLIC_NAME)VALUES(1,'娴嬭瘯鏂囧瓧')";
 		Connection conn = dbdriver.getConnection(ip, port, db, user, pwd);
 		if (conn == null) {
 			System.out.println(dbdriver.getErrorMessage());
-			fail("连接数据库失败！");
+			fail("杩炴帴鏁版嵁搴撳け璐ワ紒");
 		} else {
-			System.out.println("连接数据库成功！");
+			System.out.println("杩炴帴鏁版嵁搴撴垚鍔燂紒");
 
 			try {
 				if (!dbdriver.StartTransaction(conn)) {
 					System.out.println(dbdriver.getErrorMessage());
-					fail("事务开启失败！");
+					fail("浜嬪姟寮�鍚け璐ワ�?");
 				} else {
-					System.out.println("事务开启成功！");
+					System.out.println("浜嬪姟寮�鍚垚鍔燂�?");
 				}
 
 				if (!dbdriver.ExecuteUpdate(conn, sql)) {
 					System.out.println(dbdriver.getErrorMessage());
-					fail("更新执行失败！");
+					fail("鏇存柊鎵ц澶辫触锛�");
 				} else {
-					System.out.println("SQL执行成功！");
+					System.out.println("SQL鎵ц鎴愬姛锛�?");
 				}
 
 				if (!dbdriver.Commit(conn)) {
 					System.out.println(dbdriver.getErrorMessage());
-					fail("事务提交失败！");
+					fail("浜嬪姟鎻愪氦澶辫触锛�?");
 				} else {
-					System.out.println("事务提交成功！");
+					System.out.println("浜嬪姟鎻愪氦鎴愬姛锛�?");
 				}
 			} finally {
 				dbdriver.CloseConnection(conn);
@@ -76,17 +78,17 @@ public class DBDriverTest {
 		Connection conn = dbdriver.getConnection(ip, port, db, user, pwd);
 		if (conn == null) {
 			System.out.println(dbdriver.getErrorMessage());
-			fail("连接数据库失败！");
+			fail("杩炴帴鏁版嵁搴撳け璐ワ紒");
 		} else {
-			System.out.println("连接数据库成功！");
+			System.out.println("杩炴帴鏁版嵁搴撴垚鍔燂紒");
 
 			try {
 				ResultSet st = dbdriver.OpenQuery(conn, sql);
 				if (st == null) {
 					System.out.println(dbdriver.getErrorMessage());
-					fail("数据集开启失败！");
+					fail("鏁版嵁闆嗗紑鍚け璐ワ紒");
 				} else {
-					// 读取数据
+					// 璇诲彇鏁版嵁
 					try {
 						while (st.next()) {
 							System.out.println(String.format("id=%s name=%s", st.getString("CLIC_NAME_ID"),
@@ -94,9 +96,9 @@ public class DBDriverTest {
 						}
 					} catch (SQLException e) {
 						System.out.println(e.getMessage());
-						fail("数据集遍历失败！");
+						fail("鏁版嵁闆嗛亶鍘嗗け璐ワ紒");
 					} finally {
-						// 关闭数据集
+						// 鍏抽棴鏁版嵁闆�
 						dbdriver.CloseQuery(st);
 					}
 				}
