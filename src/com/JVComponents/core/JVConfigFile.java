@@ -1,6 +1,6 @@
 package com.JVComponents.core;
 
-public abstract class JVConfigFile extends JVirtualComponent {
+public abstract class JVConfigFile extends JVDataModule {
 	
 	/**
 	 * ≈‰÷√Œƒº˛√˚
@@ -11,8 +11,8 @@ public abstract class JVConfigFile extends JVirtualComponent {
 	}
 
 
-	public JVConfigFile(JVContainer container, String filename) throws JVException {
-		super(container);
+	public JVConfigFile(String name, String filename) throws JVException {
+		super(name);
 		
 		this.fileName = new JVPropertyString(this, filename);
 	}
