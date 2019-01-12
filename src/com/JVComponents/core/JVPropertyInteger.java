@@ -5,7 +5,7 @@ public class JVPropertyInteger extends JVProperty {
 	public JVPropertyInteger(JVComponent owner, Object defualtValue) throws JVException {
 		super(owner, defualtValue);
 		
-		//检查缺省值的类型
+		//妫�鏌ョ己鐪佸�肩殑绫诲瀷
 		Integer tmp = 1;
 		checkValueClasses(tmp, defualtValue);
 

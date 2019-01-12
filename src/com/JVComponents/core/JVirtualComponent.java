@@ -3,17 +3,17 @@ package com.JVComponents.core;
 /**
  * @author DELL
  *
- *  ÐéÄâ»¯×é¼þ
+ *  è™šæ‹ŸåŒ–ç»„ä»¶
  *  
- *  ·ÅÖÃÔÚÈÝÆ÷ÖÐ£¬ÔÚÔËÐÐ½çÃæÉÏ²»¿É¼û
+ *  æ”¾ç½®åœ¨å®¹å™¨ä¸­ï¼Œåœ¨è¿è¡Œç•Œé¢ä¸Šä¸å¯è§
  *  
  */
 public class JVirtualComponent extends JVEmbedComponent {
 
 	/**
-	 * ¹¹½¨º¯Êý£¬ÐèÒªÖ¸¶¨ÈÝÆ÷
+	 * æž„å»ºå‡½æ•°ï¼Œéœ€è¦æŒ‡å®šå®¹å™¨
 	 * 
-	 * È±Ê¡µÄ×é¼þÃû³ÆÓÉÈÝÆ÷Éú³É
+	 * ç¼ºçœçš„ç»„ä»¶åç§°ç”±å®¹å™¨ç”Ÿæˆ
 	 * 
 	 * @throws JVException 
 	 */

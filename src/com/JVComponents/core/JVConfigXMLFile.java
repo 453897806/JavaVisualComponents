@@ -10,7 +10,7 @@ import org.dom4j.io.*;
 public class JVConfigXMLFile extends JVConfigFile {
 
 	/**
-	 * XMLÎÄ¼ş¶ÔÓ¦µÄDocument¶ÔÏó
+	 * XMLæ–‡ä»¶å¯¹åº”çš„Documentå¯¹è±¡
 	 */
 	private Document document;
 	public Document getDocument() {
@@ -20,7 +20,7 @@ public class JVConfigXMLFile extends JVConfigFile {
 	/**
 	 * @return
 	 * 
-	 * ÓÃÓÚ·â×°µÄ¶ÔÏó
+	 * ç”¨äºå°è£…çš„å¯¹è±¡
 	 * 
 	 */
 	protected Object getPackagedObject(){
@@ -29,7 +29,7 @@ public class JVConfigXMLFile extends JVConfigFile {
 	
 	/**
 	 * 
-	 * ¸ù½Úµã¶ÔÏó
+	 * æ ¹èŠ‚ç‚¹å¯¹è±¡
 	 * 
 	 */
 	private JVConfigXMLElement root;
@@ -39,7 +39,7 @@ public class JVConfigXMLFile extends JVConfigFile {
 	
 	/**
 	 * 
-	 * ·µ»Ø¸ù½ÚµãÃû³Æ£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ²¢Ö¸¶¨×Ó½ÚµãÃû³Æ
+	 * è¿”å›æ ¹èŠ‚ç‚¹åç§°ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿å¹¶æŒ‡å®šå­èŠ‚ç‚¹åç§°
 	 * 
 	 * @return
 	 */
@@ -48,14 +48,14 @@ public class JVConfigXMLFile extends JVConfigFile {
 	}
 	
 	/**
-	 * ´´½¨¸ù½Úµãº¯Êı£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ·µ»Ø²»Í¬ÀàĞÍµÄ½Úµã¶ÔÏó
+	 * åˆ›å»ºæ ¹èŠ‚ç‚¹å‡½æ•°ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿è¿”å›ä¸åŒç±»å‹çš„èŠ‚ç‚¹å¯¹è±¡
 	 * 
 	 * @param element
 	 * @return
 	 * @throws JVException
 	 */
 	public JVConfigXMLElement createRootElement(Element element) throws JVException {
-		//Èç¹û½ÚµãÎª¿ÕÔò´´½¨
+		//å¦‚æœèŠ‚ç‚¹ä¸ºç©ºåˆ™åˆ›å»º
 		if(element == null) {
 			element = document.addElement(getRootName());
 		}
@@ -69,33 +69,33 @@ public class JVConfigXMLFile extends JVConfigFile {
 
 	@Override
 	public void readFromFile() throws JVException {
-		// ¶ÁÈ¡
+		// è¯»å–
 		File file = new File((String) getFileName().getValue());
 		try {
-			// ÎÄ¼ş´æÔÚÔò¿ªÆôxmlÎÄ¼ş
+			// æ–‡ä»¶å­˜åœ¨åˆ™å¼€å¯xmlæ–‡ä»¶
 			if (file.exists()) {
 				SAXReader reader = new SAXReader();
 				this.document = reader.read(file);
-			} else {// ÎÄ¼ş²»´æÔÚÔò´´½¨
+			} else {// æ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»º
 				this.document = DocumentHelper.createDocument();
 			}
 			
-			//¸ù½Úµã¶ÔÏó
+			//æ ¹èŠ‚ç‚¹å¯¹è±¡
 			this.root = createRootElement(this.document.getRootElement());
 		} catch (DocumentException e) {
-			throw new JVException("XMLÎÄ¼ş<" + (String)getFileName().getValue() + ">¶ÁÈ¡Ê§°Ü£¡", e);
+			throw new JVException("XMLæ–‡ä»¶<" + (String)getFileName().getValue() + ">è¯»å–å¤±è´¥ï¼", e);
 		}
 	}
 
 	@Override
 	public void writeToFile() throws JVException {
 		try {
-			//ÎÄ¼şĞ´Èë
+			//æ–‡ä»¶å†™å…¥
 			FileWriter fileWriter = new FileWriter((String)getFileName().getValue());
 			document.write(fileWriter);
 			fileWriter.close();
 		} catch (IOException e) {
-			throw new JVException("XMLÎÄ¼ş<" + (String)getFileName().getValue() + ">Ğ´ÈëÊ§°Ü£¡" , e);
+			throw new JVException("XMLæ–‡ä»¶<" + (String)getFileName().getValue() + ">å†™å…¥å¤±è´¥ï¼" , e);
 		}
 
 

@@ -3,7 +3,7 @@ package com.JVComponents.core;
 /**
  * @author DELL
  * 
- * ×Ö·û´®ÊôĞÔ
+ * å­—ç¬¦ä¸²å±æ€§
  *
  */
 public class JVPropertyString extends JVProperty {
@@ -11,8 +11,8 @@ public class JVPropertyString extends JVProperty {
 	public JVPropertyString(JVComponent owner, Object defualtValue) throws JVException {
 		super(owner, defualtValue);
 
-		//¼ì²éÈ±Ê¡ÖµµÄÀàĞÍ
-		checkValueClasses("×Ö·û´®ÊôĞÔ", defualtValue);
+		//æ£€æŸ¥ç¼ºçœå€¼çš„ç±»å‹
+		checkValueClasses("å­—ç¬¦ä¸²å±æ€§", defualtValue);
 
 	}
 

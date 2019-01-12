@@ -3,20 +3,20 @@ package com.JVComponents.core;
 /**
  * @author DELL
  * 
- * ×Ô¶¨ÒåÒì³£
+ * è‡ªå®šä¹‰å¼‚å¸¸
  *
  */
 public class JVException extends Exception{
 
 	/**
-	 * ĞòÁĞ»¯°æ±¾ºÅ
+	 * åºåˆ—åŒ–ç‰ˆæœ¬å·
 	 */
 	private static final long serialVersionUID = JVConsts.serialVersionUID;
 	
 	/**
 	 * @return the originException
 	 * 
-	 * Ô­Ê¼Òì³£
+	 * åŸå§‹å¼‚å¸¸
 	 * 
 	 */
 	private Exception OriginException;
@@ -35,7 +35,7 @@ public class JVException extends Exception{
 	public String getMessage() {
 		String result = super.getMessage();
 		if(OriginException != null){
-			result = result+ " ´íÎóĞÅÏ¢£º" + OriginException.getMessage();
+			result = result+ " é”™è¯¯ä¿¡æ¯ï¼š" + OriginException.getMessage();
 		}
 		return  result; 
 	}

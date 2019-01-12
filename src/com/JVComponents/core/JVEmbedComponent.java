@@ -3,7 +3,7 @@ package com.JVComponents.core;
 public class JVEmbedComponent extends JVComponent {
 
 	/**
-	 * ¿ÉÊÓ»¯×é¼şËùÔÚµÄÈİÆ÷
+	 * å¯è§†åŒ–ç»„ä»¶æ‰€åœ¨çš„å®¹å™¨
 	 * 
 	 */
 	private JVContainer container;
@@ -13,19 +13,19 @@ public class JVEmbedComponent extends JVComponent {
 	}
 
 	/**
-	 * ¹¹½¨º¯Êı£¬ĞèÒªÖ¸¶¨ÈİÆ÷
+	 * æ„å»ºå‡½æ•°ï¼Œéœ€è¦æŒ‡å®šå®¹å™¨
 	 * 
-	 * È±Ê¡µÄ×é¼şÃû³ÆÓÉÈİÆ÷Éú³É
+	 * ç¼ºçœçš„ç»„ä»¶åç§°ç”±å®¹å™¨ç”Ÿæˆ
 	 */
 	
 	public JVEmbedComponent(JVContainer container) throws JVException {
-		//ÏÈÓÃ×é¼şµÄÀàÃû×ö×é¼şÃû
+		//å…ˆç”¨ç»„ä»¶çš„ç±»ååšç»„ä»¶å
 		super(JVConsts.componentDefualtName);
 		
-		//ÈİÆ÷
+		//å®¹å™¨
 		this.container = container; 
 
-		//ÓÉÈİÆ÷Éú³É×é¼şÃû³Æ
+		//ç”±å®¹å™¨ç”Ÿæˆç»„ä»¶åç§°
 		container.addCompnent(this);
 
 	}

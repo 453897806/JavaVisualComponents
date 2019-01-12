@@ -3,7 +3,7 @@ package com.JVComponents.core;
 public abstract class JVConfigFile extends JVDataModule {
 	
 	/**
-	 * ÅäÖÃÎÄ¼şÃû
+	 * é…ç½®æ–‡ä»¶å
 	 */
 	private JVPropertyString fileName;
 	public JVPropertyString getFileName() {
@@ -19,7 +19,7 @@ public abstract class JVConfigFile extends JVDataModule {
 
 	
 	/**
-	 * ¶ÔÎÄ¼şµÄ¶ÁĞ´
+	 * å¯¹æ–‡ä»¶çš„è¯»å†™
 	 * 
 	 * @throws JVException
 	 */

@@ -9,15 +9,15 @@ import java.util.*;
 /**
  * @author JVC
  *
- *	ËùÓĞÊôĞÔ»ùÀà
+ *	æ‰€æœ‰å±æ€§åŸºç±»
  */
 public abstract class JVProperty {
 	
 	
 	/**
-	 * ÊôĞÔ±ä»¯ÕìÌıÊÂ¼ş 
+	 * å±æ€§å˜åŒ–ä¾¦å¬äº‹ä»¶ 
 	 * 
-	 * ÔÊĞí¶à¸öÕìÌıÊÂ¼ş
+	 * å…è®¸å¤šä¸ªä¾¦å¬äº‹ä»¶
 	 */
 	private HashSet<JVPropertyChangedListener> valueChangedListeners;
 	public void removeValueListener(JVPropertyChangedListener listener) {
@@ -30,7 +30,7 @@ public abstract class JVProperty {
 	}
 
 	/**
-	 * »ñÈ¡ÊôĞÔÖµµÄ½Ó¿Ú
+	 * è·å–å±æ€§å€¼çš„æ¥å£
 	 */
 	private JVPropertyGetHandle valueGetHandle;
 	public JVPropertyGetHandle getValueGetHandle() {
@@ -41,7 +41,7 @@ public abstract class JVProperty {
 	}
 	
 	/**
-	 * ÉèÖÃÊôĞÔÖµµÄ½Ó¿Ú
+	 * è®¾ç½®å±æ€§å€¼çš„æ¥å£
 	 */
 	private JVPropertySetHandle valueSetHandle;
 	public JVPropertySetHandle getValueSetHandle() {
@@ -54,20 +54,20 @@ public abstract class JVProperty {
 	/**
 	 * @return the value
 	 * 
-	 * ÊôĞÔµÄÖµ
+	 * å±æ€§çš„å€¼
 	 * 
 	 */
 	private Object value;
 	public Object getValue() throws JVException {
 		Object newValue;
-		//Èç¹ûÊôĞÔÖµ»ñÈ¡½Ó¿Ú²»Îª¿Õ£¬ÔòÀûÓÃ½Ó¿ÚÍê³É
+		//å¦‚æœå±æ€§å€¼è·å–æ¥å£ä¸ä¸ºç©ºï¼Œåˆ™åˆ©ç”¨æ¥å£å®Œæˆ
 		if(valueGetHandle != null) {
 			newValue = valueGetHandle.getPropertyValue(this);
 			
-			//¼ì²é·µ»ØÖµµÄÀàĞÍÕıÈ·ĞÔ
+			//æ£€æŸ¥è¿”å›å€¼çš„ç±»å‹æ­£ç¡®æ€§
 			checkValueClasses(value,newValue);
 			
-			//¸³Öµ¸øvalue
+			//èµ‹å€¼ç»™value
 			value = newValue;
 		}
 		return value;
@@ -76,10 +76,10 @@ public abstract class JVProperty {
 	
 	public void setValue(Object value) throws JVException {
 		if(this.value != value) {
-			//Ğ£ÑéÊôĞÔÖµµÄÀàĞÍ
+			//æ ¡éªŒå±æ€§å€¼çš„ç±»å‹
 			checkValueClasses(this.value, value);
 			
-			//ÊôĞÔÖµ±ä»¯Ê±´¦ÀíÊÂ¼ş
+			//å±æ€§å€¼å˜åŒ–æ—¶å¤„ç†äº‹ä»¶
 			JVPropertyChangedEvent event = new JVPropertyChangedEvent(this, this.value, value);
 			Iterator<JVPropertyChangedListener> iter = valueChangedListeners.iterator();
 			JVPropertyChangedListener listener;
@@ -88,10 +88,10 @@ public abstract class JVProperty {
 				listener.handleEvent(event);
 			}
 			
-			//¸³Öµ			
+			//èµ‹å€¼			
 			this.value = value;
 			
-			//Èç¹ûÊôĞÔÖµÉèÖÃ½Ó¿Ú²»Îª¿Õ£¬ÔÙÀûÓÃ½Ó¿Ú½øÒ»²½´¦Àí
+			//å¦‚æœå±æ€§å€¼è®¾ç½®æ¥å£ä¸ä¸ºç©ºï¼Œå†åˆ©ç”¨æ¥å£è¿›ä¸€æ­¥å¤„ç†
 			if(valueSetHandle != null) {
 				valueSetHandle.setPropertyValue(this, value);				
 			};			
@@ -99,26 +99,26 @@ public abstract class JVProperty {
 	}
 
 	/**
-	 * Ğ£ÑéĞÂ¸³ÖµµÄÀàĞÍÊÇ·ñÕıÈ·
+	 * æ ¡éªŒæ–°èµ‹å€¼çš„ç±»å‹æ˜¯å¦æ­£ç¡®
 	 * 
 	 * @param oldvalue
-	 * µ±Ç°Öµ
+	 * å½“å‰å€¼
 	 * 
 	 * @param value
-	 * ĞÂ¸³Öµ
+	 * æ–°èµ‹å€¼
 	 * @throws JVException 
 	 * 
 	 */
 	protected void checkValueClasses(Object oldvalue, Object value) throws JVException {
-		//ÀàĞÍ²»ÏàÍ¬Ôò´¥·¢Òì³£
+		//ç±»å‹ä¸ç›¸åŒåˆ™è§¦å‘å¼‚å¸¸
 		if(value.getClass() != oldvalue.getClass()) {
-			throw new JVException("ÊôĞÔ¸³ÖµµÄÀàĞÍ²»ÕıÈ·£¡",null);
+			throw new JVException("å±æ€§èµ‹å€¼çš„ç±»å‹ä¸æ­£ç¡®ï¼",null);
 		}
 		
 	}
 	
     /**
-     * ÊôĞÔ¹éÊôµÄ×é¼ş
+     * å±æ€§å½’å±çš„ç»„ä»¶
      */
     private JVComponent owner;
 	public JVComponent getOwner() {
@@ -127,24 +127,24 @@ public abstract class JVProperty {
 	
 	/**
 	 * @param defualtValue
-	 * È±Ê¡Öµ
+	 * ç¼ºçœå€¼
 	 * 
 	 * @param owner
-	 * ÊôĞÔ¹éÊôµÄ×é¼ş
+	 * å±æ€§å½’å±çš„ç»„ä»¶
 	 * 
 	 */
 	public JVProperty(JVComponent owner, Object defualtValue) {
 		super();
-		//È±Ê¡Öµ
+		//ç¼ºçœå€¼
 		this.value = defualtValue;
 		
-		//¹éÊôµÄ×é¼ş
+		//å½’å±çš„ç»„ä»¶
 		this.owner = owner;
 		
-		//ÊôĞÔ±ä»¯ÊÂ¼şÕìÌı
+		//å±æ€§å˜åŒ–äº‹ä»¶ä¾¦å¬
 		valueChangedListeners = new HashSet<JVPropertyChangedListener>(); 
 		
-		//ÊôĞÔ»ñÈ¡ºÍÉèÖÃµÄ½Ó¿Ú
+		//å±æ€§è·å–å’Œè®¾ç½®çš„æ¥å£
 		valueGetHandle = null;
 		valueSetHandle = null;
 	}

@@ -6,7 +6,7 @@ import java.util.*;
 public class JVConfigXMLElement extends JVAbstractComponent {
 
 	/**
-	 * ¶ÔÓ¦µÄ½Úµã
+	 * å¯¹åº”çš„èŠ‚ç‚¹
 	 */
 	private Element element;
 
@@ -17,7 +17,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	/**
 	 * @return
 	 * 
-	 * 		ÓÃÓÚ·â×°µÄ¶ÔÏó
+	 * 		ç”¨äºå°è£…çš„å¯¹è±¡
 	 * 
 	 */
 	protected Object getPackagedObject() {
@@ -25,7 +25,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * °üº¬¸Ã½ÚµãµÄXMLÎÄ¼ş¶ÔÏó
+	 * åŒ…å«è¯¥èŠ‚ç‚¹çš„XMLæ–‡ä»¶å¯¹è±¡
 	 */
 	private JVConfigXMLFile configXMLFile;
 
@@ -34,7 +34,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * ×Ó½Úµã¼¯ºÏ
+	 * å­èŠ‚ç‚¹é›†åˆ
 	 */
 	private HashSet<JVConfigXMLElement> subElements;
 
@@ -43,18 +43,18 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * ÔÚ×Ó½ÚµãÁĞ±íÖĞÔö¼ÓÒ»¸ö×Ó½Úµã
+	 * åœ¨å­èŠ‚ç‚¹åˆ—è¡¨ä¸­å¢åŠ ä¸€ä¸ªå­èŠ‚ç‚¹
 	 * 
 	 * @param element
 	 * @throws JVException
 	 * 
 	 */
 	public JVConfigXMLElement addSubElement(Element element) throws JVException {
-		// ÏÈ²éÕÒ£¬Èç¹û´æÔÚÔòÖ±½Ó·µ»Ø£¬·ñÔò´´½¨Ò»¸ö
+		// å…ˆæŸ¥æ‰¾ï¼Œå¦‚æœå­˜åœ¨åˆ™ç›´æ¥è¿”å›ï¼Œå¦åˆ™åˆ›å»ºä¸€ä¸ª
 		JVConfigXMLElement result = findSubElement(element);
 
 		if (result == null) {
-			// Í¨¹ı·½·¨´´½¨×Ó½Úµã£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ²¢·µ»Ø²»Í¬ÀàĞÍµÄ½Úµã¶ÔÏó
+			// é€šè¿‡æ–¹æ³•åˆ›å»ºå­èŠ‚ç‚¹ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿å¹¶è¿”å›ä¸åŒç±»å‹çš„èŠ‚ç‚¹å¯¹è±¡
 			result = createSubElement(element);
 			subElements.add(result);
 		}
@@ -62,20 +62,20 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * ´´½¨×Ó½Úµãº¯Êı£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ·µ»Ø²»Í¬ÀàĞÍµÄ½Úµã¶ÔÏó
+	 * åˆ›å»ºå­èŠ‚ç‚¹å‡½æ•°ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿è¿”å›ä¸åŒç±»å‹çš„èŠ‚ç‚¹å¯¹è±¡
 	 * 
 	 * @param element
 	 * @return
 	 * @throws JVException
 	 */
 	public JVConfigXMLElement createSubElement(Element element) throws JVException {
-		// Èç¹û×Ó½Úµã»¹ÓĞ×Ó½ÚµãÔòµİ¹é´´½¨
+		// å¦‚æœå­èŠ‚ç‚¹è¿˜æœ‰å­èŠ‚ç‚¹åˆ™é€’å½’åˆ›å»º
 		return new JVConfigXMLElement(configXMLFile, element);
 	}
 
 	/**
 	 * 
-	 * ¸ù¾İ´«ÈëµÄ½Úµã²éÕÒ½Úµã¶ÔÏó
+	 * æ ¹æ®ä¼ å…¥çš„èŠ‚ç‚¹æŸ¥æ‰¾èŠ‚ç‚¹å¯¹è±¡
 	 * 
 	 * @param element
 	 * @return
@@ -95,7 +95,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * ½ÚµãÊôĞÔ¼¯ºÏ
+	 * èŠ‚ç‚¹å±æ€§é›†åˆ
 	 */
 	private HashSet<JVConfigXMLAttribute> attributes;
 	public Iterator<JVConfigXMLAttribute> getAttributesIterator() {
@@ -103,11 +103,11 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 	
 	public JVConfigXMLAttribute addAttribute(Attribute attribute) throws JVException {
-		// ÏÈ²éÕÒ£¬Èç¹û´æÔÚÔòÖ±½Ó·µ»Ø£¬·ñÔò´´½¨Ò»¸ö
+		// å…ˆæŸ¥æ‰¾ï¼Œå¦‚æœå­˜åœ¨åˆ™ç›´æ¥è¿”å›ï¼Œå¦åˆ™åˆ›å»ºä¸€ä¸ª
 		JVConfigXMLAttribute result = null;
 		
 		if (result == null) {
-			// Í¨¹ı·½·¨´´½¨ÊôĞÔ£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ²¢·µ»Ø²»Í¬ÀàĞÍµÄÊôĞÔ¶ÔÏó
+			// é€šè¿‡æ–¹æ³•åˆ›å»ºå±æ€§ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿å¹¶è¿”å›ä¸åŒç±»å‹çš„å±æ€§å¯¹è±¡
 			result = createAttribute(attribute);
 			attributes.add(result);
 		}
@@ -116,7 +116,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 	
 	/**
-	 * ´´½¨ÊôĞÔº¯Êı£¬×ÓÀà¿ÉÒÔ¼Ì³Ğ·µ»Ø²»Í¬ÀàĞÍµÄÊôĞÔ¶ÔÏó
+	 * åˆ›å»ºå±æ€§å‡½æ•°ï¼Œå­ç±»å¯ä»¥ç»§æ‰¿è¿”å›ä¸åŒç±»å‹çš„å±æ€§å¯¹è±¡
 	 * 
 	 * @param attribute
 	 * @return
@@ -128,7 +128,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	
 	/**
 	 * 
-	 * ¸ù¾İ´«ÈëµÄÊôĞÔ²éÕÒÊôĞÔ¶ÔÏó
+	 * æ ¹æ®ä¼ å…¥çš„å±æ€§æŸ¥æ‰¾å±æ€§å¯¹è±¡
 	 * 
 	 * @param attribute
 	 * @return
@@ -149,7 +149,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	
 	/**
 	 * 
-	 * ¸ù¾İ´«ÈëµÄÊôĞÔÃû³Æ²éÕÒÊôĞÔ¶ÔÏó
+	 * æ ¹æ®ä¼ å…¥çš„å±æ€§åç§°æŸ¥æ‰¾å±æ€§å¯¹è±¡
 	 * 
 	 * @param String
 	 * @return
@@ -169,24 +169,24 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element) throws JVException {
-		//ÓÃ½ÚµãÃû³Æ
+		//ç”¨èŠ‚ç‚¹åç§°
 		super(element.getName());
 
 		this.configXMLFile = configXMLFile;
 		this.element = element;
 
-		// ×Ó½Úµã¼¯ºÏ
+		// å­èŠ‚ç‚¹é›†åˆ
 		this.subElements = new HashSet<JVConfigXMLElement>();
 
-		// ¶ÁÈ¡Ã¿¸ö×Ó½Úµã²¢¼ÓÈëµ½×Ó½Úµã¼¯ºÏÖĞ
+		// è¯»å–æ¯ä¸ªå­èŠ‚ç‚¹å¹¶åŠ å…¥åˆ°å­èŠ‚ç‚¹é›†åˆä¸­
 		Iterator<Element> eiter = element.elementIterator();
 		while (eiter.hasNext()) {
 			addSubElement(eiter.next());
 		}
 
-		// ÊôĞÔ¼¯ºÏ
+		// å±æ€§é›†åˆ
 		this.attributes = new HashSet<JVConfigXMLAttribute>();
-		// ¶ÁÈ¡Ã¿¸öÊôĞÔ²¢¼ÓÈëµ½ÊôĞÔ¼¯ºÏÖĞ
+		// è¯»å–æ¯ä¸ªå±æ€§å¹¶åŠ å…¥åˆ°å±æ€§é›†åˆä¸­
 		Iterator<Attribute> aiter = element.attributeIterator();
 		while (aiter.hasNext()) {
 			addAttribute(aiter.next());

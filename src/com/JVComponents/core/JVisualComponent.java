@@ -3,7 +3,7 @@ package com.JVComponents.core;
 /**
  * @author DELL
  * 
- * ËùÓĞ¿ÉÊÓ»¯¿Ø¼şµÄ»ùÀà£¬ÔÚÈİÆ÷ºÍÔËĞĞÆÚ¿É¼û
+ * æ‰€æœ‰å¯è§†åŒ–æ§ä»¶çš„åŸºç±»ï¼Œåœ¨å®¹å™¨å’Œè¿è¡ŒæœŸå¯è§
  *
  */
 public class JVisualComponent extends JVEmbedComponent {
@@ -13,13 +13,13 @@ public class JVisualComponent extends JVEmbedComponent {
 	public JVisualComponent(JVContainer container) throws JVException {
 		super(container);
 		
-		//¹¹½¨ÊôĞÔ
+		//æ„å»ºå±æ€§
 		visible = new JVPropertyBoolean(this, true);
 	}
 	
 	
 	/**
-	 *	ÊÇ·ñ¿É¼û 
+	 *	æ˜¯å¦å¯è§ 
 	 */
 	private JVPropertyBoolean visible;
 	public JVPropertyBoolean getVisible() {

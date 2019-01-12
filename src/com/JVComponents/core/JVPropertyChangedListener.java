@@ -3,12 +3,12 @@ package com.JVComponents.core;
 /**
  * @author DELL
  *
- *	ÊôĞÔ±ä»¯ÕìÌı½Ó¿Ú
+ *	å±æ€§å˜åŒ–ä¾¦å¬æ¥å£
  */
 
 import java.util.EventListener;
 
 public interface JVPropertyChangedListener extends EventListener{
-	//ÊÂ¼ş´¦Àí¾ä±ú
+	//äº‹ä»¶å¤„ç†å¥æŸ„
 	public void handleEvent(JVPropertyChangedEvent event) throws JVException;
 }

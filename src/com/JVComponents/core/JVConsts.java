@@ -3,19 +3,19 @@ package com.JVComponents.core;
 /**
  * @author DELL
  * 
- * 常量定义
+ * 甯搁噺瀹氫箟
  *
  */
 public interface JVConsts {
 	
 	/**
-	 * 序列化版本号
+	 * 搴忓垪鍖栫増鏈彿
 	 */
 	public static final long serialVersionUID = 1L;
 	
 	
 	/**
-	 * 组件缺省名称
+	 * 缁勪欢缂虹渷鍚嶇О
 	 */
 	public static final String componentDefualtName = "JVEmbedComponent";
 }

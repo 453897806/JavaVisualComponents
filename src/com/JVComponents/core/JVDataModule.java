@@ -1,7 +1,7 @@
 package com.JVComponents.core;
 
 /**
- * Êı¾İÄ£¿é£¬ÓÃÓÚÈİÄÉ²»¿É¼û×é¼ş
+ * æ•°æ®æ¨¡å—ï¼Œç”¨äºå®¹çº³ä¸å¯è§ç»„ä»¶
  * 
  * @author DELL
  *
@@ -14,21 +14,21 @@ public class JVDataModule extends JVContainer {
 	}
 
 	/**
-	 * ¼ÓÈëÒ»¸ö×é¼ş
+	 * åŠ å…¥ä¸€ä¸ªç»„ä»¶
 	 * 
-	 * Êı¾İÄ£¿éÓÉÓÚÖ»ÄÜÈİÄÉ²»¿É¼û×é¼ş£¬ËùÒÔĞèÒª½øĞĞÑéÖ¤
+	 * æ•°æ®æ¨¡å—ç”±äºåªèƒ½å®¹çº³ä¸å¯è§ç»„ä»¶ï¼Œæ‰€ä»¥éœ€è¦è¿›è¡ŒéªŒè¯
 	 * 
 	 * @param component
 	 * @throws JVException 
 	 * 
 	 */
 	public void addCompnent(JVEmbedComponent component) throws JVException {
-		//ÑéÖ¤×é¼ş
+		//éªŒè¯ç»„ä»¶
 		if(component instanceof JVirtualComponent) {
-			//¼Ì³Ğ¸¸Àà		
+			//ç»§æ‰¿çˆ¶ç±»		
 			super.addCompnent(component);
 		}else {
-			throw new JVException("·ÇĞéÄâ»¯×é¼ş¼°Æä×ÓÀà²»ÄÜ¼ÓÈëÊı¾İÄ£¿é¡£", null);
+			throw new JVException("éè™šæ‹ŸåŒ–ç»„ä»¶åŠå…¶å­ç±»ä¸èƒ½åŠ å…¥æ•°æ®æ¨¡å—ã€‚", null);
 		}
 	}
 }

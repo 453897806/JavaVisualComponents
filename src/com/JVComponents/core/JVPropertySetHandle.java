@@ -3,7 +3,7 @@ package com.JVComponents.core;
 /**
  * @author DELL
  *
- * ÊôĞÔÖµÉèÖÃ·½·¨
+ * å±æ€§å€¼è®¾ç½®æ–¹æ³•
  */
 public interface JVPropertySetHandle {
 
@@ -11,7 +11,7 @@ public interface JVPropertySetHandle {
 	 * @param property
 	 * @param value
 	 * @return 
-	 *   ÊôĞÔ¸³ÖµºóµÄĞÂÖµ£¬È±Ê¡µÈÓÚ´«ÈëµÄÖµ
+	 *   å±æ€§èµ‹å€¼åçš„æ–°å€¼ï¼Œç¼ºçœç­‰äºä¼ å…¥çš„å€¼
 	 */
 	public void setPropertyValue(JVProperty property, Object value);
 }

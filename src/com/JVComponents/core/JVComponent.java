@@ -3,13 +3,13 @@ package com.JVComponents.core;
 /**
  * @author JVC
  *
- *	ËùÓĞjava¿ÉÊÓ»¯×é¼şµÄ»ùÀà
+ *	æ‰€æœ‰javaå¯è§†åŒ–ç»„ä»¶çš„åŸºç±»
  */
 public class JVComponent {
 	
 	/**
-	 * ×é¼şÃû³Æ
-	 * ÔÚÈİÆ÷ÖĞÓ¦Óë×é¼şµÄ±äÁ¿Ãû³ÆÏàÍ¬
+	 * ç»„ä»¶åç§°
+	 * åœ¨å®¹å™¨ä¸­åº”ä¸ç»„ä»¶çš„å˜é‡åç§°ç›¸åŒ
 	 */
 	private JVPropertyString name;
 	public JVPropertyString getName() {
@@ -17,22 +17,22 @@ public class JVComponent {
 	}
 	
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * @throws JVException 
 	 */
 	public JVComponent(String name) throws JVException {
 		super();
 		
-		//¹¹½¨ÊôĞÔ
+		//æ„å»ºå±æ€§
 		this.name = new JVPropertyString(this, name);		
 	}
 	
 	/**
 	 * @return
 	 * 
-	 * ÓÃÓÚ·â×°µÄ¶ÔÏó
+	 * ç”¨äºå°è£…çš„å¯¹è±¡
 	 * 
-	 * Í¨¹ı³éÏóº¯ÊıÔÚ×ÓÀà¼Ì³ĞºóÓÉ×ÓÀà´´½¨µÃµ½
+	 * é€šè¿‡æŠ½è±¡å‡½æ•°åœ¨å­ç±»ç»§æ‰¿åç”±å­ç±»åˆ›å»ºå¾—åˆ°
 	 * 
 	 */
 	protected Object getPackagedObject(){

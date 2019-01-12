@@ -85,7 +85,7 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 		}
 		
 		//根据节点构建属性和下级节点
-		createSubNode();
+		//createSubNode();
 	}
 	
 }

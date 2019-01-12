@@ -5,7 +5,7 @@ import org.dom4j.Attribute;
 public class JVConfigXMLAttribute extends JVAbstractComponent {
 
 	/**
-	 *	°üº¬´ËÊôĞÔµÄ½Úµã 
+	 *	åŒ…å«æ­¤å±æ€§çš„èŠ‚ç‚¹ 
 	 */
 	private JVConfigXMLElement element;
 	public JVConfigXMLElement getElement() {
@@ -13,7 +13,7 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	}
 	
 	/**
-	 * ¶ÔÓ¦µÄÊôĞÔ¶ÔÏó
+	 * å¯¹åº”çš„å±æ€§å¯¹è±¡
 	 */
 	private Attribute attribute;
 	public Attribute getAttribute() {
@@ -23,7 +23,7 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	/**
 	 * @return
 	 * 
-	 * ÓÃÓÚ·â×°µÄ¶ÔÏó
+	 * ç”¨äºå°è£…çš„å¯¹è±¡
 	 * 
 	 */
 	protected Object getPackagedObject(){
@@ -31,7 +31,7 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	}
 	
 	/**
-	 * ÊôĞÔÖµ
+	 * å±æ€§å€¼
 	 */
 	private JVPropertyString value;
 	public JVPropertyString getValue() {
@@ -41,10 +41,10 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	public JVConfigXMLAttribute(JVConfigXMLElement element, Attribute attribute) throws JVException {
 		super(attribute.getName());
 		
-		//ÊôĞÔÖµ
+		//å±æ€§å€¼
 		value = new JVPropertyString(this, attribute.getValue());
 
-		//³ÉÔ±
+		//æˆå‘˜
 		this.attribute = attribute;
 		this.element = element;	
 	}

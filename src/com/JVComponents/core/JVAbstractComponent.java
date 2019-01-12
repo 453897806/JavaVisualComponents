@@ -3,9 +3,9 @@ package com.JVComponents.core;
 /**
  * @author DELL
  * 
- * ËùÓÐ·ÇÇ¶ÈëÊ½×é¼þµÄ»ùÀà
+ * æ‰€æœ‰éžåµŒå…¥å¼ç»„ä»¶çš„åŸºç±»
  * 
- * ²»ÄÜÒÔ×é¼þÐÎÊ½·ÅÈëÈÝÆ÷½øÐÐ¿ÉÊÓ»¯Éè¼Æ£¬µ«ÊÇÄÜ¹»³öÏÖÔÚÊôÐÔ±à¼­Æ÷ÖÐ
+ * ä¸èƒ½ä»¥ç»„ä»¶å½¢å¼æ”¾å…¥å®¹å™¨è¿›è¡Œå¯è§†åŒ–è®¾è®¡ï¼Œä½†æ˜¯èƒ½å¤Ÿå‡ºçŽ°åœ¨å±žæ€§ç¼–è¾‘å™¨ä¸­
  *
  */
 public class JVAbstractComponent extends JVComponent {

@@ -5,12 +5,12 @@ import java.util.EventObject;
 /**
  * @author DELL
  *
- *	ÊôĞÔ±ä»¯ÊÂ¼ş¶ÔÏó
+ *	å±æ€§å˜åŒ–äº‹ä»¶å¯¹è±¡
  */
 public class JVPropertyChangedEvent extends EventObject{
 
 	/**
-	 * ĞòÁĞ»¯°æ±¾ºÅ 
+	 * åºåˆ—åŒ–ç‰ˆæœ¬å· 
 	 */
 	private static final long serialVersionUID = JVConsts.serialVersionUID;
 

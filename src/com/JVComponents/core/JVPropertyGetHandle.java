@@ -3,7 +3,7 @@ package com.JVComponents.core;
 
 /**
  * @author DELL
- * 属性值的获取方法
+ * 灞炴�у�肩殑鑾峰彇鏂规硶
  */
 
 public interface JVPropertyGetHandle {

@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @author DELL
  * 
- *         ÈİÆ÷Àà×é¼ş»ùÀà£¬¿ÉÒÔÈİÄÉÆäËû¿ÉÊÓ»¯ºÍĞéÄâ»¯×é¼ş
+ *         å®¹å™¨ç±»ç»„ä»¶åŸºç±»ï¼Œå¯ä»¥å®¹çº³å…¶ä»–å¯è§†åŒ–å’Œè™šæ‹ŸåŒ–ç»„ä»¶
  *
  */
 public class JVContainer extends JVComponent {
@@ -13,7 +13,7 @@ public class JVContainer extends JVComponent {
 	/**
 	 * @author DELL
 	 * 
-	 *         Ë½ÓĞÀà£¬ÕìÌı×é¼şÃû³Æ±ä»¯£¬·ÀÖ¹×é¼şÃû³ÆÖØ¸´
+	 *         ç§æœ‰ç±»ï¼Œä¾¦å¬ç»„ä»¶åç§°å˜åŒ–ï¼Œé˜²æ­¢ç»„ä»¶åç§°é‡å¤
 	 *
 	 */
 	private class ComponentNameChangedListener implements JVPropertyChangedListener {
@@ -22,16 +22,16 @@ public class JVContainer extends JVComponent {
 
 		@Override
 		public void handleEvent(JVPropertyChangedEvent event) throws JVException {
-			// ¼ì²é´«µİ²ÎÊıÊÇ·ñÕıÈ·
+			// æ£€æŸ¥ä¼ é€’å‚æ•°æ˜¯å¦æ­£ç¡®
 			if (!(event.getSource() instanceof JVPropertyString)) {
-				throw new JVException("Ãû×ÖÊôĞÔ²»ÊÇ×Ö·û´®ÊôĞÔ£¡", null);
+				throw new JVException("åå­—å±æ€§ä¸æ˜¯å­—ç¬¦ä¸²å±æ€§ï¼", null);
 			}
 
-			// µ±×é¼şÃû³Æ±ä»¯Ê±£¬ĞèÒª¼ì²é×é¼şÃû³ÆÊÇ·ñÓëµ±Ç°ÈİÆ÷ÖĞµÄ×é¼şÖØ¸´
+			// å½“ç»„ä»¶åç§°å˜åŒ–æ—¶ï¼Œéœ€è¦æ£€æŸ¥ç»„ä»¶åç§°æ˜¯å¦ä¸å½“å‰å®¹å™¨ä¸­çš„ç»„ä»¶é‡å¤
 			String newName = event.getNewValue().toString();
 			if (container.checkComponentName(newName)) {
-				// Èç¹ûÖØ¸´£¬ÔòÅ×³öÒì³£×èÖ¹Ãû³ÆĞŞ¸Ä
-				throw new JVException("¿Ø¼şÃû×Ö<" + newName + ">´æÔÚÖØ¸´£¡", null);
+				// å¦‚æœé‡å¤ï¼Œåˆ™æŠ›å‡ºå¼‚å¸¸é˜»æ­¢åç§°ä¿®æ”¹
+				throw new JVException("æ§ä»¶åå­—<" + newName + ">å­˜åœ¨é‡å¤ï¼", null);
 			}
 		}
 
@@ -47,7 +47,7 @@ public class JVContainer extends JVComponent {
 	private ComponentNameChangedListener cmpNameChangeListeer;
 
 	/**
-	 * ÈİÄÉµÄÈ«²¿×é¼ş
+	 * å®¹çº³çš„å…¨éƒ¨ç»„ä»¶
 	 * 
 	 */
 	private HashSet<JVEmbedComponent> components;
@@ -55,35 +55,35 @@ public class JVContainer extends JVComponent {
 	/**
 	 * @return
 	 * 
-	 * 		ÈİÆ÷ÖĞ×é¼ş±éÀú
+	 * 		å®¹å™¨ä¸­ç»„ä»¶éå†
 	 */
 	public Iterator<JVEmbedComponent> getComponentsIterator() {
 		return components.iterator();
 	}
 
 	/**
-	 * ¼ì²é×é¼şµÄÃû×ÖÔÚÈİÆ÷ÖĞÊÇ·ñÎ¨Ò»
+	 * æ£€æŸ¥ç»„ä»¶çš„åå­—åœ¨å®¹å™¨ä¸­æ˜¯å¦å”¯ä¸€
 	 * 
 	 * @param component
 	 * @return
 	 * 
-	 * 		true ´æÔÚÏàÍ¬Ãû³ÆµÄ×é¼ş
+	 * 		true å­˜åœ¨ç›¸åŒåç§°çš„ç»„ä»¶
 	 * 
 	 * @throws JVException
 	 * 
 	 */
 	private Boolean checkComponentName(String name) throws JVException {
-		// È±Ê¡²»´æÔÚ
+		// ç¼ºçœä¸å­˜åœ¨
 		Boolean result = false;
 
-		// ±éÀúÃ¿¸ö×é¼ş¼ì²é
+		// éå†æ¯ä¸ªç»„ä»¶æ£€æŸ¥
 		Iterator<JVEmbedComponent> iterator = getComponentsIterator();
 		JVEmbedComponent tmp;
 		String str;
 		while (iterator.hasNext()) {
 			tmp = iterator.next();
 
-			// È¡Ãû³Æ£¬Èç¹ûÏàÍ¬Ôò·µ»Øtrue
+			// å–åç§°ï¼Œå¦‚æœç›¸åŒåˆ™è¿”å›true
 			str = tmp.getName().getValue().toString();
 			if (str.equals(name)) {
 				result = true;
@@ -95,13 +95,13 @@ public class JVContainer extends JVComponent {
 
 	/**
 	 * 
-	 * »ñÈ¡ÀàµÄÖ±½ÓÃû³Æ£¬²»°üº¬Ç°ÃæµÄ°üÃû³Æ
+	 * è·å–ç±»çš„ç›´æ¥åç§°ï¼Œä¸åŒ…å«å‰é¢çš„åŒ…åç§°
 	 * 
 	 * @param className
 	 * @return
 	 */
 	private String getClassName(String className) {
-		// ×é¼şÀàÃû
+		// ç»„ä»¶ç±»å
 		String result = className;
 		Integer index = result.indexOf(".");
 		while (index >= 0) {
@@ -114,7 +114,7 @@ public class JVContainer extends JVComponent {
 
 	/**
 	 * 
-	 * ¸ù¾İ×é¼ş»ñÈ¡ÔÚÈİÆ÷ÖĞµÄÎ¨Ò»Ãû³Æ
+	 * æ ¹æ®ç»„ä»¶è·å–åœ¨å®¹å™¨ä¸­çš„å”¯ä¸€åç§°
 	 * 
 	 * @param component
 	 * @return
@@ -123,28 +123,28 @@ public class JVContainer extends JVComponent {
 	private String getComponentName(JVEmbedComponent component) throws JVException {
 		String result;
 
-		// ×é¼şÀàÃû
+		// ç»„ä»¶ç±»å
 		String classname = getClassName(component.getClass().getName());
-		// ±àºÅ´Ó1¿ªÊ¼
+		// ç¼–å·ä»1å¼€å§‹
 		Integer i = 1;
-		// Ñ­»·£¬Ö±µ½µÃµ½Ãû×ÖÎªÖ¹
+		// å¾ªç¯ï¼Œç›´åˆ°å¾—åˆ°åå­—ä¸ºæ­¢
 		while (true) {
-			// ÓÃ×é¼şÀàÃû+ĞòºÅ×öÈ±Ê¡Ãû³Æ
+			// ç”¨ç»„ä»¶ç±»å+åºå·åšç¼ºçœåç§°
 			result = classname + i.toString();
 
-			// ¼ì²éÃû³ÆÊÇ·ñ´æÔÚ£¬Èç¹û²»´æÔÚ±íÊ¾Ãû³ÆÎ¨Ò»¿ÉÒÔÃüÃû£¬·ñÔò±àºÅ¼Ó1ÔÙ²é
+			// æ£€æŸ¥åç§°æ˜¯å¦å­˜åœ¨ï¼Œå¦‚æœä¸å­˜åœ¨è¡¨ç¤ºåç§°å”¯ä¸€å¯ä»¥å‘½åï¼Œå¦åˆ™ç¼–å·åŠ 1å†æŸ¥
 			if (checkComponentName(result)) {
-				// Ãû³Æ´æÔÚ±àºÅ¼Ó1
+				// åç§°å­˜åœ¨ç¼–å·åŠ 1
 				i++;
 			} else
-				// Ã»ÓĞÕÒµ½Ôò·µ»Ø
+				// æ²¡æœ‰æ‰¾åˆ°åˆ™è¿”å›
 				break;
 		}
 		return result;
 	}
 
 	/**
-	 * ÉèÖÃÖ¸¶¨×é¼şµÄÃû³Æ
+	 * è®¾ç½®æŒ‡å®šç»„ä»¶çš„åç§°
 	 * 
 	 * @param component
 	 * @param newName
@@ -155,7 +155,7 @@ public class JVContainer extends JVComponent {
 	}
 
 	/**
-	 * ¼ÓÈëÒ»¸ö×é¼ş
+	 * åŠ å…¥ä¸€ä¸ªç»„ä»¶
 	 * 
 	 * @param component
 	 * @throws JVException
@@ -163,21 +163,21 @@ public class JVContainer extends JVComponent {
 	 */
 	public void addCompnent(JVEmbedComponent component) throws JVException {
 		if (!components.contains(component)) {
-			// ÉèÖÃ×é¼şÃû³Æ±ä»¯ÊÂ¼ş´¦Àí¾ä±ú
+			// è®¾ç½®ç»„ä»¶åç§°å˜åŒ–äº‹ä»¶å¤„ç†å¥æŸ„
 			component.getName().addListener(cmpNameChangeListeer);
 
-			// ÉèÖÃ×é¼şµÄÃû³Æ£¬ÔÚÈİÆ÷ÄÚ±ØĞëÎ¨Ò»
+			// è®¾ç½®ç»„ä»¶çš„åç§°ï¼Œåœ¨å®¹å™¨å†…å¿…é¡»å”¯ä¸€
 			String cmpname = component.getName().getValue().toString();
 
-			// Èç¹û´æÔÚÏàÍ¬Ãû³ÆµÄ×é¼ş»òÃû×ÖÎªÈ·ÊµÃû³Æ£¬ÔòĞèÒªÖØĞÂÃüÃû
+			// å¦‚æœå­˜åœ¨ç›¸åŒåç§°çš„ç»„ä»¶æˆ–åå­—ä¸ºç¡®å®åç§°ï¼Œåˆ™éœ€è¦é‡æ–°å‘½å
 			if (checkComponentName(cmpname) | cmpname.equals(JVConsts.componentDefualtName)) {
-				// ÖØĞÂ»ñÈ¡Ãû³Æ
+				// é‡æ–°è·å–åç§°
 				cmpname = getComponentName(component);
-				// ÉèÖÃ×é¼şÃû³Æ
+				// è®¾ç½®ç»„ä»¶åç§°
 				setComponentName(component, cmpname);
 			}
 
-			// ¼ÓÈëÈİÆ÷ÖĞ
+			// åŠ å…¥å®¹å™¨ä¸­
 			components.add(component);
 		}
 	}
@@ -189,10 +189,10 @@ public class JVContainer extends JVComponent {
 	public JVContainer(String name) throws JVException {
 		super(name);
 
-		// ÈİÄÉµÄÈ«²¿×é¼ş
+		// å®¹çº³çš„å…¨éƒ¨ç»„ä»¶
 		components = new HashSet<JVEmbedComponent>();
 
-		// ×é¼şÃû³Æ±ä»¯Ê±µÄÕìÌı£¬Ö÷ÒªÊÇ·ÀÖ¹×é¼şÃû³ÆÖØ¸´
+		// ç»„ä»¶åç§°å˜åŒ–æ—¶çš„ä¾¦å¬ï¼Œä¸»è¦æ˜¯é˜²æ­¢ç»„ä»¶åç§°é‡å¤
 		cmpNameChangeListeer = new ComponentNameChangedListener(this);
 	}
 

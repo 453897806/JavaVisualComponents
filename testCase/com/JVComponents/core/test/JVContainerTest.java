@@ -1,4 +1,4 @@
-package com.JVComponent.core.test;
+package com.JVComponents.core.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,22 +24,23 @@ class JVContainerTest {
 			JVEmbedComponent component = new JVEmbedComponent(container);
 			
 			if (component.getName().getValue().toString().equals(JVConsts.componentDefualtName)) {
-				fail("×é¼şÃû³Æ²»¶Ô");
+				fail("æ–°å¢ç»„ä»¶çš„åç§°ä¸å¯¹");
 			}
-			//ÉèÖÃÃû³Æ
+			//ç»„ä»¶æ›´å
 			component.getName().setValue("comp1");
 			
-			//µÚ¶ş¸ö
+			//å¢åŠ ç»„ä»¶
 			component = new JVEmbedComponent(container);
 			component = new JVEmbedComponent(container);
 			
+			//ç»„ä»¶åŒåè§¦å‘å¼‚å¸¸
 			component.getName().setValue("comp1");
 			
-			//Èç¹ûÃ»ÓĞ´¥·¢Òì³£¾Í±íÊ¾´íÎóÃ»ÓĞ¼ì²é³öÀ´
-			fail("Ã»ÓĞ´¥·¢Òì³£");
+			//æœªè§¦å‘å¼‚å¸¸ï¼ŒæŠ¥é”™
+			fail("ç»„ä»¶åŒåæœªæŠ¥é”™");
 			
 		}catch(JVException e) {
-			//´¥·¢Òì³£ÊÇÕıÈ·µÄ
+			//æœ‰å¼‚å¸¸å°±æ­£ç¡®äº†
 			
 		}
 		

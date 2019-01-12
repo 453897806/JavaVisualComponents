@@ -1,4 +1,4 @@
-package com.JavaVisualComponents.DB.test;
+package com.JVComponents.DB.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;

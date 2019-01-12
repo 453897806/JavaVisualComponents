@@ -3,7 +3,7 @@ package com.JVComponents.core;
 /**
  * @author DELL
  *
- *	²¼¶ûĞÍÊôĞÔ
+ *	å¸ƒå°”å‹å±æ€§
  *
  */
 public class JVPropertyBoolean extends JVProperty {
@@ -11,7 +11,7 @@ public class JVPropertyBoolean extends JVProperty {
 	public JVPropertyBoolean(JVComponent owner, Object defualtValue) throws JVException {
 		super(owner, defualtValue);
 
-		//¼ì²éÈ±Ê¡ÖµµÄÀàĞÍ
+		//æ£€æŸ¥ç¼ºçœå€¼çš„ç±»å‹
 		Boolean tmp = false;
 		checkValueClasses(tmp, defualtValue);
 

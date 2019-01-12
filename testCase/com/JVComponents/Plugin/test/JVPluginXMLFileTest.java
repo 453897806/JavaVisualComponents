@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
-import com.JVComponents.Plugin.*;
 
 class JVPluginXMLFileTest {
 	
@@ -15,7 +14,7 @@ class JVPluginXMLFileTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		pluginfile = new JVConfigXMLFile(null, "C:\\develop\\plugin\\plugdemo1\\plugin.xml");
+		pluginfile = new JVConfigXMLFile(null, "/home/bob/eclipse-workspace/pluginDemo1/plugin.xml");
 	}
 
 	@Test
