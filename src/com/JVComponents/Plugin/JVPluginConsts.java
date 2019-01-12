@@ -3,30 +3,30 @@ package com.JVComponents.Plugin;
 public interface JVPluginConsts {
 	
 	/**
-	 * plugin.XMLµÄ¸ù½ÚµãÃû³Æ
+	 * plugin.XMLçš„æ ¹èŠ‚ç‚¹åç§°
 	 */
 	public static final String rootName = "plugin";
 	
 	
 	/**
-	 * À©Õ¹½ÚµãÃû³Æ
+	 * æ‰©å±•èŠ‚ç‚¹åç§°
 	 */
 	public static final String extension = "extension";
 	
 	
 	/**
-	 * À©Õ¹µã½ÚµãÃû³Æ
+	 * æ‰©å±•ç‚¹èŠ‚ç‚¹åç§°
 	 */
 	public static final String extensionPoint = "extensionPoint";
 	
 	/**
-	 * À©Õ¹µÄÀ©Õ¹µãÊôĞÔ
+	 * æ‰©å±•çš„æ‰©å±•ç‚¹å±æ€§
 	 */
 	public static final String attributePoint = "point";
 	
 	
 	/**
-	 *  commandsÀ©Õ¹
+	 *  commandsæ‰©å±•
 	 */
 	public static final String extensionCommands = "org.eclipse.ui.commands";
 }

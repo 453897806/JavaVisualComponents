@@ -11,8 +11,8 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 
 	/**
 	 * 
-	 * ·µ»Ø¸ù½ÚµãÃû³Æ
-	 *  Plugin.xmlÓĞÒ»¸ö¸ù½Úµã£¬ÇÒÎª'plugin'
+	 * è¿”å›æ ¹èŠ‚ç‚¹åç§°
+	 *  Plugin.xmlæœ‰ä¸€ä¸ªæ ¹èŠ‚ç‚¹ï¼Œä¸”ä¸º'plugin'
 	 * 
 	 * @return
 	 */
@@ -26,14 +26,14 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	}
 	
 	/**
-	 * ¸ù¾İ½Úµã¶ÔÏó´´½¨À©Õ¹¶ÔÏó
+	 * æ ¹æ®èŠ‚ç‚¹å¯¹è±¡åˆ›å»ºæ‰©å±•å¯¹è±¡
 	 * 
 	 * @return
 	 * @throws JVException 
 	 */
 	private JVPluginExtension createExtension(JVConfigXMLElement element) throws JVException {
 		JVPluginExtension result = JVPluginExtensionFactory.createPluginExtension(this, element);
-		//¼ÓÈëÀ©Õ¹µã
+		//åŠ å…¥æ‰©å±•ç‚¹
 		addCompnent(result);
 		return result;
 	}
@@ -42,13 +42,13 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	public void readFromFile() throws JVException {
 		super.readFromFile();
 	
-		// ¼ì²é¸ù½ÚµãÊÇ·ñÕıÈ·
+		// æ£€æŸ¥æ ¹èŠ‚ç‚¹æ˜¯å¦æ­£ç¡®
 		String str =(String)getRoot().getName().getValue(); 
 		if (!str.equals(getRootName())) {
-			throw new JVException("¸ù½Úµã²»ÊÇ<" + getRootName() + ">", null);
+			throw new JVException("æ ¹èŠ‚ç‚¹ä¸æ˜¯<" + getRootName() + ">", null);
 		}
 		
-		//´´½¨Ã¿Ò»¸öÀ©Õ¹µã
+		//åˆ›å»ºæ¯ä¸€ä¸ªæ‰©å±•ç‚¹
 		JVConfigXMLElement root = getRoot();
 		Iterator<JVConfigXMLElement> iter = root.getElementsIterator();
 		while(iter.hasNext()) {

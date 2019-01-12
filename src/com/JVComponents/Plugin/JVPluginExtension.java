@@ -8,7 +8,7 @@ import com.JVComponents.core.JVirtualComponent;
 
 /**
  * 
- * ·â×°ÁËpluginÏÂµÄÀ©Õ¹
+ * å°è£…äº†pluginä¸‹çš„æ‰©å±•
  * 
  * @author DELL
  *
@@ -16,7 +16,7 @@ import com.JVComponents.core.JVirtualComponent;
 public abstract class JVPluginExtension extends JVirtualComponent {
 
 	/**
-	 * ¶ÔÓ¦µÄpluginÎÄ¼ş
+	 * å¯¹åº”çš„pluginæ–‡ä»¶
 	 */
 	private JVPluginXMLFile pluginFile;
 
@@ -25,7 +25,7 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	}
 
 	/**
-	 * ¶ÔÓ¦µÄ½Úµã×é¼ş
+	 * å¯¹åº”çš„èŠ‚ç‚¹ç»„ä»¶
 	 */
 	private JVConfigXMLElement element;
 
@@ -35,14 +35,14 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 
 	/**
 	 * 
-	 * ×ÓÀà¼Ì³Ğ²¢·µ»ØÀ©Õ¹µãÃû³Æ
+	 * å­ç±»ç»§æ‰¿å¹¶è¿”å›æ‰©å±•ç‚¹åç§°
 	 * 
 	 * @return
 	 */
 	public abstract String getExtensionPoint();
 
 	/**
-	 * pointÊôĞÔ
+	 * pointå±æ€§
 	 */
 	private JVConfigXMLAttribute point;
 
@@ -51,7 +51,7 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	}
 
 	/**
-	 * ¸ù¾İÒÑ¾­´æÔÚµÄ½Úµã½øĞĞ´´½¨
+	 * æ ¹æ®å·²ç»å­˜åœ¨çš„èŠ‚ç‚¹è¿›è¡Œåˆ›å»º
 	 * 
 	 * @param container
 	 * @param element
@@ -60,31 +60,31 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	public JVPluginExtension(JVContainer container, JVConfigXMLElement element) throws JVException {
 		super(container);
 		
-		//¼ì²é
+		//æ£€æŸ¥
 		if(!(container instanceof JVPluginXMLFile)){
-			throw new  JVException("²»ÊÇPluginµÄXMLÎÄ¼ş£¡",null);
+			throw new  JVException("ä¸æ˜¯Pluginçš„XMLæ–‡ä»¶ï¼",null);
 		}
-		//³ÉÔ±
+		//æˆå‘˜
 		this.pluginFile = (JVPluginXMLFile) container;
 		this.element = element;
 		
 		if(pluginFile != element.getConfigXMLFile()) {
-			throw new  JVException("½ÚµãÓëpluginÎÄ¼ş²»ÊÇÍ¬Ò»¸ö¶ÔÏó£¡",null);
+			throw new  JVException("èŠ‚ç‚¹ä¸pluginæ–‡ä»¶ä¸æ˜¯åŒä¸€ä¸ªå¯¹è±¡ï¼",null);
 		}
 		
-		//pointÊôĞÔ¶ÔÏó
+		//pointå±æ€§å¯¹è±¡
 		point = element.findAttribute(JVPluginConsts.attributePoint);
 		if(point == null) {
-			throw new JVException("ÎŞ<" + JVPluginConsts.attributePoint +">ÊôĞÔ¡£", null);
+			throw new JVException("æ— <" + JVPluginConsts.attributePoint +">å±æ€§ã€‚", null);
 		}
 		
-		//pointÊôĞÔ¶ÔÏóÄÚÈİÓëµ±Ç°À©Õ¹µãÒ»ÖÂ
+		//pointå±æ€§å¯¹è±¡å†…å®¹ä¸å½“å‰æ‰©å±•ç‚¹ä¸€è‡´
 		String pointValue = (String)point.getValue().getValue();
 		if(!pointValue.equals(getExtensionPoint())) {
-			throw new JVException("À©Õ¹µã²»ÊÇ<" + getExtensionPoint() +">¡£", null);
+			throw new JVException("æ‰©å±•ç‚¹ä¸æ˜¯<" + getExtensionPoint() +">ã€‚", null);
 		}
 		
-		//¸ù¾İ½Úµã¹¹½¨ÊôĞÔºÍÏÂ¼¶½Úµã
+		//æ ¹æ®èŠ‚ç‚¹æ„å»ºå±æ€§å’Œä¸‹çº§èŠ‚ç‚¹
 		createSubNode();
 	}
 	

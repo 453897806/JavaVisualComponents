@@ -4,6 +4,13 @@ import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVException;
 
+/**
+ * 
+ * æ‰©å±•ç»„ä»¶çš„æ„å»ºå·¥å‚
+ * 
+ * @author bob
+ *
+ */
 public class JVPluginExtensionFactory {
 
 	public JVPluginExtensionFactory() {
@@ -13,15 +20,15 @@ public class JVPluginExtensionFactory {
 	public static JVPluginExtension createPluginExtension(JVPluginXMLFile pluginXMLFile, JVConfigXMLElement element) throws JVException {
 		JVPluginExtension result;
 
-		// ¸ù¾İ½ÚµãÃû³Æ´´½¨²»Í¬µÄÀ©Õ¹
+		// æ ¹æ®èŠ‚ç‚¹åç§°åˆ›å»ºä¸åŒçš„æ‰©å±•
 		JVConfigXMLAttribute attrPoint = element.findAttribute(JVPluginConsts.attributePoint);
 		String strpoint = (String) attrPoint.getName().getValue();
 
-		// commandsÀ©Õ¹
+		// commandsæ‰©å±•
 		if (strpoint.equals(JVPluginConsts.extensionCommands)) {
 			result = new JVPluginExtensionCommands(pluginXMLFile, element);
 		} else {
-			throw new JVException("ÎŞ·¨Ê¶±ğµÄÀ©Õ¹µã", null);
+			throw new JVException("æ— æ³•è¯†åˆ«çš„æ‰©å±•ç‚¹", null);
 		}
 
 		return result;

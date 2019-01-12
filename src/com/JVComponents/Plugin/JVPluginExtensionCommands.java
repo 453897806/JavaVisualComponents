@@ -5,7 +5,7 @@ import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;
 
 /**
- * CommandsÀ©Õ¹
+ * Commandsæ‰©å±•
  * 
  * @author DELL
  *
