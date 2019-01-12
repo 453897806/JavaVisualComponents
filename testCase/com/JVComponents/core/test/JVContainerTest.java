@@ -41,7 +41,7 @@ class JVContainerTest {
 			
 		}catch(JVException e) {
 			//有异常就正确了
-			
+			System.out.println("正确：发现重复名称组件");
 		}
 		
 	}

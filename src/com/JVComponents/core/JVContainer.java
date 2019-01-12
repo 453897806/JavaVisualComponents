@@ -105,7 +105,7 @@ public class JVContainer extends JVComponent {
 		String result = className;
 		Integer index = result.indexOf(".");
 		while (index >= 0) {
-			result = result.substring(index, result.length());
+			result = result.substring(index +1, result.length());
 			index = result.indexOf(".");
 		}
 

@@ -17,5 +17,12 @@ public interface JVConsts {
 	/**
 	 * 组件缺省名称
 	 */
-	public static final String componentDefualtName = "JVEmbedComponent";
+	public static final String componentDefualtName = "JVComponent";
+	
+	
+	/**
+	 * 空字符串
+	 * 
+	 */
+	public static final String emptyString = "";
 }

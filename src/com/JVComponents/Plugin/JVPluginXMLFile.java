@@ -1,8 +1,8 @@
 package com.JVComponents.Plugin;
 
 import java.util.*;
+import org.dom4j.*;
 
-import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
@@ -48,11 +48,12 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 			throw new JVException("根节点不是<" + getRootName() + ">", null);
 		}
 		
-		//创建每一个扩展点
-		JVConfigXMLElement root = getRoot();
-		Iterator<JVConfigXMLElement> iter = root.getElementsIterator();
+		//根据节点创建扩展对象
+		Iterator<Element> iter = getRoot().getElement().elementIterator();
+		JVConfigXMLElement element ;
 		while(iter.hasNext()) {
-			createExtension(iter.next());
+			element = new JVConfigXMLElement(this, iter.next());
+			createExtension(element);
 		}
 	}
 	

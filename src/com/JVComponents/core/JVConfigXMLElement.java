@@ -6,6 +6,15 @@ import java.util.*;
 public class JVConfigXMLElement extends JVAbstractComponent {
 
 	/**
+	 * 包含该节点的XML文件对象
+	 */
+	private JVConfigXMLFile configXMLFile;
+
+	public JVConfigXMLFile getConfigXMLFile() {
+		return configXMLFile;
+	}
+
+	/**
 	 * 对应的节点
 	 */
 	private Element element;
@@ -25,142 +34,71 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * 包含该节点的XML文件对象
-	 */
-	private JVConfigXMLFile configXMLFile;
-
-	public JVConfigXMLFile getConfigXMLFile() {
-		return configXMLFile;
-	}
-
-	/**
-	 * 子节点集合
-	 */
-	private HashSet<JVConfigXMLElement> subElements;
-
-	public Iterator<JVConfigXMLElement> getElementsIterator() {
-		return subElements.iterator();
-	}
-
-	/**
-	 * 在子节点列表中增加一个子节点
-	 * 
-	 * @param element
-	 * @throws JVException
-	 * 
-	 */
-	public JVConfigXMLElement addSubElement(Element element) throws JVException {
-		// 先查找，如果存在则直接返回，否则创建一个
-		JVConfigXMLElement result = findSubElement(element);
-
-		if (result == null) {
-			// 通过方法创建子节点，子类可以继承并返回不同类型的节点对象
-			result = createSubElement(element);
-			subElements.add(result);
-		}
-		return result;
-	}
-
-	/**
-	 * 创建子节点函数，子类可以继承返回不同类型的节点对象
-	 * 
-	 * @param element
-	 * @return
-	 * @throws JVException
-	 */
-	public JVConfigXMLElement createSubElement(Element element) throws JVException {
-		// 如果子节点还有子节点则递归创建
-		return new JVConfigXMLElement(configXMLFile, element);
-	}
-
-	/**
-	 * 
-	 * 根据传入的节点查找节点对象
-	 * 
-	 * @param element
-	 * @return
-	 */
-	public JVConfigXMLElement findSubElement(Element element) {
-		JVConfigXMLElement result = null;
-		Iterator<JVConfigXMLElement> iter = getElementsIterator();
-		JVConfigXMLElement tmp;
-		while (iter.hasNext()) {
-			tmp = iter.next();
-			if (tmp.getElement() == element) {
-				result = tmp;
-				break;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * 节点属性集合
+	 * 属性集合
 	 */
 	private HashSet<JVConfigXMLAttribute> attributes;
-	public Iterator<JVConfigXMLAttribute> getAttributesIterator() {
-		return attributes.iterator();
-	}
-	
-	public JVConfigXMLAttribute addAttribute(Attribute attribute) throws JVException {
-		// 先查找，如果存在则直接返回，否则创建一个
-		JVConfigXMLAttribute result = null;
-		
-		if (result == null) {
-			// 通过方法创建属性，子类可以继承并返回不同类型的属性对象
-			result = createAttribute(attribute);
-			attributes.add(result);
-		}
-		
-		return result;		
-	}
-	
+
 	/**
-	 * 创建属性函数，子类可以继承返回不同类型的属性对象
 	 * 
-	 * @param attribute
+	 * 根据属性名称得到一个属性对象
+	 * 
+	 * @param attributeName
 	 * @return
 	 * @throws JVException
 	 */
-	protected JVConfigXMLAttribute createAttribute(Attribute attribute) throws JVException {
-		return new JVConfigXMLAttribute(this, attribute);
+	public JVConfigXMLAttribute getAttribute(String attributeName) throws JVException {
+		// 查找一个属性
+		JVConfigXMLAttribute result = findAttribute(attributeName);
+		// 如果没有找到则创建一个
+		if (result == null) {
+			result = new JVConfigXMLAttribute(this, attributeName);
+			attributes.add(result);
+		}
+		return result;
 	}
-	
+
+	public JVConfigXMLAttribute getAttribute(Attribute attribute) throws JVException {
+		// 查找一个属性
+		JVConfigXMLAttribute result = findAttribute(attribute);
+		// 如果没有找到则创建一个
+		if (result == null) {
+			result = new JVConfigXMLAttribute(this, attribute);
+			attributes.add(result);
+		}
+		return result;
+	}
+
 	/**
 	 * 
-	 * 根据传入的属性查找属性对象
+	 * 根据属性名称查找一个属性对象
 	 * 
-	 * @param attribute
+	 * @param attributeName
 	 * @return
+	 * @throws JVException
 	 */
+	public JVConfigXMLAttribute findAttribute(String attributeName) throws JVException {
+		JVConfigXMLAttribute result = null;
+
+		Iterator<JVConfigXMLAttribute> iter = attributes.iterator();
+		JVConfigXMLAttribute tmp;
+		while (iter.hasNext()) {
+			tmp = iter.next();
+			if (attributeName.equals((String) tmp.getName().getValue())) {
+				result = tmp;
+				break;
+			}
+		}
+		return result;
+	}
+
 	public JVConfigXMLAttribute findAttribute(Attribute attribute) {
 		JVConfigXMLAttribute result = null;
-		Iterator<JVConfigXMLAttribute> iter = getAttributesIterator();
+
+		Iterator<JVConfigXMLAttribute> iter = attributes.iterator();
 		JVConfigXMLAttribute tmp;
 		while (iter.hasNext()) {
 			tmp = iter.next();
-			if (tmp.getAttribute() == attribute) {
-				result = tmp;
-				break;
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * 
-	 * 根据传入的属性名称查找属性对象
-	 * 
-	 * @param String
-	 * @return
-	 */
-	public JVConfigXMLAttribute findAttribute(String attribute) {
-		JVConfigXMLAttribute result = null;
-		Iterator<JVConfigXMLAttribute> iter = getAttributesIterator();
-		JVConfigXMLAttribute tmp;
-		while (iter.hasNext()) {
-			tmp = iter.next();
-			if (attribute.equals(tmp.getAttribute().getName())) {
+			if (attribute == tmp.getAttribute()) {
 				result = tmp;
 				break;
 			}
@@ -168,29 +106,50 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		return result;
 	}
 
+	private void createAttributes() throws JVException {
+		// 根据属性创建属性对象集合
+		this.attributes = new HashSet<JVConfigXMLAttribute>();
+		Iterator<Attribute> iter = element.attributeIterator();
+		Attribute tmp;
+		while (iter.hasNext()) {
+			tmp = iter.next();
+			getAttribute(tmp);
+		}
+	}
+
+	/**
+	 * 根据节点创建
+	 * 
+	 * @param configXMLFile
+	 * @param element
+	 * @throws JVException
+	 */
 	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element) throws JVException {
-		//用节点名称
+		// 用节点名称
 		super(element.getName());
 
+		// 成员
 		this.configXMLFile = configXMLFile;
 		this.element = element;
 
-		// 子节点集合
-		this.subElements = new HashSet<JVConfigXMLElement>();
+		// 根据属性创建属性对象集合
+		createAttributes();
+	}
 
-		// 读取每个子节点并加入到子节点集合中
-		Iterator<Element> eiter = element.elementIterator();
-		while (eiter.hasNext()) {
-			addSubElement(eiter.next());
+	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element parentElement, String elementName) throws JVException {
+		// 用节点名称
+		super(elementName);
+
+		// 成员
+		this.configXMLFile = configXMLFile;
+		this.element = parentElement.element(elementName);
+
+		if (this.element == null) {
+			this.element = parentElement.addElement(elementName);
 		}
 
-		// 属性集合
-		this.attributes = new HashSet<JVConfigXMLAttribute>();
-		// 读取每个属性并加入到属性集合中
-		Iterator<Attribute> aiter = element.attributeIterator();
-		while (aiter.hasNext()) {
-			addAttribute(aiter.next());
-		}
+		// 根据属性创建属性对象集合
+		createAttributes();
 	}
 
 }

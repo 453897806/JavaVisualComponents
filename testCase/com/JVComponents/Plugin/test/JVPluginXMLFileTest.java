@@ -14,7 +14,7 @@ class JVPluginXMLFileTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		pluginfile = new JVConfigXMLFile(null, "/home/bob/eclipse-workspace/pluginDemo1/plugin.xml");
+		pluginfile = new JVConfigXMLFile("xmlfile", "/home/bob/eclipse-workspace/pluginDemo1/plugin.xml");
 	}
 
 	@Test

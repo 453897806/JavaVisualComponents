@@ -1,6 +1,7 @@
 package com.JVComponents.Plugin;
 
 import com.JVComponents.core.JVConfigXMLElement;
+import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;
@@ -51,6 +52,39 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	}
 
 	/**
+	 * 
+	 * 创建扩展对象的机构体，子类需要继承以创建不同类型的结构体
+	 * 
+	 * @throws JVException
+	 * 
+	 */
+	public void createPluginExtension() throws JVException {
+		// point属性
+		this.point = new JVConfigXMLAttribute(element, JVPluginConsts.attributePoint);
+	}
+
+	/**
+	 * 
+	 * 根据节点读取扩展对象的内容并检查，子类需要继承以读取不同类型的数据
+	 * 
+	 */
+	public void readPluginExtension() throws JVException {
+
+		// point属性对象内容与当前扩展点一致
+		String pointValue = (String) point.getValue().getValue();
+		// 如果point属性为空表示新建
+		if (pointValue.equals(JVConsts.emptyString)) {
+			point.getValue().setValue(getExtensionPoint());
+		} else {
+			// 不为空就要检查是否一直
+			if (!pointValue.equals(getExtensionPoint())) {
+				throw new JVException("扩展点不是<" + getExtensionPoint() + ">。", null);
+			}
+		}
+
+	}
+
+	/**
 	 * 根据已经存在的节点进行创建
 	 * 
 	 * @param container
@@ -59,33 +93,25 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	 */
 	public JVPluginExtension(JVContainer container, JVConfigXMLElement element) throws JVException {
 		super(container);
-		
-		//检查
-		if(!(container instanceof JVPluginXMLFile)){
-			throw new  JVException("不是Plugin的XML文件！",null);
+
+		// 检查
+		if (!(container instanceof JVPluginXMLFile)) {
+			throw new JVException("不是Plugin的XML文件！", null);
 		}
-		//成员
+
+		// 成员
 		this.pluginFile = (JVPluginXMLFile) container;
 		this.element = element;
-		
-		if(pluginFile != element.getConfigXMLFile()) {
-			throw new  JVException("节点与plugin文件不是同一个对象！",null);
+
+		if (pluginFile != element.getConfigXMLFile()) {
+			throw new JVException("节点与plugin文件不是同一个对象！", null);
 		}
-		
-		//point属性对象
-		point = element.findAttribute(JVPluginConsts.attributePoint);
-		if(point == null) {
-			throw new JVException("无<" + JVPluginConsts.attributePoint +">属性。", null);
-		}
-		
-		//point属性对象内容与当前扩展点一致
-		String pointValue = (String)point.getValue().getValue();
-		if(!pointValue.equals(getExtensionPoint())) {
-			throw new JVException("扩展点不是<" + getExtensionPoint() +">。", null);
-		}
-		
-		//根据节点构建属性和下级节点
-		//createSubNode();
+
+		// 创建扩展对象的机构体
+		createPluginExtension();
+
+		// 根据节点读取扩展对象内容
+		readPluginExtension();
 	}
-	
+
 }

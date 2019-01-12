@@ -23,7 +23,10 @@ public class JVComponent {
 	public JVComponent(String name) throws JVException {
 		super();
 		
-		//构建属性
+		//构建属性，如果名字为空则构建缺省名称
+		if(name == null) {
+			name = JVConsts.componentDefualtName;
+		}
 		this.name = new JVPropertyString(this, name);		
 	}
 	
