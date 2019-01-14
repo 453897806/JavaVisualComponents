@@ -25,4 +25,11 @@ public interface JVConsts {
 	 * 
 	 */
 	public static final String emptyString = "";
+	
+	/**
+	 * NULL字符串
+	 * 
+	 */
+	public static final String nullString = "null";
+	
 }

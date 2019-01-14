@@ -16,7 +16,7 @@ public class JVContainer extends JVComponent {
 	 *         私有类，侦听组件名称变化，防止组件名称重复
 	 *
 	 */
-	private class ComponentNameChangedListener implements JVPropertyChangedListener {
+	private class componentNameChangedListener implements JVPropertyChangedListener {
 
 		private JVContainer container;
 
@@ -38,13 +38,13 @@ public class JVContainer extends JVComponent {
 		/**
 		 * @param container
 		 */
-		public ComponentNameChangedListener(JVContainer container) {
+		public componentNameChangedListener(JVContainer container) {
 			super();
 			this.container = container;
 		}
 	}
 
-	private ComponentNameChangedListener cmpNameChangeListeer;
+	private componentNameChangedListener cmpNameChangeListeer;
 
 	/**
 	 * 容纳的全部组件
@@ -95,25 +95,6 @@ public class JVContainer extends JVComponent {
 
 	/**
 	 * 
-	 * 获取类的直接名称，不包含前面的包名称
-	 * 
-	 * @param className
-	 * @return
-	 */
-	private String getClassName(String className) {
-		// 组件类名
-		String result = className;
-		Integer index = result.indexOf(".");
-		while (index >= 0) {
-			result = result.substring(index +1, result.length());
-			index = result.indexOf(".");
-		}
-
-		return result;
-	}
-
-	/**
-	 * 
 	 * 根据组件获取在容器中的唯一名称
 	 * 
 	 * @param component
@@ -124,7 +105,7 @@ public class JVContainer extends JVComponent {
 		String result;
 
 		// 组件类名
-		String classname = getClassName(component.getClass().getName());
+		String classname = JVPublicUtility.getClassName(component.getClass().getName());
 		// 编号从1开始
 		Integer i = 1;
 		// 循环，直到得到名字为止
@@ -193,7 +174,7 @@ public class JVContainer extends JVComponent {
 		components = new HashSet<JVEmbedComponent>();
 
 		// 组件名称变化时的侦听，主要是防止组件名称重复
-		cmpNameChangeListeer = new ComponentNameChangedListener(this);
+		cmpNameChangeListeer = new componentNameChangedListener(this);
 	}
 
 }

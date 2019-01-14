@@ -2,6 +2,10 @@ package com.JVComponents.Plugin;
 
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVConsts;
+
+import java.util.HashSet;
+import java.util.Iterator;
+
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;
@@ -18,11 +22,16 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 
 	/**
 	 * 对应的plugin文件
+	 * 
+	 * @throws JVException
 	 */
-	private JVPluginXMLFile pluginFile;
+	public JVPluginXMLFile getPluginFile() throws JVException {
+		// 检查
+		if (!(getContainer() instanceof JVPluginXMLFile)) {
+			throw new JVException("不是Plugin的XML文件！", null);
+		}
 
-	public JVPluginXMLFile getPluginFile() {
-		return pluginFile;
+		return (JVPluginXMLFile) getContainer();
 	}
 
 	/**
@@ -58,9 +67,12 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	 * @throws JVException
 	 * 
 	 */
-	public void createPluginExtension() throws JVException {
-		// point属性
-		this.point = new JVConfigXMLAttribute(element, JVPluginConsts.attributePoint);
+	protected void createPluginExtension() throws JVException {
+		// point属性，其值为子类继承后指定的值
+		String pointValue = getExtensionPoint();
+		this.point = new JVConfigXMLAttribute(element, JVPluginConsts.attributePoint, pointValue);
+		
+		//子类继承创建其他子节点
 	}
 
 	/**
@@ -72,16 +84,41 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 
 		// point属性对象内容与当前扩展点一致
 		String pointValue = (String) point.getValue().getValue();
-		// 如果point属性为空表示新建
-		if (pointValue.equals(JVConsts.emptyString)) {
-			point.getValue().setValue(getExtensionPoint());
-		} else {
-			// 不为空就要检查是否一直
-			if (!pointValue.equals(getExtensionPoint())) {
-				throw new JVException("扩展点不是<" + getExtensionPoint() + ">。", null);
+		//检查一致性
+		if(! pointValue.equals(getExtensionPoint())) {
+			throw new JVException("扩展点不是<" + getExtensionPoint() + ">。", null);
+		}
+		
+		//子类继承读取其他节点
+
+	}
+	
+	private HashSet<JVPluginElement> pluginElements;
+	
+	public Iterator<JVPluginElement> getPluginElement(String elementType) throws JVException{
+		HashSet<JVPluginElement> result = new HashSet<JVPluginElement>();
+		
+		Iterator<JVPluginElement> iter = pluginElements.iterator();
+		JVPluginElement tmp;
+		String str;
+		while(iter.hasNext()) {
+			tmp = iter.next();
+			str = (String)tmp.getName().getValue();
+			if(elementType.equals(str)) {
+				result.add(tmp);
 			}
 		}
-
+		
+		return result.iterator();
+	}
+	
+	public JVPluginElement addPluginElement(String elementType) throws JVException {
+		//通过工厂创建
+		JVPluginElement result = JVPluginExtensionFactory.createPluginElement(this, elementType);
+		//加入集合
+		pluginElements.add(result);
+		//返回
+		return result;
 	}
 
 	/**
@@ -94,20 +131,17 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 	public JVPluginExtension(JVContainer container, JVConfigXMLElement element) throws JVException {
 		super(container);
 
-		// 检查
-		if (!(container instanceof JVPluginXMLFile)) {
-			throw new JVException("不是Plugin的XML文件！", null);
-		}
-
-		// 成员
-		this.pluginFile = (JVPluginXMLFile) container;
-		this.element = element;
-
-		if (pluginFile != element.getConfigXMLFile()) {
+		pluginElements = new HashSet<JVPluginElement>();
+		
+		//检查一致性
+		if (getPluginFile() != element.getConfigXMLFile()) {
 			throw new JVException("节点与plugin文件不是同一个对象！", null);
 		}
+		// 成员
+		this.element = element;
 
-		// 创建扩展对象的机构体
+
+		// 创建扩展对象的结构体
 		createPluginExtension();
 
 		// 根据节点读取扩展对象内容

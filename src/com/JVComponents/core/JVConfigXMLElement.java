@@ -40,7 +40,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 
 	/**
 	 * 
-	 * 根据属性名称得到一个属性对象
+	 * 根据属性名称得到一个属性对象，如果不存在则创建
 	 * 
 	 * @param attributeName
 	 * @return
@@ -51,7 +51,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		JVConfigXMLAttribute result = findAttribute(attributeName);
 		// 如果没有找到则创建一个
 		if (result == null) {
-			result = new JVConfigXMLAttribute(this, attributeName);
+			result = new JVConfigXMLAttribute(this, attributeName, JVConsts.nullString);
 			attributes.add(result);
 		}
 		return result;
@@ -106,7 +106,12 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		return result;
 	}
 
-	private void createAttributes() throws JVException {
+	/**
+	 * 针对节点创建所有属性对象
+	 * 
+	 * @throws JVException
+	 */
+	protected void createAttributes() throws JVException {
 		// 根据属性创建属性对象集合
 		this.attributes = new HashSet<JVConfigXMLAttribute>();
 		Iterator<Attribute> iter = element.attributeIterator();
@@ -136,6 +141,18 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		createAttributes();
 	}
 
+	/**
+	 * 根据节点名称，在父节点下创建
+	 * 
+	 * @param configXMLFile
+	 * @param parentElement
+	 * 	父节点
+	 * 
+	 * @param elementName
+	 * 需要创建的节点名称，如果没有则创建
+	 * 
+	 * @throws JVException
+	 */
 	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element parentElement, String elementName) throws JVException {
 		// 用节点名称
 		super(elementName);

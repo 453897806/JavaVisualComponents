@@ -51,13 +51,14 @@ public abstract class JVProperty {
 		this.valueSetHandle = handle;
 	}
 
-	/**
-	 * @return the value
-	 * 
-	 * 属性的值
-	 * 
-	 */
 	private Object value;
+	/**
+	 * 返回属性的值，值是一个Object对象，需要进行类型的强制转换
+	 * 
+	 * @return the value
+	 * 		属性的值
+	 *  
+	 */
 	public Object getValue() throws JVException {
 		Object newValue;
 		//如果属性值获取接口不为空，则利用接口完成
