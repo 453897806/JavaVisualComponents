@@ -22,11 +22,11 @@ public interface JVPluginConsts {
 	/**
 	 * 属性id
 	 */
-	public static final String attributeId = "id";
+	public static final String id = "id";
 	/**
 	 * 属性name
 	 */
-	public static final String attributeName = "name";
+	public static final String name = "name";
 	
 	/**
 	 * 属性categoryId
@@ -57,36 +57,59 @@ public interface JVPluginConsts {
 	/**
 	 *  bindings扩展
 	 */
-	public static final String extensionBindings = "bindings";
+	public static final String extensionBindings = "org.eclipse.ui.bindings";
 	
 	/**
 	 * bindings扩展下的key
 	 */
 	public static final String key = "key";
 	
+	public static final String schemeId = "schemeId";
+	public static final String schemeId_value = "org.eclipse.ui.defaultAcceleratorConfiguration";
+	public static final String contextId = "contextId";
+	public static final String contextId_value = "org.eclipse.ui.contexts.window";
+	public static final String sequence = "sequence";
+	
 	/**
 	 *  menus扩展
 	 */
-	public static final String extensionMenus = "menus";
+	public static final String extensionMenus = "org.eclipse.ui.menus";
 	
 	/**
 	 * menus扩展下的menuContribution
 	 */
 	public static final String menuContribution = "menuContribution";
 	
+	public static final String locationURI = "locationURI";
+	
 	/**
 	 * menus扩展下的menu
 	 */
 	public static final String menu = "menu";
+	public static final String menuCommand = "menuCommand";
+	public static final String label = "label";
+	public static final String mnemonic = "mnemonic";
+	public static final String icon = "icon";
 
+	/**
+	 * menus扩展下的toolbar
+	 */
+	public static final String toolbar = "toolbar";
+	public static final String toolbarCommand = "toolbarCommand";
+	public static final String tooltip = "tooltip";
+	
+	
 	/**
 	 *  handlers扩展
 	 */
-	public static final String extensionHandlers = "handlers";
+	public static final String extensionHandlers = "org.eclipse.ui.handlers";
 	
 	/**
 	 * handlers扩展下的handler
 	 */
 	public static final String handler = "handler";
+	
+	public static final String attr_class = "class";
+	public static final String commandId = "commandId";
 
 }

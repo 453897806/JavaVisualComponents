@@ -17,6 +17,14 @@ public class JVPluginExtensionFactory {
 
 	}
 
+	/**
+	 *  根据节点的名称创建扩展对象
+	 *  
+	 * @param pluginXMLFile
+	 * @param element
+	 * @return
+	 * @throws JVException
+	 */
 	public static JVPluginExtension createPluginExtension(JVPluginXMLFile pluginXMLFile, JVConfigXMLElement element)
 			throws JVException {
 		JVPluginExtension result;
@@ -47,6 +55,14 @@ public class JVPluginExtensionFactory {
 		return result;
 	}
 
+	/**
+	 * 根据节点类型创建节点
+	 * 
+	 * @param extension
+	 * @param elementType
+	 * @return
+	 * @throws JVException
+	 */
 	public static JVPluginElement createPluginElement(JVPluginExtension extension, String elementType)
 			throws JVException {
 		JVPluginElement result;
@@ -59,10 +75,18 @@ public class JVPluginExtensionFactory {
 			result = new JVPluginElementKey(extension);
 		} else if (elementType.equals(JVPluginConsts.menuContribution)) {
 			result = new JVPluginElementMenuContribution(extension);
-		} else if (elementType.equals(JVPluginConsts.menu)) {
-			result = new JVPluginElementMenu(extension);
 		} else if (elementType.equals(JVPluginConsts.handler)) {
 			result = new JVPluginElementHandler(extension);
+		} else if (elementType.equals(JVPluginConsts.menu)) {
+			result = new JVPluginElementMenu(extension);
+		} else if (elementType.equals(JVPluginConsts.menuContribution)) {
+			result = new JVPluginElementMenuContribution(extension);
+		} else if (elementType.equals(JVPluginConsts.menuCommand)) {
+			result = new JVPluginElementMenuCommand(extension);
+		} else if (elementType.equals(JVPluginConsts.toolbar)) {
+			result = new JVPluginElementToolbar(extension);
+		} else if (elementType.equals(JVPluginConsts.toolbarCommand)) {
+			result = new JVPluginElementToolbarCommand(extension);
 		} else {
 			throw new JVException("无法识别的节点", null);
 		}

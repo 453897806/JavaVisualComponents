@@ -37,26 +37,4 @@ public abstract class JVPluginElement extends JVConfigXMLElement {
 	 * @return
 	 */
 	public abstract String getElementType();
-	
-	
-	//id属性
-	private JVConfigXMLAttribute attributeId;
-	public JVConfigXMLAttribute getAttributeId() {
-		return attributeId;
-	}
-
-	//name属性
-	private JVConfigXMLAttribute attributeName;
-	public JVConfigXMLAttribute getAttributeName() {
-		return attributeName;
-	}
-	
-	@Override
-	protected void createAttributes() throws JVException {
-		super.createAttributes();
-		
-		//2个属性id和name
-		this.attributeId = getAttribute(JVPluginConsts.attributeId);
-		this.attributeName = getAttribute(JVPluginConsts.attributeName);
-	}
 }

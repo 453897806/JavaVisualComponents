@@ -1,7 +1,6 @@
 package com.JVComponents.Plugin;
 
 import com.JVComponents.core.JVConfigXMLElement;
-import com.JVComponents.core.JVConsts;
 
 import java.util.HashSet;
 import java.util.Iterator;
