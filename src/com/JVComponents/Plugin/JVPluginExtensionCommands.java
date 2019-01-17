@@ -15,36 +15,13 @@ import com.JVComponents.core.JVException;
  */
 public class JVPluginExtensionCommands extends JVPluginExtension {
 
-	private HashSet<JVPluginElementCommand> commands; 
-	private HashSet<JVPluginElementCategory> categorys;
-	
-	
 	public JVPluginExtensionCommands(JVContainer container, JVConfigXMLElement element) throws JVException {
 		super(container, element);
-		
-		commands = new HashSet<JVPluginElementCommand> (); 
 	}
 	
 	@Override
 	public String getExtensionPoint() {
-		return JVPluginConsts.extensionCommands;
+		return JVPluginConsts.JVPluginCommands.extensionCommands;
 	}
-
-	/**
-	 * 
-	 * 根据节点读取扩展对象的内容并检查，子类需要继承以读取不同类型的数据
-	 * 
-	 */
-	@Override
-	public void readPluginExtension() throws JVException {
-		super.readPluginExtension();
-		
-		//读取子节点
-		Iterator<Element> iter = getElement().getElement().elementIterator();
-		Element element;
-		while(iter.hasNext()) {
-			element = iter.next();
-			
-		}		
-	}
+	
 }

@@ -6,7 +6,7 @@ package com.JVComponents.core;
  * 常量定义
  *
  */
-public interface JVConsts {
+public final class JVConsts {
 	
 	/**
 	 * 序列化版本号

@@ -2,15 +2,15 @@ package com.JVComponents.Plugin;
 
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;
-import com.JVComponents.core.JVMenuList;
+import com.JVComponents.core.JVMenus;
 
-public class JVPluginMenuList extends JVMenuList {
+public class JVPluginMenus extends JVMenus {
 	
 	public JVPluginXMLFile getPluginXMLFile() {
 		return (JVPluginXMLFile)getContainer();
 	}
 
-	public JVPluginMenuList(JVContainer container) throws JVException {
+	public JVPluginMenus(JVContainer container) throws JVException {
 		super(container);
 	}
 

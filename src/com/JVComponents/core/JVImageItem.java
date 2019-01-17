@@ -8,8 +8,8 @@ package com.JVComponents.core;
  */
 public class JVImageItem extends JVListItem {
 
-	public JVImageList getImagelist() {
-		return (JVImageList) getList();
+	public JVImages getImagelist() {
+		return (JVImages) getList();
 	}	
 
 	public JVImageItem(String name, JVirtualList list) throws JVException {

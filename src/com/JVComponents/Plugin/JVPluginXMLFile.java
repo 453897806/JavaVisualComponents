@@ -18,7 +18,7 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	 */
 	@Override
 	public String getRootName() {
-		return JVPluginConsts.rootName;
+		return JVPluginConsts.JVPluginRoot.rootName;
 	}
 
 	public JVPluginXMLFile(String name, String filename) throws JVException {
@@ -32,9 +32,13 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	 * @throws JVException 
 	 */
 	private JVPluginExtension createExtension(JVConfigXMLElement element) throws JVException {
+		//通过工厂创建，创建过程中读取
 		JVPluginExtension result = JVPluginExtensionFactory.createPluginExtension(this, element);
+		
 		//加入扩展点
-		addCompnent(result);
+		if(result != null) {
+			addCompnent(result);
+		}
 		return result;
 	}
 		
@@ -48,7 +52,7 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 			throw new JVException("根节点不是<" + getRootName() + ">", null);
 		}
 		
-		//根据节点创建扩展对象
+		//根据节点创建扩展对象，在创建过程中即读取
 		Iterator<Element> iter = getRoot().getElement().elementIterator();
 		JVConfigXMLElement element ;
 		while(iter.hasNext()) {

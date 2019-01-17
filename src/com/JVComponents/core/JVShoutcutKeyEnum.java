@@ -6,7 +6,7 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public enum JVShoutCutKeyEnum {
+public enum JVShoutcutKeyEnum {
 	 
 	 Ctrl("Ctrl","M1"), 
 	 Shift("Shift","M2"), 
@@ -15,7 +15,7 @@ public enum JVShoutCutKeyEnum {
 	private final String keyName;
 	private final String alias;
 	
-	private JVShoutCutKeyEnum(String keyName, String alias) {
+	private JVShoutcutKeyEnum(String keyName, String alias) {
 		this.keyName = keyName;
 		this.alias = alias;
 	}

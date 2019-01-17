@@ -6,14 +6,14 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public class JVActionList extends JVirtualList {
+public class JVCommands extends JVirtualList {
 
-	public JVActionList(JVContainer container) throws JVException {
+	public JVCommands(JVContainer container) throws JVException {
 		super(container);
 	}
 
 	@Override
 	public Class<?> getItemClass() {
-		return JVActionItem.class;
+		return JVCommandItem.class;
 	}
 }

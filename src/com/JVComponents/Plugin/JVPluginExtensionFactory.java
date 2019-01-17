@@ -1,5 +1,6 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.*;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVException;
@@ -30,23 +31,23 @@ public class JVPluginExtensionFactory {
 		JVPluginExtension result;
 
 		// 根据节点名称创建不同的扩展
-		JVConfigXMLAttribute attrPoint = element.findAttribute(JVPluginConsts.attributePoint);
+		JVConfigXMLAttribute attrPoint = element.findAttribute(JVPluginConsts.JVPluginRoot.point);
 		String strpoint = (String) attrPoint.getName().getValue();
 
 		// commands扩展
-		if (strpoint.equals(JVPluginConsts.extensionCommands)) {
+		if (strpoint.equals(JVPluginConsts.JVPluginCommands.extensionCommands)) {
 			result = new JVPluginExtensionCommands(pluginXMLFile, element);
 		}
 		// Menus扩展
-		else if (strpoint.equals(JVPluginConsts.extensionMenus)) {
+		else if (strpoint.equals(JVPluginConsts.JVPluginMenus.extensionMenus)) {
 			result = new JVPluginExtensionMenus(pluginXMLFile, element);
 		}
 		// Bindings扩展
-		else if (strpoint.equals(JVPluginConsts.extensionBindings)) {
+		else if (strpoint.equals(JVPluginConsts.JVPluginBindings.extensionBindings)) {
 			result = new JVPluginExtensionBindings(pluginXMLFile, element);
 		}
 		// Handlers扩展
-		else if (strpoint.equals(JVPluginConsts.extensionHandlers)) {
+		else if (strpoint.equals(JVPluginConsts.JVPluginHandlers.extensionHandlers)) {
 			result = new JVPluginExtensionHandlers(pluginXMLFile, element);
 		} else {
 			throw new JVException("无法识别的扩展点", null);
@@ -63,33 +64,31 @@ public class JVPluginExtensionFactory {
 	 * @return
 	 * @throws JVException
 	 */
-	public static JVPluginElement createPluginElement(JVPluginExtension extension, String elementType)
+	public static JVPluginElement createPluginElement(JVPluginExtension extension, Element element)
 			throws JVException {
-		JVPluginElement result;
-
-		if (elementType.equals(JVPluginConsts.command)) {
-			result = new JVPluginElementCommand(extension);
-		} else if (elementType.equals(JVPluginConsts.category)) {
-			result = new JVPluginElementCategory(extension);
-		} else if (elementType.equals(JVPluginConsts.key)) {
-			result = new JVPluginElementKey(extension);
-		} else if (elementType.equals(JVPluginConsts.menuContribution)) {
-			result = new JVPluginElementMenuContribution(extension);
-		} else if (elementType.equals(JVPluginConsts.handler)) {
-			result = new JVPluginElementHandler(extension);
-		} else if (elementType.equals(JVPluginConsts.menu)) {
-			result = new JVPluginElementMenu(extension);
-		} else if (elementType.equals(JVPluginConsts.menuContribution)) {
-			result = new JVPluginElementMenuContribution(extension);
-		} else if (elementType.equals(JVPluginConsts.menuCommand)) {
-			result = new JVPluginElementMenuCommand(extension);
-		} else if (elementType.equals(JVPluginConsts.toolbar)) {
-			result = new JVPluginElementToolbar(extension);
-		} else if (elementType.equals(JVPluginConsts.toolbarCommand)) {
-			result = new JVPluginElementToolbarCommand(extension);
-		} else {
-			throw new JVException("无法识别的节点", null);
+		JVPluginElement result = null;
+		String elementName =  element.getName();
+		
+		if (elementName.equals(JVPluginConsts.JVPluginCommands.JVPluginCommand.command)) {
+			result = new JVPluginElementCommand(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.category)) {
+			result = new JVPluginElementCategory(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginBindings.JVPluginKey.key)) {
+			result = new JVPluginElementKey(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginMenus.JVPluginMenuContribution.menuContribution)) {
+			result = new JVPluginElementMenuContribution(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginHandlers.JVPluginHandler.handler)) {
+			result = new JVPluginElementHandler(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginMenus.JVPluginMenu.menu)) {
+			result = new JVPluginElementMenu(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand)) {
+			result = new JVPluginElementMenuCommand(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginMenus.JVPluginToolbar.toolbar)) {
+			result = new JVPluginElementToolbar(extension, element);
+		} else if (elementName.equals(JVPluginConsts.JVPluginMenus.JVPluginToolbar.toolbarCommand)) {
+			result = new JVPluginElementToolbarCommand(extension, element);
 		}
+		//无法识别的节点忽略
 
 		return result;
 	}

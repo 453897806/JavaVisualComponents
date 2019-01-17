@@ -50,14 +50,14 @@ public class JVContainer extends JVComponent {
 	 * 容纳的全部组件
 	 * 
 	 */
-	private HashSet<JVEmbedComponent> components;
+	private HashSet<JVComponent> components;
 
 	/**
 	 * @return
 	 * 
 	 * 		容器中组件遍历
 	 */
-	public Iterator<JVEmbedComponent> getComponentsIterator() {
+	public Iterator<JVComponent> getComponentsIterator() {
 		return components.iterator();
 	}
 
@@ -77,8 +77,8 @@ public class JVContainer extends JVComponent {
 		Boolean result = false;
 
 		// 遍历每个组件检查
-		Iterator<JVEmbedComponent> iterator = getComponentsIterator();
-		JVEmbedComponent tmp;
+		Iterator<JVComponent> iterator = getComponentsIterator();
+		JVComponent tmp;
 		String str;
 		while (iterator.hasNext()) {
 			tmp = iterator.next();
@@ -101,7 +101,7 @@ public class JVContainer extends JVComponent {
 	 * @return
 	 * @throws JVException
 	 */
-	private String getComponentName(JVEmbedComponent component) throws JVException {
+	private String getComponentName(JVComponent component) throws JVException {
 		String result;
 
 		// 组件类名
@@ -131,7 +131,7 @@ public class JVContainer extends JVComponent {
 	 * @param newName
 	 * @throws JVException
 	 */
-	private void setComponentName(JVEmbedComponent component, String newName) throws JVException {
+	private void setComponentName(JVComponent component, String newName) throws JVException {
 		component.getName().setValue(newName);
 	}
 
@@ -142,7 +142,7 @@ public class JVContainer extends JVComponent {
 	 * @throws JVException
 	 * 
 	 */
-	public void addCompnent(JVEmbedComponent component) throws JVException {
+	public void addCompnent(JVComponent component) throws JVException {
 		if (!components.contains(component)) {
 			// 设置组件名称变化事件处理句柄
 			component.getName().addListener(cmpNameChangeListeer);
@@ -163,15 +163,40 @@ public class JVContainer extends JVComponent {
 		}
 	}
 
+	/**
+	 * 移除一个组件
+	 * @param component
+	 */
 	public void removeComponent(JVEmbedComponent component) {
 		components.remove(component);
+	}
+	
+	/**
+	 * 根据组件名称查找
+	 * @param componentName
+	 * @return
+	 * @throws JVException
+	 */
+	public JVComponent findComponent(String componentName) throws JVException {
+		JVComponent result = null;
+		Iterator<JVComponent> iter = getComponentsIterator();
+		JVComponent tmp ;
+		while (iter.hasNext()) {
+			tmp = iter.next();
+			if(componentName.equals((String)tmp.getName().getValue())) {
+				result = tmp;
+				break;
+			}
+		}
+		
+		return result;		
 	}
 
 	public JVContainer(String name) throws JVException {
 		super(name);
 
 		// 容纳的全部组件
-		components = new HashSet<JVEmbedComponent>();
+		components = new HashSet<JVComponent>();
 
 		// 组件名称变化时的侦听，主要是防止组件名称重复
 		cmpNameChangeListeer = new componentNameChangedListener(this);

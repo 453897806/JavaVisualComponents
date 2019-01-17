@@ -6,9 +6,9 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public class JVMenuList extends JVirtualList {
+public class JVMenus extends JVirtualList {
 
-	public JVMenuList(JVContainer container) throws JVException {
+	public JVMenus(JVContainer container) throws JVException {
 		super(container);
 	}
 

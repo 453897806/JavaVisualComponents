@@ -1,48 +1,64 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.Element;
+
+import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementKey extends JVPluginElement {
 	
 	/**
-	 * commandId属性
+	 * command对象
 	 */
-	private JVConfigXMLAttribute commandId;
+	private JVPluginElementCommand command;
 
-	public JVConfigXMLAttribute getCommandId() {
-		return commandId;
+	public JVPluginElementCommand getCommand() {
+		return command;
 	}
 
-	private JVConfigXMLAttribute schemeId;
+	public void setCommand(JVPluginElementCommand command) {
+		this.command = command;
+	}
+
+	public JVConfigXMLAttribute getSchemeId() throws JVException {
+		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId_value;
+		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId, str);
+	}
+
+	public JVConfigXMLAttribute getContextId() throws JVException {
+		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.contextId_value;
+		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.contextId, str);
+	}
+
+	public JVConfigXMLAttribute getSequence() throws JVException {
+		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.sequence_value;
+		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.sequence, str);
+	}
+
+	public JVPluginElementKey(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
+	}
 	
-	public JVConfigXMLAttribute getSchemeId() {
-		return schemeId;
-	}
-
-	private JVConfigXMLAttribute contextId;
-	public JVConfigXMLAttribute getContextId() {
-		return contextId;
-	}
-
-	private JVConfigXMLAttribute sequence;
-	public JVConfigXMLAttribute getSequence() {
-		return sequence;
-	}
-
-	public JVPluginElementKey(JVPluginExtension extension) throws JVException {
-		super(extension);
+	/**
+	 * 父类读取commandId属性后，需要根据该值找到command对象
+	 * @throws JVException 
+	 */
+	@Override
+	public void createPluginElment() throws JVException {
+		super.createPluginElment();
 		
-		// 成员
-		this.commandId = getAttribute(JVPluginConsts.commandId);
-		this.schemeId = getAttribute(JVPluginConsts.schemeId);
-		this.contextId = getAttribute(JVPluginConsts.contextId);
-		this.sequence = getAttribute(JVPluginConsts.sequence);
+		//根据commandId值找到command对象
+		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
+		JVComponent cmp = findComponentByName(str);
+		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
+			this.command = (JVPluginElementCommand) cmp;
+		}
 	}
 
 	@Override
 	public String getElementType() {
-		return JVPluginConsts.key;
+		return JVPluginConsts.JVPluginBindings.JVPluginKey.key;
 	}
 
 }

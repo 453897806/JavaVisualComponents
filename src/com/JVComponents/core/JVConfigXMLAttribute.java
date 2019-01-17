@@ -42,23 +42,37 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	}
 
 	/**
-	 * 属性值变化侦听执行对象 当属性值变化时，触发该侦听，将新值写入对应的属性中
+	 * 属性值的读写都是针对XML节点的attribute进行
 	 * 
 	 * @author bob
 	 *
 	 */
-	private class JVAttributeChangedListener implements JVPropertyChangedListener {
+	private class JVAttributeValueHandler implements JVPropertyGetHandler,JVPropertySetHandler {
 
 		private JVConfigXMLAttribute owner;
 
+		
+		/**
+		 * @param property
+		 * @param value
+		 * @return 
+		 *   属性赋值后的新值，缺省等于传入的值
+		 */
 		@Override
-		public void handleEvent(JVPropertyChangedEvent event) throws JVException {
-			// 当属性值变化时，需要同时写XML的属性值
-			String str = (String) event.getNewValue();
-			owner.getAttribute().setValue(str);
+		public void setPropertyValue(JVProperty property, Object value) {
+			//设置节点属性值
+			this.owner.attribute.setValue((String)value);
+		}
+		
+
+		@Override
+		public Object getPropertyValue(JVProperty property) {
+			//返回节点属性值
+			return this.owner.attribute.getValue();
 		}
 
-		public JVAttributeChangedListener(JVConfigXMLAttribute owner) {
+
+		public JVAttributeValueHandler(JVConfigXMLAttribute owner) {
 			super();
 			this.owner = owner;
 		}
@@ -68,13 +82,18 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 		// 成员
 		this.element = element;
 
-		// 根据名称取得属性对象，如果没有则创建
+		// 根据名称取得属性对象
+		if(attribute == null) {
+			throw new JVException("节点没有属性对象!",null);
+		}
 		this.attribute = attribute;
 
 		// 属性值
 		this.value = new JVPropertyString(this, this.attribute.getValue());
 		// 增加侦听，当属性值变化时，需要同时写XML的属性值
-		this.value.addListener(new JVAttributeChangedListener(this));
+		JVAttributeValueHandler valueHandler = new JVAttributeValueHandler(this);
+		this.value.setValueGetHandler(valueHandler);
+		this.value.setValueSetHandler(valueHandler);
 	}
 
 	/**

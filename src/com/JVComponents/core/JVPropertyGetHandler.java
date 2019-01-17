@@ -6,7 +6,7 @@ package com.JVComponents.core;
  * 属性值的获取方法
  */
 
-public interface JVPropertyGetHandle {
+public interface JVPropertyGetHandler {
 
 	/**
 	 * @return the getValue

@@ -46,12 +46,12 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @return
 	 * @throws JVException
 	 */
-	public JVConfigXMLAttribute getAttribute(String attributeName) throws JVException {
+	public JVConfigXMLAttribute getAttribute(String attributeName, String attributValue) throws JVException {
 		// 查找一个属性
 		JVConfigXMLAttribute result = findAttribute(attributeName);
 		// 如果没有找到则创建一个
 		if (result == null) {
-			result = new JVConfigXMLAttribute(this, attributeName, JVConsts.nullString);
+			result = new JVConfigXMLAttribute(this, attributeName, attributValue);
 			attributes.add(result);
 		}
 		return result;
@@ -121,6 +121,18 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 			getAttribute(tmp);
 		}
 	}
+	
+	private void onCreate(JVConfigXMLFile configXMLFile, Element element) throws JVException{
+		// 成员
+		this.configXMLFile = configXMLFile;
+		this.element = element;
+
+		//加入到父组件集合中
+		this.configXMLFile.addCompnent(this);
+
+		// 根据属性创建属性对象集合
+		createAttributes();
+	}
 
 	/**
 	 * 根据节点创建
@@ -133,12 +145,8 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		// 用节点名称
 		super(element.getName());
 
-		// 成员
-		this.configXMLFile = configXMLFile;
-		this.element = element;
-
-		// 根据属性创建属性对象集合
-		createAttributes();
+		//处理创建内容
+		onCreate(configXMLFile, element);
 	}
 
 	/**
@@ -156,17 +164,15 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element parentElement, String elementName) throws JVException {
 		// 用节点名称
 		super(elementName);
-
-		// 成员
-		this.configXMLFile = configXMLFile;
-		this.element = parentElement.element(elementName);
-
-		if (this.element == null) {
-			this.element = parentElement.addElement(elementName);
+		
+		//创建节点
+		Element element = parentElement.element(elementName);
+		if (element == null) {
+			element = parentElement.addElement(elementName);
 		}
 
-		// 根据属性创建属性对象集合
-		createAttributes();
+		//处理创建内容
+		onCreate(configXMLFile, element);
 	}
 
 }

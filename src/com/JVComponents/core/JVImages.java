@@ -6,9 +6,9 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public class JVImageList extends JVirtualList {
+public class JVImages extends JVirtualList {
 
-	public JVImageList(JVContainer container) throws JVException {
+	public JVImages(JVContainer container) throws JVException {
 		super(container);
 	}
 	

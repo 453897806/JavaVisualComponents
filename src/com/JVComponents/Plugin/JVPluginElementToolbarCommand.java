@@ -1,52 +1,54 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.Element;
+
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementToolbarCommand extends JVPluginElement {
 
 	/**
-	 * commandId属性
+	 * command对象
 	 */
-	private JVConfigXMLAttribute commandId;
+	private JVPluginElementCommand command;
 
-	public JVConfigXMLAttribute getCommandId() {
-		return commandId;
+	public JVPluginElementCommand getCommand() {
+		return command;
+	}
+
+	public void setCommand(JVPluginElementCommand command) {
+		this.command = command;
 	}
 
 	/**
-	 * id属性
+	 * 得到id属性
+	 * 
+	 * @throws JVException 
 	 */
-	private JVConfigXMLAttribute id;
-
-	public JVConfigXMLAttribute getId() {
-		return id;
+	public JVConfigXMLAttribute getId() throws JVException {
+		//缺省id = 组件名称（容器内唯一）
+		String id = (String)this.getName().getValue();
+		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
 	}
 
-	private JVConfigXMLAttribute tooltip;
 
-	public JVConfigXMLAttribute getTooltip() {
-		return tooltip;
+	public JVConfigXMLAttribute getTooltip() throws JVException{
+		//hint
+		return getAttribute(JVPluginConsts.JVPluginMenus.JVPluginToolbar.tooltip, "");
 	}
 
-	private JVConfigXMLAttribute icon;
-
-	public JVConfigXMLAttribute getIcon() {
-		return icon;
+	public JVConfigXMLAttribute getIcon() throws JVException{
+		//图片文件位置
+		return getAttribute(JVPluginConsts.JVPluginRoot.id, "");
 	}
 
-	public JVPluginElementToolbarCommand(JVPluginExtension extension) throws JVException {
-		super(extension);
-		// 成员
-		commandId = getAttribute(JVPluginConsts.commandId);
-		id = getAttribute(JVPluginConsts.id);
-		tooltip = getAttribute(JVPluginConsts.tooltip);
-		icon = getAttribute(JVPluginConsts.icon);
+	public JVPluginElementToolbarCommand(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
 	}
 
 	@Override
 	public String getElementType() {
-		return JVPluginConsts.menuCommand;
+		return JVPluginConsts.JVPluginMenus.JVPluginToolbar.toolbarCommand;
 	}
 
 }

@@ -1,51 +1,70 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.Element;
+
+import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementMenuCommand extends JVPluginElement {
 	
 	/**
-	 * commandId属性
+	 * command对象
 	 */
-	private JVConfigXMLAttribute commandId;
+	private JVPluginElementCommand command;
 
-	public JVConfigXMLAttribute getCommandId() {
-		return commandId;
+	public JVPluginElementCommand getCommand() {
+		return command;
+	}
+
+	public void setCommand(JVPluginElementCommand command) {
+		this.command = command;
 	}
 	
 	/**
-	 * id属性
+	 * 得到id属性
+	 * 
+	 * @throws JVException 
 	 */
-	private JVConfigXMLAttribute id;
-
-	public JVConfigXMLAttribute getId() {
-		return id;
+	public JVConfigXMLAttribute getId() throws JVException {
+		//缺省id = 组件名称（容器内唯一）
+		String id = (String)this.getName().getValue();
+		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
 	}
 	
-	private JVConfigXMLAttribute mnemonic;
+	public JVConfigXMLAttribute getMnemonic() throws JVException {
+		String str = JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic_value;
+		return getAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic, str);
+	}
+
+	public JVConfigXMLAttribute getIcon() throws JVException{
+		//图片文件位置
+		return getAttribute(JVPluginConsts.JVPluginRoot.id, "");
+	}
+
+	public JVPluginElementMenuCommand(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
+	}
 	
-	public JVConfigXMLAttribute getMnemonic() {
-		return mnemonic;
-	}
-
-	private JVConfigXMLAttribute icon;
-	public JVConfigXMLAttribute getIcon() {
-		return icon;
-	}
-
-	public JVPluginElementMenuCommand(JVPluginExtension extension) throws JVException {
-		super(extension);
-		// 成员
-		commandId = getAttribute(JVPluginConsts.commandId);
-		id = getAttribute(JVPluginConsts.id);
-		mnemonic = getAttribute(JVPluginConsts.mnemonic);
-		icon = getAttribute(JVPluginConsts.icon);
+	/**
+	 * 父类读取commandId属性后，需要根据该值找到command对象
+	 * @throws JVException 
+	 */
+	@Override
+	public void createPluginElment() throws JVException {
+		super.createPluginElment();
+		
+		//根据commandId值找到command对象
+		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
+		JVComponent cmp = findComponentByName(str);
+		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
+			this.command = (JVPluginElementCommand) cmp;
+		}
 	}
 
 	@Override
 	public String getElementType() {
-		return JVPluginConsts.menuCommand;
+		return JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand;
 	}
 
 }

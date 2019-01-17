@@ -7,9 +7,9 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public class JVPluginMenu extends JVMenuList {
+public class JVPluginMenus extends JVMenus {
 
-	public JVPluginMenu(JVContainer container) throws JVException {
+	public JVPluginMenus(JVContainer container) throws JVException {
 		super(container);
 	}
 

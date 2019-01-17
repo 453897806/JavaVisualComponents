@@ -6,18 +6,18 @@ package com.JVComponents.core;
  * @author bob
  *
  */
-public class JVActionItem extends JVListItem {
+public class JVCommandItem extends JVListItem {
 	
 	/**
 	 * Action的快捷键
 	 */
-	private JVShoutCutItem shoutCutItem;
+	private JVShoutcutItem shoutCutItem;
 
-	public JVShoutCutItem getShoutCutItem() {
+	public JVShoutcutItem getShoutCutItem() {
 		return shoutCutItem;
 	}
 
-	public void setShoutCutItem(JVShoutCutItem shoutCutItem) {
+	public void setShoutCutItem(JVShoutcutItem shoutCutItem) {
 		this.shoutCutItem = shoutCutItem;
 	}
 
@@ -43,11 +43,11 @@ public class JVActionItem extends JVListItem {
 		return caption;
 	}
 
-	public JVActionList getActionlist() {
-		return (JVActionList) getList();
+	public JVCommands getActionlist() {
+		return (JVCommands) getList();
 	}
 
-	public JVActionItem(String name, JVirtualList list) throws JVException {
+	public JVCommandItem(String name, JVirtualList list) throws JVException {
 		super(name, list);
 		
 		//成员

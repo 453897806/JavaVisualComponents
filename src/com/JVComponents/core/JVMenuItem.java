@@ -24,13 +24,13 @@ public class JVMenuItem extends JVListItem {
 	/**
 	 * 该菜单对应的执行代码
 	 */
-	private JVActionItem actionItem;
+	private JVCommandItem actionItem;
 	
-	public JVActionItem getActionItem() {
+	public JVCommandItem getActionItem() {
 		return actionItem;
 	}
 
-	public void setActionItem(JVActionItem actionItem) throws JVException {
+	public void setActionItem(JVCommandItem actionItem) throws JVException {
 		if(this.actionItem != actionItem) {
 			this.actionItem = actionItem;
 			//复制Action的图片和caption属性
@@ -57,8 +57,8 @@ public class JVMenuItem extends JVListItem {
 		return caption;
 	}
 	
-	public JVMenuList getMenulist() {
-		return (JVMenuList) getList();
+	public JVMenus getMenulist() {
+		return (JVMenus) getList();
 	}
 
 	public JVMenuItem(String name, JVirtualList list) throws JVException {

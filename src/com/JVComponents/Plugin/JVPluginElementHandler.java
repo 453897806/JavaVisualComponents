@@ -1,43 +1,59 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.Element;
+
+import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
+import com.JVComponents.core.JVConsts;
 
 public class JVPluginElementHandler extends JVPluginElement {
 	
 	/**
-	 * commandId属性
+	 * command对象
 	 */
-	private JVConfigXMLAttribute commandId;
+	private JVPluginElementCommand command;
 
-	public JVConfigXMLAttribute getCommandId() {
-		return commandId;
+	public JVPluginElementCommand getCommand() {
+		return command;
+	}
+
+	public void setCommand(JVPluginElementCommand command) {
+		this.command = command;
 	}
 
 	/**
 	 * class属性
+	 * @throws JVException 
 	 */
-	private JVConfigXMLAttribute attr_class;
-
-	public JVConfigXMLAttribute getAttr_class() {
-		return attr_class;
+	public JVConfigXMLAttribute getAttr_class() throws JVException {
+		String str = JVConsts.nullString;
+		return getAttribute(JVPluginConsts.JVPluginRoot.attr_class, str);
 	}
 
-	public JVPluginElementHandler(JVPluginExtension extension) throws JVException {
-		super(extension);
+	public JVPluginElementHandler(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
+	}
+	
+	/**
+	 * 父类读取commandId属性后，需要根据该值找到command对象
+	 * @throws JVException 
+	 */
+	@Override
+	public void createPluginElment() throws JVException {
+		super.createPluginElment();
+		
+		//根据commandId值找到command对象
+		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
+		JVComponent cmp = findComponentByName(str);
+		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
+			this.command = (JVPluginElementCommand) cmp;
+		}
 	}
 
 	@Override
 	public String getElementType() {
-		return JVPluginConsts.handler;
-	}
-	
-	@Override
-	protected void createAttributes() throws JVException {
-		super.createAttributes();
-		// 2个属性
-		this.commandId = getAttribute(JVPluginConsts.commandId);
-		this.attr_class = getAttribute(JVPluginConsts.attr_class);
+		return JVPluginConsts.JVPluginHandlers.JVPluginHandler.handler;
 	}
 
 }

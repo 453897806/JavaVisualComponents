@@ -5,7 +5,7 @@ package com.JVComponents.core;
  *
  * 属性值设置方法
  */
-public interface JVPropertySetHandle {
+public interface JVPropertySetHandler {
 
 	/**
 	 * @param property

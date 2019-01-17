@@ -12,19 +12,7 @@ public class JVPluginExtensionMenus extends JVPluginExtension {
 
 	@Override
 	public String getExtensionPoint() {
-		return JVPluginConsts.extensionMenus;
-	}
-
-	@Override
-	public void createPluginExtension() throws JVException {
-		// TODO Auto-generated method stub
-		super.createPluginExtension();
-	}
-
-	@Override
-	public void readPluginExtension() throws JVException {
-		// TODO Auto-generated method stub
-		super.readPluginExtension();
+		return JVPluginConsts.JVPluginMenus.extensionMenus;
 	}
 
 }

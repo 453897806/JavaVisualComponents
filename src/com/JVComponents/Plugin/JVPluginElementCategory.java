@@ -1,5 +1,7 @@
 package com.JVComponents.Plugin;
 
+import org.dom4j.Element;
+
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
 
@@ -12,38 +14,33 @@ import com.JVComponents.core.JVException;
 public class JVPluginElementCategory extends JVPluginElement {
 
 	/**
-	 * id属性
+	 * 得到id属性
+	 * 
+	 * @throws JVException 
 	 */
-	private JVConfigXMLAttribute id;
-
-	public JVConfigXMLAttribute getId() {
-		return id;
+	public JVConfigXMLAttribute getId() throws JVException {
+		//缺省id = 组件名称（容器内唯一）
+		String id = (String)this.getName().getValue();
+		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
 	}
 
 	/**
-	 * name属性
+	 * 得到name属性
+	 * 
+	 * @throws JVException 
 	 */
-	private JVConfigXMLAttribute attr_name;
-
-	public JVConfigXMLAttribute getAttr_ame() {
-		return attr_name;
+	public JVConfigXMLAttribute getAttr_name() throws JVException {
+		//缺省名称 = 组件名称（容器内唯一）
+		String name = (String)this.getName().getValue();
+		return getAttribute(JVPluginConsts.JVPluginRoot.name, name);
 	}
 
-	public JVPluginElementCategory(JVPluginExtension extension) throws JVException {
-		super(extension);
-	}
-
-	@Override
-	protected void createAttributes() throws JVException {
-		super.createAttributes();
-		// 2个属性id和name
-		this.id = getAttribute(JVPluginConsts.id);
-		this.attr_name = getAttribute(JVPluginConsts.name);
+	public JVPluginElementCategory(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
 	}
 
 	@Override
 	public String getElementType() {
-		return JVPluginConsts.category;
+		return JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.category;
 	}
-
 }

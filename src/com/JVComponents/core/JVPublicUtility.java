@@ -2,6 +2,7 @@ package com.JVComponents.core;
 
 /**
  * 公共函数集合
+ * 
  * @author bob
  *
  */
@@ -20,12 +21,12 @@ public class JVPublicUtility {
 	public static String getClassName(String className) {
 		// 组件类名
 		String result = className;
-		Integer index = result.indexOf(".");
-		while (index >= 0) {
-			result = result.substring(index +1, result.length());
-			index = result.indexOf(".");
+		Integer index = result.lastIndexOf(".");
+		if (index >= 0) {
+			result = result.substring(index + 1, result.length());
 		}
 
 		return result;
 	}
+
 }

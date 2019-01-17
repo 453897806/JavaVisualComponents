@@ -1,6 +1,6 @@
 package com.JVComponents.core;
 
-public class JVShoutCutItem extends JVListItem {
+public class JVShoutcutItem extends JVListItem {
 	
 	/**
 	 * 快捷键
@@ -10,12 +10,12 @@ public class JVShoutCutItem extends JVListItem {
 	/**
 	 * 功能键 
 	 */
-	private JVShoutCutKeyEnum speKey;
+	private JVShoutcutKeyEnum speKey;
 
-	public JVShoutCutItem(String name, JVirtualList list) throws JVException {
+	public JVShoutcutItem(String name, JVirtualList list) throws JVException {
 		super(name, list);
 		
-		speKey = JVShoutCutKeyEnum.Ctrl;
+		speKey = JVShoutcutKeyEnum.Ctrl;
 		//缺省快捷键
 		key = new JVPropertyString(this, "1");
 	}
@@ -24,7 +24,7 @@ public class JVShoutCutItem extends JVListItem {
 		return key;
 	}
 
-	public JVShoutCutKeyEnum getSpeKey() {
+	public JVShoutcutKeyEnum getSpeKey() {
 		return speKey;
 	}
 }
