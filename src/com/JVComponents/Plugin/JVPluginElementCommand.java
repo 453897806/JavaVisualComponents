@@ -29,7 +29,8 @@ public class JVPluginElementCommand extends JVPluginElement {
 	}
 
 	public JVPluginElementCommand(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+		//用id命名
+		super(extension, element, element.attributeValue(JVPluginConsts.JVPluginRoot.id));
 	}
 
 	private JVPluginElementCategory category;

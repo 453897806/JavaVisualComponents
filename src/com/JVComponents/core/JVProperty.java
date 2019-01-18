@@ -79,7 +79,7 @@ public abstract class JVProperty {
 	}
 
 	public void setValue(Object value) throws JVException {
-		if(!readOnly) {
+		if(readOnly) {
 			throw new JVException("只读属性不允许修改值！", null);
 		}
 		
@@ -103,7 +103,6 @@ public abstract class JVProperty {
 			if (valueSetHandler != null) {
 				valueSetHandler.setPropertyValue(this, value);
 			}
-			;
 		}
 	}
 

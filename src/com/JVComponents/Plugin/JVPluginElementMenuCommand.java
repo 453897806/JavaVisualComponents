@@ -4,6 +4,7 @@ import org.dom4j.Element;
 
 import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementMenuCommand extends JVPluginElement {
@@ -43,7 +44,8 @@ public class JVPluginElementMenuCommand extends JVPluginElement {
 	}
 
 	public JVPluginElementMenuCommand(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+		//用缺省组件名命名
+		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
 	}
 	
 	/**

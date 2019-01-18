@@ -1,8 +1,5 @@
 package com.JVComponents.Plugin;
 
-import java.util.*;
-import org.dom4j.*;
-
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;

@@ -101,7 +101,7 @@ public class JVContainer extends JVComponent {
 	 * @return
 	 * @throws JVException
 	 */
-	private String getComponentName(JVComponent component) throws JVException {
+	protected String getComponentName(JVComponent component) throws JVException {
 		String result;
 
 		// 组件类名

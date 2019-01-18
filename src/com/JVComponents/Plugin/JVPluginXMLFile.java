@@ -5,6 +5,7 @@ import org.dom4j.*;
 
 import com.JVComponents.core.JVConfigXMLElement;
 import com.JVComponents.core.JVConfigXMLFile;
+import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
 
 public class JVPluginXMLFile extends JVConfigXMLFile {
@@ -23,8 +24,20 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 
 	public JVPluginXMLFile(String name, String filename) throws JVException {
 		super(name, filename);
+		
+		pluginExtensions = new HashSet<JVPluginExtension>();
 	}
 	
+	private HashSet<JVPluginExtension> pluginExtensions;
+	
+	/**
+	 * 扩展列表
+	 * @return
+	 */
+	public HashSet<JVPluginExtension> getPluginExtensions() {
+		return pluginExtensions;
+	}
+
 	/**
 	 * 根据节点对象创建扩展对象
 	 * 
@@ -32,12 +45,12 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	 * @throws JVException 
 	 */
 	private JVPluginExtension createExtension(JVConfigXMLElement element) throws JVException {
-		//通过工厂创建，创建过程中读取
+		//通过工厂创建，创建过程中读取，并自动加入容器内
 		JVPluginExtension result = JVPluginExtensionFactory.createPluginExtension(this, element);
 		
 		//加入扩展点
 		if(result != null) {
-			addCompnent(result);
+			pluginExtensions.add(result);
 		}
 		return result;
 	}
@@ -56,7 +69,7 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 		Iterator<Element> iter = getRoot().getElement().elementIterator();
 		JVConfigXMLElement element ;
 		while(iter.hasNext()) {
-			element = new JVConfigXMLElement(this, iter.next());
+			element = new JVConfigXMLElement(this, iter.next(), JVConsts.componentDefualtName);
 			createExtension(element);
 		}
 	}

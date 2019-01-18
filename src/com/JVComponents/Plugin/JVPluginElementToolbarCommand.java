@@ -3,6 +3,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementToolbarCommand extends JVPluginElement {
@@ -43,7 +44,8 @@ public class JVPluginElementToolbarCommand extends JVPluginElement {
 	}
 
 	public JVPluginElementToolbarCommand(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+		//用缺省组件名命名
+		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
 	}
 
 	@Override

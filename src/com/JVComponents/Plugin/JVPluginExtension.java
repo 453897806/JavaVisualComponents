@@ -99,6 +99,10 @@ public abstract class JVPluginExtension extends JVirtualComponent {
 
 	private HashSet<JVPluginElement> pluginElements;
 	
+	public HashSet<JVPluginElement> getPluginElements() {
+		return pluginElements;
+	}
+
 	/**
 	 * 根据节点名称返回对应子节点集合
 	 * 

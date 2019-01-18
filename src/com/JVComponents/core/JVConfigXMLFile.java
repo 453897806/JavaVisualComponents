@@ -59,8 +59,8 @@ public class JVConfigXMLFile extends JVConfigFile {
 		if(element == null) {
 			element = document.addElement(getRootName());
 		}
-		
-		return new JVConfigXMLElement(this, element);
+		//组件名称
+		return new JVConfigXMLElement(this, element, element.getName());
 	}
 
 	public JVConfigXMLFile(String name, String filename) throws JVException {

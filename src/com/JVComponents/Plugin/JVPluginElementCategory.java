@@ -36,7 +36,8 @@ public class JVPluginElementCategory extends JVPluginElement {
 	}
 
 	public JVPluginElementCategory(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+		//用id命名
+		super(extension, element, element.attributeValue(JVPluginConsts.JVPluginRoot.id));
 	}
 
 	@Override

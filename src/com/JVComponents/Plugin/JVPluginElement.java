@@ -22,9 +22,9 @@ public abstract class JVPluginElement extends JVConfigXMLElement {
 		return extension;
 	}
 
-	public JVPluginElement(JVPluginExtension extension, Element element) throws JVException {
+	public JVPluginElement(JVPluginExtension extension, Element element, String componentName) throws JVException {
 		// 父类创建过程中自动读取了属性
-		super(extension.getPluginFile(), element);
+		super(extension.getPluginFile(), element, componentName);
 
 		// 成员
 		this.extension = extension;
@@ -63,7 +63,7 @@ public abstract class JVPluginElement extends JVConfigXMLElement {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 
 	 * 返回节点类型，子类需要继承

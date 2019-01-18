@@ -19,6 +19,16 @@ public class JVPluginElementMenu extends JVPluginElement {
 		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
 	}
 
+	public JVPluginElementMenuCommand menuCommand;
+	
+	/**
+	 *  menu对应的command
+	 * @return
+	 */
+	public JVPluginElementMenuCommand getMenuCommand() {
+		return menuCommand;
+	}
+
 	/**
 	 * 得到label属性
 	 * 
@@ -36,9 +46,8 @@ public class JVPluginElementMenu extends JVPluginElement {
 	}
 
 	public JVPluginElementMenu(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
-		
-		this.subMenus = new ArrayList<JVPluginElementMenu> ();
+		//用id命名
+		super(extension, element, element.attributeValue(JVPluginConsts.JVPluginRoot.id));
 	}
 	
 	private ArrayList<JVPluginElementMenu> subMenus;
@@ -55,17 +64,28 @@ public class JVPluginElementMenu extends JVPluginElement {
 	public void createPluginElment() throws JVException {
 		super.createPluginElment();
 		
+		//创建成员，避免下面使用时报null错误
+		this.subMenus = new ArrayList<JVPluginElementMenu> ();
+		
+		//根据子节点创建下级menu
 		Iterator<Element> iter = getElement().elementIterator();
 		Element element;
 		JVPluginElement pluginElement;
 		while(iter.hasNext()) {
 			element = iter.next();
+			//检查节点名称，由于menuCommand的节点名称仍然是command，所以需要作调整
+			String str = element.getName();
+			if(str.equals(JVPluginConsts.JVPluginCommands.JVPluginCommand.command)){
+				element.setName(JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand);
+			}
 			
 			//通过工厂创建，创建过程中读取内容
 			pluginElement = JVPluginExtensionFactory.createPluginElement(getExtension(), element);
-			//加入集合
+			//如果是菜单则加入子菜单集合
 			if(pluginElement instanceof JVPluginElementMenu) {
 				subMenus.add((JVPluginElementMenu)pluginElement);
+			}else if(pluginElement instanceof JVPluginElementMenuCommand){
+				menuCommand = (JVPluginElementMenuCommand)pluginElement;				
 			}
 		}
 	}

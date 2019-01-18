@@ -32,7 +32,7 @@ public class JVPluginExtensionFactory {
 
 		// 根据节点名称创建不同的扩展
 		JVConfigXMLAttribute attrPoint = element.findAttribute(JVPluginConsts.JVPluginRoot.point);
-		String strpoint = (String) attrPoint.getName().getValue();
+		String strpoint = (String) attrPoint.getValue().getValue();
 
 		// commands扩展
 		if (strpoint.equals(JVPluginConsts.JVPluginCommands.extensionCommands)) {

@@ -27,7 +27,6 @@ public class JVEmbedComponent extends JVComponent {
 
 		//由容器生成组件名称
 		container.addCompnent(this);
-
 	}
 
 }

@@ -33,10 +33,15 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		return element;
 	}
 
+	
+	private HashSet<JVConfigXMLAttribute> attributes;
+	
 	/**
 	 * 属性集合
 	 */
-	private HashSet<JVConfigXMLAttribute> attributes;
+	public HashSet<JVConfigXMLAttribute> getAttributes() {
+		return attributes;
+	}
 
 	/**
 	 * 
@@ -141,35 +146,9 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @param element
 	 * @throws JVException
 	 */
-	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element) throws JVException {
-		// 用节点名称
-		super(element.getName());
-
-		//处理创建内容
-		onCreate(configXMLFile, element);
-	}
-
-	/**
-	 * 根据节点名称，在父节点下创建
-	 * 
-	 * @param configXMLFile
-	 * @param parentElement
-	 * 	父节点
-	 * 
-	 * @param elementName
-	 * 需要创建的节点名称，如果没有则创建
-	 * 
-	 * @throws JVException
-	 */
-	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element parentElement, String elementName) throws JVException {
-		// 用节点名称
-		super(elementName);
-		
-		//创建节点
-		Element element = parentElement.element(elementName);
-		if (element == null) {
-			element = parentElement.addElement(elementName);
-		}
+	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element, String componentName) throws JVException {
+		// 组件名称
+		super(componentName);
 
 		//处理创建内容
 		onCreate(configXMLFile, element);

@@ -32,7 +32,8 @@ public class JVPluginElementHandler extends JVPluginElement {
 	}
 
 	public JVPluginElementHandler(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+		//用缺省组件名命名
+		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
 	}
 	
 	/**
