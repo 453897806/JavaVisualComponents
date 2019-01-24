@@ -1,5 +1,6 @@
-package com.JVComponents.Plugin;
+package com.VisualJavaComponents.core;
 
+import com.JVComponents.Plugin.JVPluginXMLFile;
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVException;
 import com.JVComponents.core.JVMenus;

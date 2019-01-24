@@ -1,7 +1,14 @@
-package com.JVComponents.Plugin;
+package com.VisualJavaComponents.core;
 
 import org.dom4j.Element;
 
+import com.JVComponents.Plugin.JVPluginConsts;
+import com.JVComponents.Plugin.JVPluginElement;
+import com.JVComponents.Plugin.JVPluginElementCommand;
+import com.JVComponents.Plugin.JVPluginExtension;
+import com.JVComponents.Plugin.JVPluginConsts.JVPluginMenus;
+import com.JVComponents.Plugin.JVPluginConsts.JVPluginRoot;
+import com.JVComponents.Plugin.JVPluginConsts.JVPluginMenus.JVPluginToolbar;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;

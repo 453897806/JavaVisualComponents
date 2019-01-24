@@ -1,14 +1,15 @@
-package com.JVComponents.Plugin;
+package com.VisualJavaComponents.core;
 
 import org.dom4j.*;
 
+import com.JVComponents.Plugin.JVPluginXMLElement;
 import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVException;
 
 public class JVPluginXMLAtribute extends JVComponent {
 	
 	/**
-	 *	包含此属性的节点 
+	 *	锟斤拷锟斤拷锟斤拷锟斤拷锟皆的节碉拷 
 	 */
 	private JVPluginXMLElement element;
 	public JVPluginXMLElement getElement() {
@@ -16,7 +17,7 @@ public class JVPluginXMLAtribute extends JVComponent {
 	}
 	
 	/**
-	 * 对应的属性对象
+	 * 锟斤拷应锟斤拷锟斤拷锟皆讹拷锟斤拷
 	 */
 	private Attribute attribute;
 	public Attribute getAttribute() {
@@ -27,7 +28,7 @@ public class JVPluginXMLAtribute extends JVComponent {
 	/**
 	 * @return
 	 * 
-	 * 用于封装的对象
+	 * 锟斤拷锟节凤拷装锟侥讹拷锟斤拷
 	 * 
 	 */
 	protected Object getPackagedObject(){
