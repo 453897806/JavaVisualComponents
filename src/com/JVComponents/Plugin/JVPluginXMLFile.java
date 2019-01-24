@@ -27,38 +27,6 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 	}
 	
 	/**
-	 * 根据节点查找扩展点
-	 * 
-	 * @param element
-	 * @return
-	 */
-	private JVPluginExtension findExtension(Element element) {
-		JVPluginExtension result = null;
-		//读取节点上point属性值
-		String str = element.attributeValue(JVPluginConsts.JVPluginRoot.point);
-		if(str == null) {
-			return result;
-		}
-		//在根节点对象中查找扩展对象，根据point属性具有唯一性
-		Iterator<JVConfigXMLElement> iter = getRoot().getSubXMLElements().iterator();
-		JVConfigXMLElement xmlElement;
-		JVPluginExtension tmp;
-		while (iter.hasNext()) {
-			xmlElement = iter.next();
-			//检查是否为扩展对象
-			if(xmlElement instanceof JVPluginExtension) {
-				tmp = (JVPluginExtension)xmlElement;
-				if(str.equals(tmp.getPointValue())) {
-					result = (JVPluginExtension)xmlElement;
-					break;
-				}
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
 	 * 根据扩展对象类型查找扩展对象
 	 * 
 	 * @param extensionType
@@ -105,11 +73,7 @@ public class JVPluginXMLFile extends JVConfigXMLFile {
 					result = JVPluginExtensionFactory.createPluginExtension(this, element);
 				}
 			}else {
-				//先得到扩展对象
-				JVPluginExtension extension = findExtension(parentElement);
-				if(extension != null) {
-					JVPluginExtensionFactory.createPluginElement(extension, element);
-				}
+				result = JVPluginExtensionFactory.createPluginElement(this, element);
 			}
 		}
 		return result;

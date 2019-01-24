@@ -2,6 +2,7 @@ package com.JVComponents.Plugin;
 
 import org.dom4j.Element;
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 import com.JVComponents.core.JVConsts;
 
@@ -47,8 +48,8 @@ public class JVPluginElementCategory extends JVPluginElement {
 		attr_name = getXMLAttribute(JVPluginConsts.JVPluginRoot.name, JVConsts.emptyString);		
 	}
 
-	public JVPluginElementCategory(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		super(pluginXMLFile, extension, element);
+	public JVPluginElementCategory(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class JVConfigXMLFile extends JVConfigFile {
 	 * @throws JVException
 	 */
 	public JVConfigXMLElement createXMLElement(Element element) throws JVException{
-		return new JVConfigXMLElement(this, element);
+		return  new JVConfigXMLElement(this, element);
 	}
 	
 	@Override

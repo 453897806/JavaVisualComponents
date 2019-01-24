@@ -36,7 +36,7 @@ public class JVPluginExtensionFactory {
 		//根据节点对象类型创建的扩展对象
 		if(pluginClass != null) {
 			try {
-				Constructor<? extends JVPluginExtension> constructor = pluginClass.getConstructor(JVConfigXMLFile.class, Element.class);
+				Constructor<? extends JVPluginExtension> constructor = pluginClass.getConstructor(JVPluginXMLFile.class, Element.class);
 				if(constructor != null) {
 					result = (JVPluginExtension) constructor.newInstance(pluginXMLFile, element);
 				}
@@ -118,13 +118,17 @@ public class JVPluginExtensionFactory {
 	 * @return
 	 * @throws JVException
 	 */
-	public static JVPluginElement createPluginElement(JVPluginExtension extension, Element element)throws JVException{
+	public static JVPluginElement createPluginElement(JVPluginXMLFile pluginXMLFile, Element element)throws JVException{
 		JVPluginElement result = null;
 		String elementName =  element.getName();
 		//特殊情况，在Menu下的command是menuCommand
-		if((elementName.equals(JVPluginConsts.JVPluginCommands.JVPluginCommand.command)) & 
-			(extension instanceof JVPluginExtensionMenus)) {
-			elementName = JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand;
+		if(elementName.equals(JVPluginConsts.JVPluginCommands.JVPluginCommand.command)) {
+			
+			Element parentElement = element.getParent();
+			String parentName = parentElement.getName();
+			if(!parentName.equals(JVPluginConsts.JVPluginRoot.extension)) {
+				elementName = JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand;
+			}
 		}
 		
 		//根据节点获取节点对象类型
@@ -133,9 +137,10 @@ public class JVPluginExtensionFactory {
 		//根据节点对象类型创建节点对象
 		if(pluginClass != null) {
 			try {
-				Constructor<? extends JVPluginElement> constructor = pluginClass.getConstructor(JVPluginExtension.class, Element.class);
+				Constructor<? extends JVPluginElement> constructor = pluginClass.getConstructor(
+						JVConfigXMLFile.class, Element.class);
 				if(constructor != null) {
-					result = (JVPluginElement) constructor.newInstance(extension, element);
+					result = (JVPluginElement) constructor.newInstance(pluginXMLFile, element);
 				}
 			}catch(Exception e) {
 				throw new JVException("创建节点对象失败！", e);

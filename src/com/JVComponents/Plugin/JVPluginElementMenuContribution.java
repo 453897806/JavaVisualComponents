@@ -4,6 +4,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 
 public class JVPluginElementMenuContribution extends JVPluginElement {
@@ -18,8 +19,8 @@ public class JVPluginElementMenuContribution extends JVPluginElement {
 		return locationURI;
 	}
 
-	public JVPluginElementMenuContribution(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		super(pluginXMLFile, extension, element);
+	public JVPluginElementMenuContribution(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 	
 	/**

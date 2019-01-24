@@ -3,6 +3,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
 
@@ -48,8 +49,8 @@ public class JVPluginElementMenu extends JVPluginElement {
 		mnemonic = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic, JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic_value);
 	}
 
-	public JVPluginElementMenu(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		super(pluginXMLFile, extension, element);
+	public JVPluginElementMenu(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 	
 	@Override

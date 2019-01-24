@@ -3,6 +3,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 import com.JVComponents.core.JVConsts;
 
@@ -40,8 +41,8 @@ public class JVPluginElementHandler extends JVPluginElement {
 		return attr_class;
 	}
 
-	public JVPluginElementHandler(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		super(pluginXMLFile, extension, element);
+	public JVPluginElementHandler(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 	
 	@Override
@@ -55,7 +56,7 @@ public class JVPluginElementHandler extends JVPluginElement {
 
 	@Override
 	public void matchPluginElement() throws JVException {
-		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getPluginFile().findExtension(JVPluginExtensionCommands.class);
 		//读取commandId属性后，需要根据该值找到command对象
 		this.command = extension.findCommand((String)this.commandId.getValue().getValue());
 	}

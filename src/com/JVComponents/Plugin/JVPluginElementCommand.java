@@ -3,6 +3,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
 
@@ -65,13 +66,13 @@ public class JVPluginElementCommand extends JVPluginElement {
 		categoryId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.categoryId, JVConsts.emptyString);
 	}
 	
-	public JVPluginElementCommand(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		super(pluginXMLFile, extension, element);
+	public JVPluginElementCommand(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	@Override
 	public void matchPluginElement() throws JVException {
-		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getPluginFile().findExtension(JVPluginExtensionCommands.class);
 		//读取categoryId属性后，需要根据该值找到category对象
 		this.category = extension.findCategory((String)this.categoryId.getValue().getValue());
 		

@@ -121,6 +121,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @throws JVException
 	 */
 	protected void readAttributes(Element element) throws JVException {
+		@SuppressWarnings("unchecked")
 		Iterator<Attribute> iter = element.attributeIterator();
 		Attribute attr ;
 		while(iter.hasNext()){
@@ -136,18 +137,16 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @throws JVException
 	 */
 	protected void readSubElements(Element element) throws JVException{
+		@SuppressWarnings("unchecked")
 		Iterator<Element> iter = element.elementIterator();
-		Element tmp ;
-		JVConfigXMLElement subXMLElement;
+		Element subElement ;
+		JVConfigXMLElement xmlElement;
 		while(iter.hasNext()) {
-			tmp = iter.next();
+			subElement = iter.next();
 			//创建子节点对象
-			subXMLElement = configXMLFile.createXMLElement(tmp);
-			
-			//不为空则加入子节点对象集合
-			if(subXMLElement != null) {
-				subXMLElements.add(subXMLElement);
-			}
+			xmlElement = configXMLFile.createXMLElement(subElement);
+			subXMLElements.add(xmlElement);
+			xmlElement.createByElement(subElement);
 		}
 	}
 	
@@ -212,11 +211,6 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		this.subXMLElements = new HashSet<JVConfigXMLElement>();
 		this.xmlAttributes = new HashSet<JVConfigXMLAttribute>(); 
 		this.element = element;
-		
-		//判断是否存在root，如果存在则创建属性和子节点对象，
-		if(configXMLFile.getRoot() != null) {
-			createByElement(element);
-		}				
 	}
 
 	public void writeToDocument(Element curElement, Element parentElement) throws JVException{

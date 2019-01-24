@@ -1,6 +1,7 @@
 package com.JVComponents.Plugin;
 
 import com.JVComponents.core.JVConfigXMLElement;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVConsts;
 
 import java.util.Iterator;
@@ -29,8 +30,8 @@ public abstract class JVPluginExtension extends JVPluginElement {
 		return point;
 	}
 
-	public JVPluginExtension(JVPluginXMLFile pluginXMLFile, Element element) throws JVException {
-		super(pluginXMLFile,null, element);
+	public JVPluginExtension(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	/**

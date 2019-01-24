@@ -3,6 +3,7 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLElement;
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 
 /**
@@ -14,12 +15,6 @@ import com.JVComponents.core.JVException;
  */
 public abstract class JVPluginElement extends JVConfigXMLElement {
 
-	private JVPluginExtension extension;
-
-	public JVPluginExtension getExtension() {
-		return extension;
-	}
-	
 	/**
 	 * 对应的plugin文件
 	 * 
@@ -34,12 +29,8 @@ public abstract class JVPluginElement extends JVConfigXMLElement {
 		return (JVPluginXMLFile) getConfigXMLFile();
 	}
 
-	public JVPluginElement(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
-		// 父类创建过程中自动读取了属性
-		super(pluginXMLFile, element);
-
-		// 成员
-		this.extension = extension;
+	public JVPluginElement(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	/**
