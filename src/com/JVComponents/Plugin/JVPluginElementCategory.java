@@ -1,9 +1,9 @@
 package com.JVComponents.Plugin;
 
 import org.dom4j.Element;
-
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
+import com.JVComponents.core.JVConsts;
 
 /**
  * 命令分组定义节点
@@ -13,35 +13,51 @@ import com.JVComponents.core.JVException;
  */
 public class JVPluginElementCategory extends JVPluginElement {
 
+	private JVConfigXMLAttribute id;
 	/**
-	 * 得到id属性
+	 * id属性
 	 * 
 	 * @throws JVException 
 	 */
-	public JVConfigXMLAttribute getId() throws JVException {
-		//缺省id = 组件名称（容器内唯一）
-		String id = (String)this.getName().getValue();
-		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
+	public JVConfigXMLAttribute getId() {
+		return id;
 	}
 
+	private JVConfigXMLAttribute attr_name;
 	/**
 	 * 得到name属性
 	 * 
 	 * @throws JVException 
 	 */
-	public JVConfigXMLAttribute getAttr_name() throws JVException {
-		//缺省名称 = 组件名称（容器内唯一）
-		String name = (String)this.getName().getValue();
-		return getAttribute(JVPluginConsts.JVPluginRoot.name, name);
+	public JVConfigXMLAttribute getAttr_name() {
+		return attr_name;
+	}
+
+	/**
+	 * 针对节点读取属性对象，子类继承读取指定的属性
+	 * 
+	 * @param element
+	 * @throws JVException
+	 */
+	protected void readAttributes(Element element) throws JVException {
+		//忽略基类
+		//super.readAttributes(element);
+		//特殊属性
+		id = getXMLAttribute(JVPluginConsts.JVPluginRoot.id, JVConsts.emptyString);
+		attr_name = getXMLAttribute(JVPluginConsts.JVPluginRoot.name, JVConsts.emptyString);		
 	}
 
 	public JVPluginElementCategory(JVPluginExtension extension, Element element) throws JVException {
-		//用id命名
-		super(extension, element, element.attributeValue(JVPluginConsts.JVPluginRoot.id));
+		super(extension, element);
 	}
 
 	@Override
 	public String getElementType() {
 		return JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.category;
+	}
+
+	@Override
+	public void matchPluginElement() throws JVException {
+		//无需要匹配的对象		
 	}
 }

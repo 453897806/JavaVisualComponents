@@ -2,7 +2,6 @@ package com.JVComponents.Plugin;
 
 import org.dom4j.Element;
 
-import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
@@ -22,51 +21,72 @@ public class JVPluginElementMenuCommand extends JVPluginElement {
 		this.command = command;
 	}
 	
+	private JVConfigXMLAttribute commandId;
 	/**
-	 * 得到id属性
+	 * 得到commandId属性
 	 * 
 	 * @throws JVException 
 	 */
-	public JVConfigXMLAttribute getId() throws JVException {
-		//缺省id = 组件名称（容器内唯一）
-		String id = (String)this.getName().getValue();
-		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
+	public JVConfigXMLAttribute getCommandId() {
+		return commandId;
 	}
 	
-	public JVConfigXMLAttribute getMnemonic() throws JVException {
-		String str = JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic_value;
-		return getAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic, str);
+	private JVConfigXMLAttribute mnemonic;
+	/**
+	 * 得到mnemonic属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getMnemonic() {
+		return mnemonic;
 	}
-
+	
+	private JVConfigXMLAttribute icon;
+	/**
+	 * 得到icon属性
+	 * 
+	 * @throws JVException 
+	 */
 	public JVConfigXMLAttribute getIcon() throws JVException{
 		//图片文件位置
-		return getAttribute(JVPluginConsts.JVPluginRoot.id, "");
+		return icon;
+	}
+	
+	private JVConfigXMLAttribute tooltip;
+	/**
+	 * 得到tooltip属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getTooltip() {
+		return tooltip;
 	}
 
 	public JVPluginElementMenuCommand(JVPluginExtension extension, Element element) throws JVException {
-		//用缺省组件名命名
-		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
+		super(extension, element);
 	}
 	
-	/**
-	 * 父类读取commandId属性后，需要根据该值找到command对象
-	 * @throws JVException 
-	 */
 	@Override
-	public void createPluginElment() throws JVException {
-		super.createPluginElment();
-		
-		//根据commandId值找到command对象
-		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
-		JVComponent cmp = findComponentByName(str);
-		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
-			this.command = (JVPluginElementCommand) cmp;
-		}
+	protected void readAttributes(Element element) throws JVException {
+		//忽略基类
+		//super.readAttributes(element);
+		//特殊属性
+		commandId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId, JVConsts.emptyString);
+		mnemonic = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic, JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic_value);
+		icon = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.icon, JVConsts.emptyString);
+		tooltip = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.tooltip, JVConsts.emptyString);
 	}
-
+	
 	@Override
 	public String getElementType() {
 		return JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand;
+	}
+
+	@Override
+	public void matchPluginElement() throws JVException {
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		//读取commandId属性后，需要根据该值找到command对象
+		this.command = extension.findCommand((String)this.commandId.getValue().getValue());		
 	}
 
 }

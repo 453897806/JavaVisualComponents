@@ -1,6 +1,6 @@
 package com.JVComponents.core;
 
-public abstract class JVConfigFile extends JVDataModule {
+public abstract class JVConfigFile extends JVAbstractComponent {
 	
 	/**
 	 * 配置文件名

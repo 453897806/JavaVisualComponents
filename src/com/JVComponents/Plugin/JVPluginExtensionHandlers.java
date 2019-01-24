@@ -1,17 +1,18 @@
 package com.JVComponents.Plugin;
 
-import com.JVComponents.core.JVConfigXMLElement;
-import com.JVComponents.core.JVContainer;
+import org.dom4j.Element;
+
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 
 public class JVPluginExtensionHandlers extends JVPluginExtension {
 
-	public JVPluginExtensionHandlers(JVContainer container, JVConfigXMLElement element) throws JVException {
-		super(container, element);
+	public JVPluginExtensionHandlers(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	@Override
-	public String getExtensionPoint() {
+	public String getPointValue() {
 		return JVPluginConsts.JVPluginHandlers.extensionHandlers;
 	}
 

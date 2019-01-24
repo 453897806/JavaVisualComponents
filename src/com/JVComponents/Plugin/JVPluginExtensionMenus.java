@@ -1,17 +1,18 @@
 package com.JVComponents.Plugin;
 
-import com.JVComponents.core.JVConfigXMLElement;
-import com.JVComponents.core.JVContainer;
+import org.dom4j.Element;
+
+import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 
 public class JVPluginExtensionMenus extends JVPluginExtension {
 
-	public JVPluginExtensionMenus(JVContainer container, JVConfigXMLElement element) throws JVException {
-		super(container, element);
+	public JVPluginExtensionMenus(JVConfigXMLFile configXMLFile, Element element) throws JVException {
+		super(configXMLFile, element);
 	}
 
 	@Override
-	public String getExtensionPoint() {
+	public String getPointValue() {
 		return JVPluginConsts.JVPluginMenus.extensionMenus;
 	}
 

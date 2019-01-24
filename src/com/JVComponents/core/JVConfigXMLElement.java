@@ -4,6 +4,18 @@ import org.dom4j.*;
 import java.util.*;
 
 public class JVConfigXMLElement extends JVAbstractComponent {
+	
+	private Element element;
+	
+	/**
+	 * @return
+	 * 
+	 * 用于封装的对象
+	 * 
+	 */
+	protected Object getPackagedObject(){
+		return element;
+	}
 
 	/**
 	 * 包含该节点的XML文件对象
@@ -14,97 +26,89 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		return configXMLFile;
 	}
 
-	/**
-	 * 对应的节点
-	 */
-	private Element element;
-
-	public Element getElement() {
-		return element;
-	}
-
-	/**
-	 * @return
-	 * 
-	 * 		用于封装的对象
-	 * 
-	 */
-	protected Object getPackagedObject() {
-		return element;
-	}
-
 	
-	private HashSet<JVConfigXMLAttribute> attributes;
+	private HashSet<JVConfigXMLElement> subXMLElements;
 	
 	/**
-	 * 属性集合
+	 * 子节点集合
 	 */
-	public HashSet<JVConfigXMLAttribute> getAttributes() {
-		return attributes;
+	public HashSet<JVConfigXMLElement> getSubXMLElements() {
+		return subXMLElements;
 	}
-
+	
 	/**
+	 * 根据xml节点查找节点对象
 	 * 
-	 * 根据属性名称得到一个属性对象，如果不存在则创建
-	 * 
-	 * @param attributeName
+	 * @param element
 	 * @return
-	 * @throws JVException
 	 */
-	public JVConfigXMLAttribute getAttribute(String attributeName, String attributValue) throws JVException {
-		// 查找一个属性
-		JVConfigXMLAttribute result = findAttribute(attributeName);
-		// 如果没有找到则创建一个
-		if (result == null) {
-			result = new JVConfigXMLAttribute(this, attributeName, attributValue);
-			attributes.add(result);
-		}
-		return result;
-	}
-
-	public JVConfigXMLAttribute getAttribute(Attribute attribute) throws JVException {
-		// 查找一个属性
-		JVConfigXMLAttribute result = findAttribute(attribute);
-		// 如果没有找到则创建一个
-		if (result == null) {
-			result = new JVConfigXMLAttribute(this, attribute);
-			attributes.add(result);
-		}
-		return result;
-	}
-
-	/**
-	 * 
-	 * 根据属性名称查找一个属性对象
-	 * 
-	 * @param attributeName
-	 * @return
-	 * @throws JVException
-	 */
-	public JVConfigXMLAttribute findAttribute(String attributeName) throws JVException {
-		JVConfigXMLAttribute result = null;
-
-		Iterator<JVConfigXMLAttribute> iter = attributes.iterator();
-		JVConfigXMLAttribute tmp;
-		while (iter.hasNext()) {
+	public JVConfigXMLElement findSubXMLElement(Element element) {
+		JVConfigXMLElement result = null;
+		Iterator<JVConfigXMLElement> iter = subXMLElements.iterator();
+		JVConfigXMLElement tmp;
+		while(iter.hasNext()) {
 			tmp = iter.next();
-			if (attributeName.equals((String) tmp.getName().getValue())) {
+			if(element == tmp.getPackagedObject()) {
 				result = tmp;
 				break;
 			}
 		}
+		
 		return result;
 	}
+	
+	private HashSet<JVConfigXMLAttribute> xmlAttributes;
 
-	public JVConfigXMLAttribute findAttribute(Attribute attribute) {
+	/**
+	 * 节点属性集合
+	 * @return
+	 */
+	public HashSet<JVConfigXMLAttribute> getXmlAttributes() {
+		return xmlAttributes;
+	}
+	
+	/**
+	 * 根据属性名称和缺省值得到属性对象
+	 * 
+	 * @param attributeName
+	 * @param attributeValue
+	 * @return
+	 * @throws JVException
+	 */
+	public JVConfigXMLAttribute getXMLAttribute(String attributeName, String attributeValue) throws JVException{
+		//查找属性
+		JVConfigXMLAttribute result = findXMLAttribute(attributeName);
+		
+		//如果不存在则创建
+		if(result == null) {
+			Attribute attr = this.element.attribute(attributeName);
+			if(attr == null) {
+				this.element.addAttribute(attributeName, attributeValue);
+				attr = this.element.attribute(attributeName);
+			}
+			result = new JVConfigXMLAttribute(this, attr);
+			//加入集合
+			xmlAttributes.add(result);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 根据属性名称查找属性对象
+	 * 
+	 * @param attributeName
+	 * @return
+	 * @throws JVException
+	 */
+	public JVConfigXMLAttribute findXMLAttribute(String attributeName) throws JVException{
 		JVConfigXMLAttribute result = null;
-
-		Iterator<JVConfigXMLAttribute> iter = attributes.iterator();
-		JVConfigXMLAttribute tmp;
+		Iterator<JVConfigXMLAttribute> iter = xmlAttributes.iterator();
+		JVConfigXMLAttribute attr ;
 		while (iter.hasNext()) {
-			tmp = iter.next();
-			if (attribute == tmp.getAttribute()) {
-				result = tmp;
+			attr = iter.next();
+			if(attributeName.equals((String)attr.getName().getValue())){
+				result = attr;
 				break;
 			}
 		}
@@ -112,33 +116,72 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 
 	/**
-	 * 针对节点创建所有属性对象
-	 * 
+	 * 针对节点读取属性对象，子类继承读取指定的属性
+	 * @param element
 	 * @throws JVException
 	 */
-	protected void createAttributes() throws JVException {
-		// 根据属性创建属性对象集合
-		this.attributes = new HashSet<JVConfigXMLAttribute>();
+	protected void readAttributes(Element element) throws JVException {
 		Iterator<Attribute> iter = element.attributeIterator();
-		Attribute tmp;
-		while (iter.hasNext()) {
-			tmp = iter.next();
-			getAttribute(tmp);
+		Attribute attr ;
+		while(iter.hasNext()){
+			attr = iter.next();
+			xmlAttributes.add(new JVConfigXMLAttribute(this, attr));
 		}
 	}
 	
-	private void onCreate(JVConfigXMLFile configXMLFile, Element element) throws JVException{
-		// 成员
-		this.configXMLFile = configXMLFile;
-		this.element = element;
-
-		//加入到父组件集合中
-		this.configXMLFile.addCompnent(this);
-
-		// 根据属性创建属性对象集合
-		createAttributes();
+	/**
+	 * 针对节点读取下级节点对象
+	 * 
+	 * @param element
+	 * @throws JVException
+	 */
+	protected void readSubElements(Element element) throws JVException{
+		Iterator<Element> iter = element.elementIterator();
+		Element tmp ;
+		JVConfigXMLElement subXMLElement;
+		while(iter.hasNext()) {
+			tmp = iter.next();
+			//创建子节点对象
+			subXMLElement = configXMLFile.createXMLElement(tmp);
+			
+			//不为空则加入子节点对象集合
+			if(subXMLElement != null) {
+				subXMLElements.add(subXMLElement);
+			}
+		}
 	}
-
+	
+	/**
+	 * 针对节点写入属性对象
+	 * @param element
+	 * @throws JVException
+	 */
+	protected void writeAttributes(Element element) throws JVException {
+		Iterator<JVConfigXMLAttribute> iter = xmlAttributes.iterator();
+		JVConfigXMLAttribute attr ;
+		while (iter.hasNext()) {
+			attr = iter.next();
+			//写入节点对象
+			element.addAttribute((String)attr.getName().getValue(), (String)attr.getValue().getValue());
+		}
+	}
+	
+	/**
+	 * 针对节点写入下级节点对象
+	 * 
+	 * @param Element
+	 * @throws JVException
+	 */
+	protected void writeSubElements(Element Element) throws JVException{
+		Iterator<JVConfigXMLElement> iter = this.subXMLElements.iterator();
+		JVConfigXMLElement tmp;
+		while(iter.hasNext()) {
+			tmp = iter.next();
+			//对每一个子节点进行处理
+			tmp.writeToDocument(null, Element);
+		}
+	}
+	
 	/**
 	 * 根据节点创建
 	 * 
@@ -146,12 +189,35 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @param element
 	 * @throws JVException
 	 */
-	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element, String componentName) throws JVException {
+	public JVConfigXMLElement(JVConfigXMLFile configXMLFile, Element element) throws JVException {
 		// 组件名称
-		super(componentName);
-
-		//处理创建内容
-		onCreate(configXMLFile, element);
+		super(element.getName());
+		
+		// 成员
+		this.configXMLFile = configXMLFile;
+		this.subXMLElements = new HashSet<JVConfigXMLElement>();
+		this.xmlAttributes = new HashSet<JVConfigXMLAttribute>(); 
+		this.element = element;
+		
+		// 根据属性创建属性对象集合
+		readAttributes(element);
+		
+		//构建所有子节点
+		readSubElements(element);		
 	}
 
+	public void writeToDocument(Element curElement, Element parentElement) throws JVException{
+		String elementName = (String)getName().getValue();
+
+		//构建当前节点
+		if(curElement == null) {
+			curElement = parentElement.addElement(elementName);
+		}
+		
+		//处理节点属性
+		writeAttributes(curElement);
+
+		//处理子节点
+		writeSubElements(curElement);
+	}
 }

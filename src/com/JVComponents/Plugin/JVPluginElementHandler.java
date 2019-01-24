@@ -2,7 +2,6 @@ package com.JVComponents.Plugin;
 
 import org.dom4j.Element;
 
-import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVException;
 import com.JVComponents.core.JVConsts;
@@ -21,40 +20,49 @@ public class JVPluginElementHandler extends JVPluginElement {
 	public void setCommand(JVPluginElementCommand command) {
 		this.command = command;
 	}
+	
+	private JVConfigXMLAttribute commandId;
+	/**
+	 * 得到commandId属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getCommandId() {
+		return commandId;
+	}
 
+	private JVConfigXMLAttribute attr_class;
 	/**
 	 * class属性
 	 * @throws JVException 
 	 */
-	public JVConfigXMLAttribute getAttr_class() throws JVException {
-		String str = JVConsts.nullString;
-		return getAttribute(JVPluginConsts.JVPluginRoot.attr_class, str);
+	public JVConfigXMLAttribute getAttr_class() {
+		return attr_class;
 	}
 
 	public JVPluginElementHandler(JVPluginExtension extension, Element element) throws JVException {
-		//用缺省组件名命名
-		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
+		super(extension, element);
 	}
 	
-	/**
-	 * 父类读取commandId属性后，需要根据该值找到command对象
-	 * @throws JVException 
-	 */
 	@Override
-	public void createPluginElment() throws JVException {
-		super.createPluginElment();
-		
-		//根据commandId值找到command对象
-		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
-		JVComponent cmp = findComponentByName(str);
-		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
-			this.command = (JVPluginElementCommand) cmp;
-		}
+	protected void readAttributes(Element element) throws JVException {
+		//忽略基类
+		//super.readAttributes(element);
+		//特殊属性
+		attr_class = getXMLAttribute(JVPluginConsts.JVPluginRoot.attr_class, JVConsts.emptyString);
+		commandId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId, JVConsts.emptyString);
 	}
 
 	@Override
 	public String getElementType() {
 		return JVPluginConsts.JVPluginHandlers.JVPluginHandler.handler;
+	}
+
+	@Override
+	public void matchPluginElement() throws JVException {
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		//读取commandId属性后，需要根据该值找到command对象
+		this.command = extension.findCommand((String)this.commandId.getValue().getValue());
 	}
 
 }

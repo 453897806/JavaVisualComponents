@@ -44,8 +44,7 @@ public class JVPluginElementToolbarCommand extends JVPluginElement {
 	}
 
 	public JVPluginElementToolbarCommand(JVPluginExtension extension, Element element) throws JVException {
-		//用缺省组件名命名
-		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
+		super(extension, element);
 	}
 
 	@Override

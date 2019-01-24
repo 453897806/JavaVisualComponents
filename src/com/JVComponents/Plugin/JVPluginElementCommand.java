@@ -3,34 +3,38 @@ package com.JVComponents.Plugin;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLAttribute;
+import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
-import com.JVComponents.core.JVComponent;
 
 public class JVPluginElementCommand extends JVPluginElement {
+	private JVConfigXMLAttribute id;
 	/**
 	 * id属性
 	 * 
-	 * @throws JVException
-	 */
-	public JVConfigXMLAttribute getId() throws JVException {
-		// 缺省id = 组件名称（容器内唯一）
-		String id = (String) this.getName().getValue();
-		return getAttribute(JVPluginConsts.JVPluginRoot.id, id);
-	}
-
-	/**
-	 * name属性
 	 * @throws JVException 
 	 */
-	public JVConfigXMLAttribute getAttr_name() throws JVException {
-		//缺省名称 = 组件名称（容器内唯一）
-		String name = (String)this.getName().getValue();
-		return getAttribute(JVPluginConsts.JVPluginRoot.name, name);
+	public JVConfigXMLAttribute getId() {
+		return id;
 	}
 
-	public JVPluginElementCommand(JVPluginExtension extension, Element element) throws JVException {
-		//用id命名
-		super(extension, element, element.attributeValue(JVPluginConsts.JVPluginRoot.id));
+	private JVConfigXMLAttribute attr_name;
+	/**
+	 * 得到name属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getAttr_name() {
+		return attr_name;
+	}
+	
+	private JVConfigXMLAttribute categoryId;
+	/**
+	 * 得到categoryId属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getCategoryId() {
+		return categoryId;
 	}
 
 	private JVPluginElementCategory category;
@@ -47,22 +51,35 @@ public class JVPluginElementCommand extends JVPluginElement {
 	}
 	
 	/**
-	 * 父类读取categoryId属性后，需要根据该值找到category对象
-	 * @throws JVException 
+	 * 针对节点读取属性对象，子类继承读取指定的属性
+	 * 
+	 * @param element
+	 * @throws JVException
 	 */
-	@Override
-	public void createPluginElment() throws JVException {
-		super.createPluginElment();
-		
-		String str = JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.categoryId;
-		JVComponent cmp = findComponentByName(str);
-		if((cmp != null) & (cmp instanceof JVPluginElementCategory)) {
-			this.category = (JVPluginElementCategory) cmp;
-		}
+	protected void readAttributes(Element element) throws JVException {
+		//忽略基类
+		//super.readAttributes(element);
+		//特殊属性
+		id = getXMLAttribute(JVPluginConsts.JVPluginRoot.id, JVConsts.emptyString);
+		attr_name = getXMLAttribute(JVPluginConsts.JVPluginRoot.name, JVConsts.emptyString);
+		categoryId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.categoryId, JVConsts.emptyString);
+	}
+	
+	public JVPluginElementCommand(JVPluginExtension extension, Element element) throws JVException {
+		super(extension, element);
 	}
 
 	@Override
 	public String getElementType() {
 		return JVPluginConsts.JVPluginCommands.JVPluginCommand.command;
 	}
+
+	@Override
+	public void matchPluginElement() throws JVException {
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		//读取categoryId属性后，需要根据该值找到category对象
+		this.category = extension.findCategory((String)this.categoryId.getValue().getValue());
+		
+	}
+	
 }

@@ -109,11 +109,6 @@ public final class JVPluginConsts {
 		 */
 		public static final String extensionMenus = "org.eclipse.ui.menus";
 		
-		/**
-		 * 属性icon
-		 */
-		public static final String icon = "icon";
-
 		public final class JVPluginMenuContribution {
 			/**
 			 * menus扩展下的menuContribution
@@ -135,6 +130,7 @@ public final class JVPluginConsts {
 			 */
 			public static final String locationURI = "locationURI";
 			public static final String locationURI_MainMemu = "org.eclipse.ui.main.menu";
+			public static final String locationURI_Value = "?after=additions"; 
 			public static final String locationURI_MainToolbar = "org.eclipse.ui.main.toolbar";
 			public static final String locationURI_PopupAny = "org.eclipse.ui.popup.any";
 		}
@@ -148,6 +144,8 @@ public final class JVPluginConsts {
 			public static final String label = "label";
 			public static final String mnemonic = "mnemonic";
 			public static final String mnemonic_value = "M";
+			public static final String tooltip = "tooltip";
+			public static final String icon = "icon";
 		}
 
 		public final class JVPluginToolbar {
@@ -155,8 +153,6 @@ public final class JVPluginConsts {
 			 * menus扩展下的toolbar
 			 */
 			public static final String toolbar = "toolbar";
-			public static final String toolbarCommand = "toolbarCommand";
-			public static final String tooltip = "tooltip";
 		}
 	}
 

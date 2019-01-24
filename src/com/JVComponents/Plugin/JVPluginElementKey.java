@@ -2,7 +2,6 @@ package com.JVComponents.Plugin;
 
 import org.dom4j.Element;
 
-import com.JVComponents.core.JVComponent;
 import com.JVComponents.core.JVConfigXMLAttribute;
 import com.JVComponents.core.JVConsts;
 import com.JVComponents.core.JVException;
@@ -21,46 +20,60 @@ public class JVPluginElementKey extends JVPluginElement {
 	public void setCommand(JVPluginElementCommand command) {
 		this.command = command;
 	}
-
-	public JVConfigXMLAttribute getSchemeId() throws JVException {
-		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId_value;
-		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId, str);
+	
+	private JVConfigXMLAttribute commandId;
+	/**
+	 * 得到commandId属性
+	 * 
+	 * @throws JVException 
+	 */
+	public JVConfigXMLAttribute getCommandId() {
+		return commandId;
+	}
+	
+	private JVConfigXMLAttribute schemeId;
+	private JVConfigXMLAttribute contextId;
+	private JVConfigXMLAttribute sequence;
+	
+	
+	public JVConfigXMLAttribute getSchemeId() {
+		return schemeId;
 	}
 
-	public JVConfigXMLAttribute getContextId() throws JVException {
-		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.contextId_value;
-		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.contextId, str);
+	public JVConfigXMLAttribute getContextId() {
+		return contextId;
 	}
 
-	public JVConfigXMLAttribute getSequence() throws JVException {
-		String str = JVPluginConsts.JVPluginBindings.JVPluginKey.sequence_value;
-		return getAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.sequence, str);
+	public JVConfigXMLAttribute getSequence() {
+		return sequence;
 	}
 
 	public JVPluginElementKey(JVPluginExtension extension, Element element) throws JVException {
-		//用缺省组件名命名
-		super(extension, element, element.attributeValue(JVConsts.componentDefualtName));
+		super(extension, element);
 	}
 	
-	/**
-	 * 父类读取commandId属性后，需要根据该值找到command对象
-	 * @throws JVException 
-	 */
 	@Override
-	public void createPluginElment() throws JVException {
-		super.createPluginElment();
-		
-		//根据commandId值找到command对象
-		String str = JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId;
-		JVComponent cmp = findComponentByName(str);
-		if((cmp != null) & (cmp instanceof JVPluginElementCommand)) {
-			this.command = (JVPluginElementCommand) cmp;
-		}
+	protected void readAttributes(Element element) throws JVException {
+		//忽略基类
+		//super.readAttributes(element);
+		//特殊属性
+		commandId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId, JVConsts.emptyString);
+		schemeId = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId, JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId_value);
+		contextId = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.contextId, JVPluginConsts.JVPluginBindings.JVPluginKey.contextId_value);
+		sequence = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.sequence, JVPluginConsts.JVPluginBindings.JVPluginKey.sequence_value);
 	}
 
 	@Override
 	public String getElementType() {
 		return JVPluginConsts.JVPluginBindings.JVPluginKey.key;
+	}
+
+	@Override
+	public void matchPluginElement() throws JVException {
+		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);
+		//读取commandId属性后，需要根据该值找到command对象
+		this.command = extension.findCommand((String)this.commandId.getValue().getValue());
+		
 	}
 
 }

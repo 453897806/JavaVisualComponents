@@ -10,24 +10,6 @@ import org.dom4j.io.*;
 public class JVConfigXMLFile extends JVConfigFile {
 
 	/**
-	 * XML文件对应的Document对象
-	 */
-	private Document document;
-	public Document getDocument() {
-		return document;
-	}
-	
-	/**
-	 * @return
-	 * 
-	 * 用于封装的对象
-	 * 
-	 */
-	protected Object getPackagedObject(){
-		return document;
-	}
-	
-	/**
 	 * 
 	 * 根节点对象
 	 * 
@@ -47,41 +29,50 @@ public class JVConfigXMLFile extends JVConfigFile {
 		return "root";
 	}
 	
+	public JVConfigXMLFile(String name, String filename) throws JVException {
+		super(name, filename);	
+	}
+	
 	/**
-	 * 创建根节点函数，子类可以继承返回不同类型的节点对象
+	 * 根据节点创建节点对象，子类继承可创建不同节点对象
 	 * 
 	 * @param element
 	 * @return
 	 * @throws JVException
 	 */
-	public JVConfigXMLElement createRootElement(Element element) throws JVException {
-		//如果节点为空则创建
-		if(element == null) {
-			element = document.addElement(getRootName());
-		}
-		//组件名称
-		return new JVConfigXMLElement(this, element, element.getName());
+	public JVConfigXMLElement createXMLElement(Element element) throws JVException{
+		return new JVConfigXMLElement(this, element);
 	}
-
-	public JVConfigXMLFile(String name, String filename) throws JVException {
-		super(name, filename);	
-	}
-
+	
 	@Override
 	public void readFromFile() throws JVException {
+		Document document;
 		// 读取
 		File file = new File((String) getFileName().getValue());
 		try {
 			// 文件存在则开启xml文件
 			if (file.exists()) {
 				SAXReader reader = new SAXReader();
-				this.document = reader.read(file);
+				document = reader.read(file);
 			} else {// 文件不存在则创建
-				this.document = DocumentHelper.createDocument();
+				document = DocumentHelper.createDocument();
 			}
 			
 			//根节点对象
-			this.root = createRootElement(this.document.getRootElement());
+			Element element = document.getRootElement();
+			//如果节点为空则创建
+			if(element == null) {
+				element = document.addElement(getRootName());
+			}else {
+				// 检查根节点是否正确
+				String str = element.getName(); 
+				if (!str.equals(getRootName())) {
+					throw new JVException("根节点不是<" + getRootName() + ">", null);
+				}
+			}
+			//创建根节点对象，并自动读取属性及子节点
+			this.root = createXMLElement(element);
+			
 		} catch (DocumentException e) {
 			throw new JVException("XML文件<" + (String)getFileName().getValue() + ">读取失败！", e);
 		}
@@ -90,6 +81,12 @@ public class JVConfigXMLFile extends JVConfigFile {
 	@Override
 	public void writeToFile() throws JVException {
 		try {
+			//新建xml文档并写入
+			Document document = DocumentHelper.createDocument();
+			//构建根结点
+			Element rootElement = document.addElement(getRootName());
+			//根节点写入
+			this.root.writeToDocument(rootElement, null);
 			//文件写入
 			FileWriter fileWriter = new FileWriter((String)getFileName().getValue());
 			document.write(fileWriter);
