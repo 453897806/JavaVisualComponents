@@ -47,13 +47,8 @@ public class JVPluginElementCategory extends JVPluginElement {
 		attr_name = getXMLAttribute(JVPluginConsts.JVPluginRoot.name, JVConsts.emptyString);		
 	}
 
-	public JVPluginElementCategory(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
-	}
-
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.category;
+	public JVPluginElementCategory(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 
 	@Override

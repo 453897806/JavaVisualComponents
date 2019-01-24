@@ -18,8 +18,8 @@ public class JVPluginElementMenuContribution extends JVPluginElement {
 		return locationURI;
 	}
 
-	public JVPluginElementMenuContribution(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementMenuContribution(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 	
 	/**
@@ -37,11 +37,6 @@ public class JVPluginElementMenuContribution extends JVPluginElement {
 				JVPluginConsts.JVPluginMenus.JVPluginMenuContribution.locationURI_Value);
 	}
 	
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginMenus.JVPluginMenuContribution.menuContribution;
-	}
-
 	@Override
 	public void matchPluginElement() throws JVException {
 		//无需要匹配的对象				

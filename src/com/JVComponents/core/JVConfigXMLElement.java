@@ -183,6 +183,20 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	}
 	
 	/**
+	 * 根据节点内容创建属性和子节点集合
+	 * 
+	 * @param element
+	 * @throws JVException
+	 */
+	public void createByElement(Element element) throws JVException {
+		// 根据属性创建属性对象集合
+		readAttributes(element);
+
+		//构建所有子节点
+		readSubElements(element);
+	}
+	
+	/**
 	 * 根据节点创建
 	 * 
 	 * @param configXMLFile
@@ -199,11 +213,10 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 		this.xmlAttributes = new HashSet<JVConfigXMLAttribute>(); 
 		this.element = element;
 		
-		// 根据属性创建属性对象集合
-		readAttributes(element);
-		
-		//构建所有子节点
-		readSubElements(element);		
+		//判断是否存在root，如果存在则创建属性和子节点对象，
+		if(configXMLFile.getRoot() != null) {
+			createByElement(element);
+		}				
 	}
 
 	public void writeToDocument(Element curElement, Element parentElement) throws JVException{

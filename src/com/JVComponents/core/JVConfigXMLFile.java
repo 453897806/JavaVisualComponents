@@ -24,9 +24,10 @@ public class JVConfigXMLFile extends JVConfigFile {
 	 * 返回根节点名称，子类可以继承并指定子节点名称
 	 * 
 	 * @return
+	 * @throws JVException 
 	 */
-	public String getRootName() {
-		return "root";
+	public String getRootName() throws JVException {
+		return (String)getName().getValue();
 	}
 	
 	public JVConfigXMLFile(String name, String filename) throws JVException {
@@ -70,8 +71,9 @@ public class JVConfigXMLFile extends JVConfigFile {
 					throw new JVException("根节点不是<" + getRootName() + ">", null);
 				}
 			}
-			//创建根节点对象，并自动读取属性及子节点
+			//创建根节点对象，由于节点创建过程中需要递归调用并涉及root，防止root为null报错，分成了2步走
 			this.root = createXMLElement(element);
+			this.root.createByElement(element);
 			
 		} catch (DocumentException e) {
 			throw new JVException("XML文件<" + (String)getFileName().getValue() + ">读取失败！", e);

@@ -40,8 +40,8 @@ public class JVPluginElementHandler extends JVPluginElement {
 		return attr_class;
 	}
 
-	public JVPluginElementHandler(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementHandler(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 	
 	@Override
@@ -51,11 +51,6 @@ public class JVPluginElementHandler extends JVPluginElement {
 		//特殊属性
 		attr_class = getXMLAttribute(JVPluginConsts.JVPluginRoot.attr_class, JVConsts.emptyString);
 		commandId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommand.commandId, JVConsts.emptyString);
-	}
-
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginHandlers.JVPluginHandler.handler;
 	}
 
 	@Override

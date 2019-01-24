@@ -65,13 +65,8 @@ public class JVPluginElementCommand extends JVPluginElement {
 		categoryId = getXMLAttribute(JVPluginConsts.JVPluginCommands.JVPluginCommandCategory.categoryId, JVConsts.emptyString);
 	}
 	
-	public JVPluginElementCommand(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
-	}
-
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginCommands.JVPluginCommand.command;
+	public JVPluginElementCommand(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 
 	@Override

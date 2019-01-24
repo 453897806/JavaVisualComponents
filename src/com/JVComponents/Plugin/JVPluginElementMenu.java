@@ -48,15 +48,10 @@ public class JVPluginElementMenu extends JVPluginElement {
 		mnemonic = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic, JVPluginConsts.JVPluginMenus.JVPluginMenu.mnemonic_value);
 	}
 
-	public JVPluginElementMenu(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementMenu(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 	
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginMenus.JVPluginMenu.menu;
-	}
-
 	@Override
 	public void matchPluginElement() throws JVException {
 		//无需要匹配的对象			

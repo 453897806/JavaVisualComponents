@@ -19,22 +19,28 @@ public abstract class JVPluginElement extends JVConfigXMLElement {
 	public JVPluginExtension getExtension() {
 		return extension;
 	}
+	
+	/**
+	 * 对应的plugin文件
+	 * 
+	 * @throws JVException
+	 */
+	public JVPluginXMLFile getPluginFile() throws JVException {
+		// 检查
+		if (!(getConfigXMLFile() instanceof JVPluginXMLFile)) {
+			throw new JVException("不是Plugin的XML文件！", null);
+		}
 
-	public JVPluginElement(JVPluginExtension extension, Element element) throws JVException {
+		return (JVPluginXMLFile) getConfigXMLFile();
+	}
+
+	public JVPluginElement(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
 		// 父类创建过程中自动读取了属性
-		super(extension.getPluginFile(), element);
+		super(pluginXMLFile, element);
 
 		// 成员
 		this.extension = extension;
 	}
-
-	/**
-	 * 
-	 * 返回节点类型，子类需要继承
-	 * 
-	 * @return
-	 */
-	public abstract String getElementType();
 
 	/**
 	 * 根据节点内容进行对象配对

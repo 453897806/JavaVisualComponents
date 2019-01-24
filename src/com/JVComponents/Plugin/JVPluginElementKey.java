@@ -48,8 +48,8 @@ public class JVPluginElementKey extends JVPluginElement {
 		return sequence;
 	}
 
-	public JVPluginElementKey(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementKey(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 	
 	@Override
@@ -61,11 +61,6 @@ public class JVPluginElementKey extends JVPluginElement {
 		schemeId = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId, JVPluginConsts.JVPluginBindings.JVPluginKey.schemeId_value);
 		contextId = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.contextId, JVPluginConsts.JVPluginBindings.JVPluginKey.contextId_value);
 		sequence = getXMLAttribute(JVPluginConsts.JVPluginBindings.JVPluginKey.sequence, JVPluginConsts.JVPluginBindings.JVPluginKey.sequence_value);
-	}
-
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginBindings.JVPluginKey.key;
 	}
 
 	@Override

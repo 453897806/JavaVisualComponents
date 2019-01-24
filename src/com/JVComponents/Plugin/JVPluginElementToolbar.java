@@ -18,8 +18,8 @@ public class JVPluginElementToolbar extends JVPluginElement {
 		return id;
 	}
 	
-	public JVPluginElementToolbar(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementToolbar(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}	
 	
 	@Override
@@ -28,11 +28,6 @@ public class JVPluginElementToolbar extends JVPluginElement {
 		//super.readAttributes(element);
 		//特殊属性
 		id = getXMLAttribute(JVPluginConsts.JVPluginRoot.id, JVConsts.emptyString);
-	}
-
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginMenus.JVPluginToolbar.toolbar;
 	}
 
 	@Override

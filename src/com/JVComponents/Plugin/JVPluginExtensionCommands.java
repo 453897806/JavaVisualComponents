@@ -5,7 +5,6 @@ import java.util.Iterator;
 import org.dom4j.Element;
 
 import com.JVComponents.core.JVConfigXMLElement;
-import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
 
 /**
@@ -16,8 +15,8 @@ import com.JVComponents.core.JVException;
  */
 public class JVPluginExtensionCommands extends JVPluginExtension {
 
-	public JVPluginExtensionCommands(JVConfigXMLFile configXMLFile, Element element) throws JVException {
-		super(configXMLFile, element);
+	public JVPluginExtensionCommands(JVPluginXMLFile pluginXMLFile, Element element) throws JVException {
+		super(pluginXMLFile, element);
 	}
 	
 	@Override

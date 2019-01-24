@@ -62,8 +62,8 @@ public class JVPluginElementMenuCommand extends JVPluginElement {
 		return tooltip;
 	}
 
-	public JVPluginElementMenuCommand(JVPluginExtension extension, Element element) throws JVException {
-		super(extension, element);
+	public JVPluginElementMenuCommand(JVPluginXMLFile pluginXMLFile, JVPluginExtension extension, Element element) throws JVException {
+		super(pluginXMLFile, extension, element);
 	}
 	
 	@Override
@@ -77,11 +77,6 @@ public class JVPluginElementMenuCommand extends JVPluginElement {
 		tooltip = getXMLAttribute(JVPluginConsts.JVPluginMenus.JVPluginMenu.tooltip, JVConsts.emptyString);
 	}
 	
-	@Override
-	public String getElementType() {
-		return JVPluginConsts.JVPluginMenus.JVPluginMenu.menuCommand;
-	}
-
 	@Override
 	public void matchPluginElement() throws JVException {
 		JVPluginExtensionCommands extension = (JVPluginExtensionCommands)getExtension().getPluginFile().findExtension(JVPluginExtensionCommands.class);

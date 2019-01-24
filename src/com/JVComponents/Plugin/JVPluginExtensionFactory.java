@@ -2,7 +2,6 @@ package com.JVComponents.Plugin;
 
 import org.dom4j.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVException;
