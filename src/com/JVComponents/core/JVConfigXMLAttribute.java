@@ -12,6 +12,7 @@ public class JVConfigXMLAttribute extends JVAbstractComponent {
 	 * 用于封装的对象
 	 * 
 	 */
+	@Override
 	protected Object getPackagedObject(){
 		return attribute;
 	}

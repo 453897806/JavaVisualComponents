@@ -49,6 +49,7 @@ public abstract class JVPluginExtension extends JVPluginElement {
 	 * @param element
 	 * @throws JVException
 	 */
+	@Override
 	protected void readAttributes(Element element) throws JVException {
 		//忽略基类
 		//super.readAttributes(element);

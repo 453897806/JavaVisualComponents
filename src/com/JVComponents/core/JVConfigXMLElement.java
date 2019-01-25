@@ -13,6 +13,7 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * 用于封装的对象
 	 * 
 	 */
+	@Override
 	protected Object getPackagedObject(){
 		return element;
 	}
@@ -121,7 +122,6 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @throws JVException
 	 */
 	protected void readAttributes(Element element) throws JVException {
-		@SuppressWarnings("unchecked")
 		Iterator<Attribute> iter = element.attributeIterator();
 		Attribute attr ;
 		while(iter.hasNext()){
@@ -137,7 +137,6 @@ public class JVConfigXMLElement extends JVAbstractComponent {
 	 * @throws JVException
 	 */
 	protected void readSubElements(Element element) throws JVException{
-		@SuppressWarnings("unchecked")
 		Iterator<Element> iter = element.elementIterator();
 		Element subElement ;
 		JVConfigXMLElement xmlElement;
