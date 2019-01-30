@@ -4,18 +4,18 @@ import org.dom4j.*;
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 
-import com.JVComponents.Plugin.JVPluginConsts.JVPluginMenus;
 import com.JVComponents.core.JVConfigXMLFile;
 import com.JVComponents.core.JVContainer;
 import com.JVComponents.core.JVEmbedComponent;
 import com.JVComponents.core.JVException;
-import com.JVComponents.core.JVShoutcuts;
 import com.JVComponents.core.JVirtualList;
-import com.JVComponents.core.JVHandlers;
 import com.JVComponents.core.JVListItem;
 import com.JVComponents.core.JVAbstractComponent;
-import com.JVComponents.core.JVCommands;
 import com.JVComponents.core.JVConfigXMLElement;
+import com.JVComponents.core.JVCommandItem;
+import com.JVComponents.core.JVHandlerItem;
+import com.JVComponents.core.JVMenuItem;
+
 
 /**
  * 
@@ -249,7 +249,6 @@ public class JVPluginFactory {
 	 * 
 	 * @param list
 	 * @param element
-	 * @param container
 	 * @throws JVException 
 	 */
 	private static void createVirtualList(JVirtualList list, JVConfigXMLElement element) throws JVException {
@@ -276,9 +275,11 @@ public class JVPluginFactory {
 	 */
 	private static void updateListItem(JVListItem itm, JVConfigXMLElement tmp) {
 		//根据节点返回对象类型
-		if(itm instanceof com.JVComponents.core.JVCommandItem) {
-		}else if(itm instanceof com.JVComponents.core.JVHandlerItem) {
-		}else if(itm instanceof com.JVComponents.core.JVMenuItem) {
+		if(itm instanceof JVCommandItem) {
+			JVCommandItem citem = (JVCommandItem) itm;
+//			citem.set
+		}else if(itm instanceof JVHandlerItem) {
+		}else if(itm instanceof JVMenuItem) {
 		}
 	}
 
@@ -318,13 +319,13 @@ public class JVPluginFactory {
 		Class<? extends JVAbstractComponent> result = null;
 		//根据节点返回对象类型
 		if(element instanceof JVPluginElementCommand) {
-			result = com.JVComponents.core.JVCommandItem.class;
+			result = JVCommandItem.class;
 		}else if(element instanceof JVPluginElementHandler) {
-			result = com.JVComponents.core.JVHandlerItem.class;
+			result = JVHandlerItem.class;
 		}else if(element instanceof JVPluginElementMenu) {
-			result = com.JVComponents.core.JVMenuItem.class;
+			result = JVMenuItem.class;
 		}else if(element instanceof JVPluginElementToolbar) {
-			result = com.JVComponents.core.JVMenuItem.class;
+			result = JVMenuItem.class;
 		}
 		return result;
 	}

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JavaVisualDesignPlugin
+Bundle-SymbolicName: JavaVisualDesign;singleton:=true
+Bundle-Version: 0.0.0.1
+Bundle-Activator: com.JVComponents.Plugin.JVPluginActivator
+Require-Bundle: org.eclipse.ui,
+  org.eclipse.core.runtime,
+  org.eclipse.jface.text,
+  org.eclipse.core.resources,
+  org.eclipse.ui.editors,
+  org.eclipse.ui.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: pluginDemo3
+Bundle-ActivationPolicy: lazy

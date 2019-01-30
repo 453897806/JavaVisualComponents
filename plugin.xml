@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="JavaVisualComponents.editors.JVDEditor"
+            name="Java Visual Design Editor"
+            icon="icons/sample.png"
+            extensions="jvd"
+            class="com.JVComponents.Plugin.JVDEditor"
+            contributorClass="com.JVComponents.Plugin.JVDEditorContributor">
+      </editor>
+   </extension>
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            name="Java Visual Design Wizards"
+            id="JavaVisualDesignWizard">
+      </category>
+      <wizard
+            id="JavaVisualComponents.wizards.NewFormWizard"
+            name="Multi-page Editor file"
+            icon="icons/sample.png"
+            class="com.JVComponents.Plugin.JVDNewFormWizard"
+            category="JavaVisualDesignWizard">
+      </wizard>
+   </extension>
+
+</plugin>
