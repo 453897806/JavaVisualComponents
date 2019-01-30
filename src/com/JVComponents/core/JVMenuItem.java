@@ -24,18 +24,18 @@ public class JVMenuItem extends JVListItem {
 	/**
 	 * 该菜单对应的执行代码
 	 */
-	private JVCommandItem actionItem;
+	private JVCommandItem commandItem;
 	
 	public JVCommandItem getActionItem() {
-		return actionItem;
+		return commandItem;
 	}
 
-	public void setActionItem(JVCommandItem actionItem) throws JVException {
-		if(this.actionItem != actionItem) {
-			this.actionItem = actionItem;
+	public void setActionItem(JVCommandItem commandItem) throws JVException {
+		if(this.commandItem != commandItem) {
+			this.commandItem = commandItem;
 			//复制Action的图片和caption属性
-			this.image = actionItem.getImage();
-			this.caption.setValue(actionItem.getCaption().getValue());
+			this.image = commandItem.getImage();
+			this.caption.setValue(commandItem.getCaption().getValue());
 		}
 	}
 

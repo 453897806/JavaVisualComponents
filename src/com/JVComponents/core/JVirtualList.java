@@ -167,22 +167,20 @@ public class JVirtualList extends JVirtualComponent {
 	 * 通过反射机制创建一个项目对象并插入到项目集合列表中
 	 * 
 	 * @return
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
 	 * @throws JVException
 	 */
-	public JVListItem createListItem() throws NoSuchMethodException, SecurityException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException, JVException {
+	public JVListItem createListItem() throws JVException {
+		JVListItem result = null;
 		// 通过子类继承方法得到类
 		Class<?> itemClass = getItemClass();
 		// 得到类构建方法
-		Constructor<?> classConstructor = itemClass.getConstructor(String.class, JVirtualList.class);
-		// 通过构建方法创建实例
-		JVListItem result = (JVListItem) classConstructor.newInstance(getItemName(), this);
+		try {
+			Constructor<?> classConstructor = itemClass.getConstructor(String.class, JVirtualList.class);
+			// 通过构建方法创建实例
+			result = (JVListItem) classConstructor.newInstance(getItemName(), this);
+		}catch(Exception e) {
+			throw new JVException("List对象创建Item对象失败！", e);
+		}
 
 		//防止名称重复的侦听处理类
 		result.getName().addListener(itemNameChgListeer);
